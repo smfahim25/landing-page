@@ -3,7 +3,6 @@
     {
       "id": "q1",
       "text": "What are you primarily hoping to achieve with Copilot?",
-      "type": "multiple_choice",
       "options": [
         "Increase your speed researching or brainstorming",
         "Automate routine your tasks",
@@ -14,16 +13,11 @@
     {
       "id": "q2",
       "text": "How urgent is your need for a tool like Copilot? Please rate from 1 (least urgent) to 10 (most urgent).",
-      "type": "rating",
-      "scale": {
-        "min": 1,
-        "max": 10
-      }
+      "scale": [1,2,3,4,5,6,7,8,9,10]
     },
     {
       "id": "q3",
       "text": "What monthly price range are you comfortable paying for an AI tool like Copilot?",
-      "type": "multiple_choice",
       "options": [
         "Under $25",
         "$25 - $60",
@@ -34,7 +28,6 @@
     {
       "id": "q4",
       "text": "We'd love your input to make Copilot better. How would you prefer to be involved?",
-      "type": "multiple_choice",
       "options": [
         "Advise on product development. Join 'Copilot Insider Circle'.",
         "Test features and provide feedback at beta launch.",
@@ -45,7 +38,6 @@
     {
       "id": "q5",
       "text": "Would you be interested in viewing the angel investor presentation for Copilot?",
-      "type": "multiple_choice",
       "options": [
         "Yes, Sure.",
         "Not at the moment, thank you."
@@ -54,26 +46,11 @@
     {
       "id": "q6",
       "text": "Could you let us know how you first heard about Copilot?",
-      "type": "multiple_choice",
       "options": [
         "Word of mouth",
         "Social media",
         "Online resources",
-        {
-          "label": "Others",
-          "type": "text"
-        }
-      ]
-    },
-    {
-      "id": "q7",
-      "text": "How would you like to be involved with Copilot?",
-      "type": "multiple_choice",
-      "options": [
-        "Advising on product development",
-        "Testing features and providing feedback",
-        "Both advising and testing",
-        "Not interested at the moment"
+        "others"
       ]
     }
   ]
