@@ -1,5 +1,5 @@
-import COLORS from "@/utils/constants/COLORS";
-import TYPOGRAPHY from "@/utils/constants/TYPOGRAPHY";
+import COLORS from "@/utils/constants/colors";
+import TYPOGRAPHY from "@/utils/constants/typography";
 import { createTheme } from "@mui/material/styles";
 
 const theme = createTheme({
