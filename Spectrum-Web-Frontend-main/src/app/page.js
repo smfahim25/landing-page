@@ -3,7 +3,6 @@ import ProfileCard from "@/components/display/ProfileCard";
 import AnimationCardSection from "@/components/home/AnimationCardSection";
 import BenefitsCard from "@/components/home/BenefitsCard";
 import Hero from "@/components/home/Hero";
-import withProtectedRoute from "@/hocs/withProtectedRoute";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 
@@ -135,4 +134,4 @@ function Home() {
   );
 }
 
-export default withProtectedRoute(Home);
+export default Home;

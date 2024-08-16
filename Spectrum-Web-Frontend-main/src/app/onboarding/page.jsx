@@ -1,5 +1,4 @@
 "use client";
-import withProtectedRoute from "@/hocs/withProtectedRoute";
 import React from "react";
 import Image from "next/image";
 import { Box, TextField, Button, Typography, Container } from "@mui/material";
@@ -50,4 +49,4 @@ function OnboardingPage() {
   );
 }
 
-export default withProtectedRoute(OnboardingPage);
+export default OnboardingPage;
