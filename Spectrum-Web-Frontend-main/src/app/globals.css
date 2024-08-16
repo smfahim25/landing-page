@@ -22,15 +22,10 @@
   }
 }
 
-/* body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-} */
+.css-hip9hq-MuiPaper-root-MuiAppBar-root {
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
 
 @layer utilities {
   .text-balance {
