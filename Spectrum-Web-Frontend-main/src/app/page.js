@@ -2,6 +2,7 @@
 import ProfileCard from "@/components/display/ProfileCard";
 import AnimationCardSection from "@/components/home/AnimationCardSection";
 import BenefitsCard from "@/components/home/BenefitsCard";
+import GetStarted from "@/components/home/GetStarted";
 import Hero from "@/components/home/Hero";
 import { useState } from "react";
 import { useSelector } from "react-redux";
@@ -130,6 +131,7 @@ function Home() {
       {/* </div> */}
       <AnimationCardSection />
       <BenefitsCard />
+      <GetStarted />
     </main>
   );
 }

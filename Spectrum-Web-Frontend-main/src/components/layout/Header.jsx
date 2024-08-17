@@ -49,11 +49,22 @@ const Header = () => {
             ></Box>
 
             <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-                </IconButton>
-              </Tooltip>
+              <div className="flex items-center gap-3">
+                <Image
+                  src="/img/resource.svg"
+                  alt="resource icon"
+                  width={40}
+                  height={35}
+                />
+                <Tooltip title="Open settings">
+                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                    <Avatar
+                      alt="Remy Sharp"
+                      src="/static/images/avatar/2.jpg"
+                    />
+                  </IconButton>
+                </Tooltip>
+              </div>
               <Menu
                 sx={{ mt: "45px" }}
                 id="menu-appbar"

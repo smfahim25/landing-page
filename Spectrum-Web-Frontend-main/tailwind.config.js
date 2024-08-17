@@ -10,10 +10,10 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+        "started-gradient":
+          "linear-gradient(180deg, rgba(255, 255, 255, 0.00) -6.83%, rgba(219, 156, 156, 0.16) 29.23%, rgba(222, 212, 235, 0.37) 100%)",
       },
+
       colors: {
         neutral_main: COLORS.neutral.main,
         neutral_grey1: COLORS.neutral.grey1,
