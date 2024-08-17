@@ -2,6 +2,7 @@
 import ProfileCard from "@/components/display/ProfileCard";
 import AnimationCardSection from "@/components/home/AnimationCardSection";
 import BenefitsCard from "@/components/home/BenefitsCard";
+import FAQ from "@/components/home/FAQ";
 import GetStarted from "@/components/home/GetStarted";
 import Hero from "@/components/home/Hero";
 import withProtectedRoute from "@/hocs/withProtectedRoute";
@@ -133,6 +134,7 @@ function Home() {
       <AnimationCardSection />
       <BenefitsCard />
       <GetStarted />
+      <FAQ />
     </main>
   );
 }

@@ -1,3 +1,4 @@
+import { Badge } from "@mui/material";
 import { Open_Sans } from "next/font/google";
 import React from "react";
 
@@ -25,7 +26,7 @@ const GetStarted = () => {
             </span>
           </h1>
         </div>
-        <div className="px-[183px] flex flex-col items-center gap-12">
+        <div className="px-40 flex flex-col items-center gap-12">
           <div className="flex justify-center items-center gap-5 px-10">
             <div className="text-[#595D62]">Step 1</div>
             <div className="flex flex-col items-center">
@@ -62,6 +63,35 @@ const GetStarted = () => {
               <div className="text-[#262626] mt-2 text-lg">
                 Once verified, dive into Copilot and start making your teaching
                 life easier.
+              </div>
+            </div>
+          </div>
+          <div className="text-center bg-[#fbf6f8] px-28 py-10 rounded-[40px] mt-16">
+            <div>
+              <div className="mb-[30px]">
+                <h1 className={`text-3xl text-[#595D62] ${openSans.className}`}>
+                  Here’s what’s next for{" "}
+                  <Badge badgeContent={"Beta"} color="primary">
+                    <span className={`text-[#6665DD] ${openSan.className}`}>
+                      Copilot
+                    </span>
+                  </Badge>
+                </h1>
+              </div>
+              <div className="mb-[40px]">
+                <h1 className={`text-lg text-[#262626] ${openSans.className}`}>
+                  We plan to get your feedback on the private beta and bring the
+                  best experience to you.
+                </h1>
+                <h1 className={`text-lg text-[#262626] ${openSans.className}`}>
+                  If you're interested to get early access to your Copliot, sign
+                  up for the waitlist!
+                </h1>
+              </div>
+              <div>
+                <button className="px-8 py-3 m-2 text-lg font-semibold rounded-xl bg-[#6665DD] text-white">
+                  Sign in to join waitlist
+                </button>
               </div>
             </div>
           </div>
