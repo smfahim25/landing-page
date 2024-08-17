@@ -2,6 +2,7 @@
 import ProfileCard from "@/components/display/ProfileCard";
 import AnimationCardSection from "@/components/home/AnimationCardSection";
 import BenefitsCard from "@/components/home/BenefitsCard";
+import GetStarted from "@/components/home/GetStarted";
 import Hero from "@/components/home/Hero";
 import withProtectedRoute from "@/hocs/withProtectedRoute";
 import { useState } from "react";
@@ -131,6 +132,7 @@ function Home() {
       {/* </div> */}
       <AnimationCardSection />
       <BenefitsCard />
+      <GetStarted />
     </main>
   );
 }

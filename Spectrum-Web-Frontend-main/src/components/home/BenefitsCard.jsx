@@ -16,10 +16,10 @@ const BenefitsCard = () => {
       <div className="container mx-auto flex flex-col items-center px-4 py-16 gap-8">
         <div className="md:w-[489px]">
           <h1
-            className={`text-[18px] md:text-3xl ${openSans.className} text-center`}
+            className={`text-[18px] md:text-3xl ${openSans.className} text-center text-[#595D62]`}
           >
             We are obsessed with making{" "}
-            <span>
+            <span className="text-[#595D62]">
               sure these{" "}
               <span
                 className={`text-[#6665DD] text-xl md:text-3xl  ${openSan.className}`}
