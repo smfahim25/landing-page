@@ -1,3 +1,4 @@
+import { Avatar } from "@mui/material";
 import React from "react";
 
 const Footer = () => {
@@ -6,20 +7,13 @@ const Footer = () => {
       <footer className="flex flex-col gap-5">
         <div className="container hidden md:flex flex-wrap items-center justify-center mx-auto space-y-4 sm:justify-between sm:space-y-0">
           <div className="flex flex-row pr-3 space-x-4 sm:space-x-8">
-            <div className="flex items-center justify-center flex-shrink-0 w-12 h-12 rounded-full bg-violet-400">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 32 32"
-                fill="currentColor"
-                className="w-5 h-5 rounded-full text-gray-900"
-              >
-                <path d="M18.266 26.068l7.839-7.854 4.469 4.479c1.859 1.859 1.859 4.875 0 6.734l-1.104 1.104c-1.859 1.865-4.875 1.865-6.734 0zM30.563 2.531l-1.109-1.104c-1.859-1.859-4.875-1.859-6.734 0l-6.719 6.734-6.734-6.734c-1.859-1.859-4.875-1.859-6.734 0l-1.104 1.104c-1.859 1.859-1.859 4.875 0 6.734l6.734 6.734-6.734 6.734c-1.859 1.859-1.859 4.875 0 6.734l1.104 1.104c1.859 1.859 4.875 1.859 6.734 0l21.307-21.307c1.859-1.859 1.859-4.875 0-6.734z"></path>
-              </svg>
+            <div className="flex items-center justify-center flex-shrink-0 w-12 h-12 rounded-full border-2">
+              <Avatar alt="Remy Sharp" src="/Logo.png" />
             </div>
             <ul className="flex flex-wrap items-center space-x-4 sm:space-x-8">
               <li>
                 <a rel="noopener noreferrer" href="#">
-                  Name
+                  Shoshin Tech
                 </a>
               </li>
             </ul>
@@ -42,7 +36,7 @@ const Footer = () => {
         </div>
         <div className="container hidden md:flex flex-wrap items-center justify-center mx-auto space-y-4 sm:justify-between sm:space-y-0">
           <div className="flex flex-row pr-3 space-x-4 sm:space-x-8">
-            <div className="py-6 text-sm text-center dark:text-gray-600">
+            <div className="py-6 text-sm text-center ">
               © 1968 Company Co. All rights reserved.
             </div>
           </div>
@@ -51,7 +45,7 @@ const Footer = () => {
               rel="noopener noreferrer"
               href="#"
               title="Email"
-              className="flex items-center justify-center w-10 h-10 rounded-full dark:bg-violet-600 dark:text-gray-50"
+              className="flex items-center justify-center w-10 h-10 rounded-full  "
             >
               <svg
                 width="24"
@@ -72,7 +66,7 @@ const Footer = () => {
               rel="noopener noreferrer"
               href="#"
               title="Twitter"
-              className="flex items-center justify-center w-10 h-10 rounded-full dark:bg-violet-600 dark:text-gray-50"
+              className="flex items-center justify-center w-10 h-10 rounded-full  "
             >
               <svg
                 width="24"
@@ -131,7 +125,7 @@ const Footer = () => {
               rel="noopener noreferrer"
               href="#"
               title="Email"
-              className="flex items-center justify-center w-10 h-10 rounded-full dark:bg-violet-600 dark:text-gray-50"
+              className="flex items-center justify-center w-10 h-10 rounded-full  "
             >
               <svg
                 width="24"
@@ -152,7 +146,7 @@ const Footer = () => {
               rel="noopener noreferrer"
               href="#"
               title="Twitter"
-              className="flex items-center justify-center w-10 h-10 rounded-full dark:bg-violet-600 dark:text-gray-50"
+              className="flex items-center justify-center w-10 h-10 rounded-full  "
             >
               <svg
                 width="24"
@@ -198,15 +192,8 @@ const Footer = () => {
         </div>
         <div className="container md:hidden flex flex-col items-center justify-center mx-auto space-y-4 sm:justify-between sm:space-y-0">
           <div className="flex flex-row pr-3 space-x-2">
-            <div className="flex items-center justify-center flex-shrink-0 w-12 h-12 rounded-full bg-violet-400">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 32 32"
-                fill="currentColor"
-                className="w-5 h-5 rounded-full text-gray-900"
-              >
-                <path d="M18.266 26.068l7.839-7.854 4.469 4.479c1.859 1.859 1.859 4.875 0 6.734l-1.104 1.104c-1.859 1.865-4.875 1.865-6.734 0zM30.563 2.531l-1.109-1.104c-1.859-1.859-4.875-1.859-6.734 0l-6.719 6.734-6.734-6.734c-1.859-1.859-4.875-1.859-6.734 0l-1.104 1.104c-1.859 1.859-1.859 4.875 0 6.734l6.734 6.734-6.734 6.734c-1.859 1.859-1.859 4.875 0 6.734l1.104 1.104c1.859 1.859 4.875 1.859 6.734 0l21.307-21.307c1.859-1.859 1.859-4.875 0-6.734z"></path>
-              </svg>
+            <div className="flex items-center justify-center flex-shrink-0 w-12 h-12 rounded-full border-2">
+              <Avatar alt="Remy Sharp" src="/Logo.png" />
             </div>
             <ul className="flex flex-wrap items-center space-x-4 sm:space-x-8">
               <li>
@@ -217,7 +204,7 @@ const Footer = () => {
             </ul>
           </div>
           <div className="flex flex-row pr-3 space-x-4 sm:space-x-8">
-            <div className="pb-6 text-sm text-center dark:text-gray-600">
+            <div className="pb-6 text-sm text-center">
               © 1968 Company Co. All rights reserved.
             </div>
           </div>
