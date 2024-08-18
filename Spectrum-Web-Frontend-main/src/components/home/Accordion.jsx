@@ -11,7 +11,7 @@ const AccordionItem = ({ title, content }) => {
         onClick={() => setIsOpen(!isOpen)}
         className="flex justify-between w-full py-4 px-6 text-left"
       >
-        <span className="text-lg font-medium">{title}</span>
+        <span className="text-sm md:text-xl font-medium">{title}</span>
         {isOpen ? (
           <ChevronUp className="text-xl" />
         ) : (

@@ -32,15 +32,4 @@
     text-wrap: balance;
   }
 }
-.dashed-line {
-  border-left: 2px dashed #6665dd; /* Color for the dashed line */
-  height: 24px; /* Adjust height as needed */
-}
-.dashed-line-horizontal {
-  border-top: 2px dashed #6665dd; /* Color for the horizontal dashed line */
-  width: 252px; /* Adjust width as needed */
-}
-.dashed-line-horizontal2 {
-  border-top: 2px dashed #6665dd; /* Color for the horizontal dashed line */
-  width: 252px; /* Adjust width as needed */
-}
+/* Add this in your global CSS file (e.g., globals.css) */
