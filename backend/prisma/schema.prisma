@@ -7,6 +7,16 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model User {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  email     String   @unique
+  name      String
+  password  String
+  role      UserRole @default(USER)
+  createAt  DateTime @default(now())
+  updatedAt DateTime @default(now())
+}
+
 model Questionery {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   email     String   @unique
@@ -39,6 +49,11 @@ model Artical {
   createAt    DateTime         @default(now())
   updatedAt   DateTime         @default(now())
   category    ArticalCategory? @relation(fields: [catId], references: [id])
+}
+
+enum UserRole {
+  ADMIN
+  USER
 }
 
 enum Status {
