@@ -5,8 +5,6 @@ import BenefitsCard from "@/components/home/BenefitsCard";
 import FAQ from "@/components/home/FAQ";
 import GetStarted from "@/components/home/GetStarted";
 import Hero from "@/components/home/Hero";
-import withProtectedRoute from "@/hocs/withProtectedRoute";
-import { Open_Sans } from "next/font/google";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 
@@ -150,4 +148,4 @@ function Home() {
   );
 }
 
-export default withProtectedRoute(Home);
+export default Home;

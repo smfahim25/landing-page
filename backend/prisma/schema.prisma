@@ -1,0 +1,47 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Questionery {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  email     String   @unique
+  q1        String
+  q2        String
+  q3        String
+  q4        String
+  q5        String
+  q6        String
+  createAt  DateTime @default(now())
+  updatedAt DateTime @default(now())
+}
+
+model ArticalCategory {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  name      String    @unique
+  createAt  DateTime  @default(now())
+  updatedAt DateTime  @default(now())
+  artical   Artical[]
+}
+
+model Artical {
+  id          String           @id @default(auto()) @map("_id") @db.ObjectId
+  email       String
+  title       String
+  description String
+  status      Status           @default(ACTIVE)
+  catId       String           @db.ObjectId
+  img         String?
+  createAt    DateTime         @default(now())
+  updatedAt   DateTime         @default(now())
+  category    ArticalCategory? @relation(fields: [catId], references: [id])
+}
+
+enum Status {
+  ACTIVE
+  INACTIVE
+}
