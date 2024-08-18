@@ -40,7 +40,7 @@ const Header = () => {
           <Toolbar disableGutters>
             <Link href="/">
               <Image
-                src="/logo.png"
+                src="/Logo.png"
                 alt="logo"
                 width={40}
                 height={40}
