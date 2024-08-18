@@ -1,25 +1,25 @@
 import httpStatus from 'http-status';
 import catchAsync from '../../../utils/catchAsync.js';
 import sendResponse from '../../../utils/sendResponse.js';
-import { CourseService } from './course.service.js';
+import { ArticalService } from './artical.service.js';
 
 const CreateCategory = catchAsync(async (req, res) => {
-  const result = await CourseService.CreateCategory(req.body);
+  const result = await ArticalService.CreateCategory(req.body);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Course Category Created Successfully!',
+    message: 'Artical Category Created Successfully!',
     data: result,
   });
 });
-const CreateCourse = catchAsync(async (req, res) => {
-  const result = await CourseService.CreateCourse(req.body);
+const CreateArtical = catchAsync(async (req, res) => {
+  const result = await ArticalService.CreateArtical(req.body);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Course Created Successfully!',
+    message: 'Artical Created Successfully!',
     data: result,
   });
 });
 
-export const CourseController = { CreateCourse, CreateCategory };
+export const ArticalController = { CreateArtical, CreateCategory };

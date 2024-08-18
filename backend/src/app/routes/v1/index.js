@@ -1,6 +1,6 @@
 import { Router } from 'express';
+import { ArticalRoutes } from '../../modules/v1/Artical/artical.routes.js';
 import { AuthRoutes } from '../../modules/v1/Auth/auth.routes.js';
-import { CourseRoutes } from '../../modules/v1/Course/course.routes.js';
 
 const router = Router();
 
@@ -10,8 +10,8 @@ const moduleRoutes = [
     route: AuthRoutes,
   },
   {
-    path: '/courses',
-    route: CourseRoutes,
+    path: '/articals',
+    route: ArticalRoutes,
   },
 ];
 
