@@ -26,8 +26,16 @@ const GetAllArticals = async (query) => {
   });
   return result;
 };
+const EditArtical = async (params, payload) => {
+  const result = await prisma.artical.update({
+    where: { id: params.id },
+    data: payload,
+  });
+  return result;
+};
 export const ArticalService = {
   CreateCategory,
   CreateArtical,
   GetAllArticals,
+  EditArtical,
 };
