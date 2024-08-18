@@ -8,14 +8,6 @@ import Hero from "@/components/home/Hero";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 
-const openSan = Open_Sans({
-  weight: "700",
-  subsets: ["vietnamese"],
-});
-const openSans = Open_Sans({
-  weight: "400",
-  subsets: ["vietnamese"],
-});
 function Home() {
   // const user = useSelector((state) => state.auth.user);
   // console.log(user);
