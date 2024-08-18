@@ -2,6 +2,7 @@
 import ProfileCard from "@/components/display/ProfileCard";
 import AnimationCardSection from "@/components/home/AnimationCardSection";
 import BenefitsCard from "@/components/home/BenefitsCard";
+import FAQ from "@/components/home/FAQ";
 import GetStarted from "@/components/home/GetStarted";
 import Hero from "@/components/home/Hero";
 import { useState } from "react";
@@ -129,9 +130,12 @@ function Home() {
       {/* <div className="bg-[url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDsou-9Yj0s2NTQ1pGx4zvMQj12BW1NUvgLA&s')] bg-cover bg-center h-[873px] w-full"> */}
       <Hero />
       {/* </div> */}
-      <AnimationCardSection />
+      <div>
+        <AnimationCardSection />
+      </div>
       <BenefitsCard />
       <GetStarted />
+      <FAQ />
     </main>
   );
 }

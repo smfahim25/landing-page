@@ -17,6 +17,16 @@ const Hero = () => {
     <div>
       <section>
         <div className="container mx-auto flex flex-col items-center px-4 py-16 text-center gap-7">
+          {/* https://www.youtube.com/embed/znqUwx0b0HI?si=ubmfNWGSb1vfyiG7 */}
+          <video
+            className="absolute top-0 left-0 w-full h-[60vh] object-cover z-[-1] filter blur-[130px]"
+            src="/img/blur.mp4"
+            autoPlay
+            loop
+            muted
+            playsInline
+            poster="/img/placeholder.jpg" // Fallback image in case the video doesn't load
+          ></video>
           <div>
             <div>
               <h1
