@@ -21,5 +21,18 @@ const CreateArtical = catchAsync(async (req, res) => {
     data: result,
   });
 });
+const GetAllArticals = catchAsync(async (req, res) => {
+  const result = await ArticalService.GetAllArticals(req.query);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Get All Articles Successfully!',
+    data: result,
+  });
+});
 
-export const ArticalController = { CreateArtical, CreateCategory };
+export const ArticalController = {
+  CreateArtical,
+  CreateCategory,
+  GetAllArticals,
+};

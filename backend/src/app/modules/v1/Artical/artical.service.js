@@ -16,7 +16,18 @@ const CreateArtical = async (payload) => {
   return result;
 };
 
+const GetAllArticals = async (query) => {
+  const id = query.id;
+  const result = await prisma.artical.findMany({
+    where: { catId: id },
+    include: {
+      category: true,
+    },
+  });
+  return result;
+};
 export const ArticalService = {
   CreateCategory,
   CreateArtical,
+  GetAllArticals,
 };
