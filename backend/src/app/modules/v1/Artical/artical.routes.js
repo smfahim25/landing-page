@@ -5,6 +5,7 @@ const router = Router();
 router.post('/create-category', ArticalController.CreateCategory);
 router.post('/create-artical', ArticalController.CreateArtical);
 router.post('/', ArticalController.GetAllArticals);
+router.get('/artical-details/:id', ArticalController.ArticalDetails);
 router.patch('/edit-artical/:id', ArticalController.EditArtical);
 
 export const ArticalRoutes = router;

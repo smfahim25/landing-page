@@ -26,6 +26,15 @@ const GetAllArticals = async (query) => {
   });
   return result;
 };
+const ArticalDetails = async (params) => {
+  const result = await prisma.artical.findFirst({
+    where: { id: params.id },
+    include: {
+      category: true,
+    },
+  });
+  return result;
+};
 const EditArtical = async (params, payload) => {
   const result = await prisma.artical.update({
     where: { id: params.id },
@@ -37,5 +46,6 @@ export const ArticalService = {
   CreateCategory,
   CreateArtical,
   GetAllArticals,
+  ArticalDetails,
   EditArtical,
 };

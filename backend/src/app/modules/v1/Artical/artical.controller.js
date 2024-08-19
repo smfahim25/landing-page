@@ -30,6 +30,15 @@ const GetAllArticals = catchAsync(async (req, res) => {
     data: result,
   });
 });
+const ArticalDetails = catchAsync(async (req, res) => {
+  const result = await ArticalService.ArticalDetails(req.params);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Article Details Get Successfully!',
+    data: result,
+  });
+});
 const EditArtical = catchAsync(async (req, res) => {
   const result = await ArticalService.EditArtical(req.params, req.body);
   sendResponse(res, {
@@ -44,5 +53,6 @@ export const ArticalController = {
   CreateArtical,
   CreateCategory,
   GetAllArticals,
+  ArticalDetails,
   EditArtical,
 };
