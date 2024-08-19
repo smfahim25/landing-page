@@ -14,28 +14,37 @@ import Image from "next/image";
 import Link from "next/link";
 import { BookOpen } from "lucide-react";
 import { usePathname } from "next/navigation";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "@/store/auth/slice";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "@/config/firebase";
+import { signOut } from "firebase/auth";
 
 const settings = ["Logout"];
 
 const Header = () => {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const isUser = useSelector((state) => state.auth.user);
+  const [user] = useAuthState(auth);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const pathname = usePathname();
+  const dispatch = useDispatch();
 
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+    dispatch(logout());
+    signOut(auth);
   };
 
   return (
     <div>
-      <AppBar position="static" className="shadow-none bg-transparent">
+      <AppBar
+        position="static"
+        className="shadow-none bg-transparent header-force"
+      >
         <Container maxWidth="xl">
           <Toolbar disableGutters>
             <Link href="/">
@@ -64,14 +73,16 @@ const Header = () => {
                     }
                   />
                 </Link>
-                <Tooltip title="Open settings">
-                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                    <Avatar
-                      alt="Remy Sharp"
-                      src="/static/images/avatar/2.jpg"
-                    />
-                  </IconButton>
-                </Tooltip>
+                {isUser && (
+                  <Tooltip title="Open settings">
+                    <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                      <Avatar
+                        alt={user?.displayName}
+                        src={`${user?.photoURL}`}
+                      />
+                    </IconButton>
+                  </Tooltip>
+                )}
               </div>
               <Menu
                 sx={{ mt: "30px" }}

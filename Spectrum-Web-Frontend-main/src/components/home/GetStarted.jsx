@@ -1,7 +1,9 @@
 import { Badge } from "@mui/material";
 import { Open_Sans } from "next/font/google";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import React from "react";
+import { useSelector } from "react-redux";
 
 const openSan = Open_Sans({
   weight: "700",
@@ -13,6 +15,9 @@ const openSans = Open_Sans({
 });
 
 const GetStarted = () => {
+  const user = useSelector((state) => state.auth.user);
+  const router = useRouter();
+
   return (
     <div className="bg-started-gradient w-full">
       <div className="container mx-auto flex flex-col items-center py-16 gap-8">
@@ -75,10 +80,25 @@ const GetStarted = () => {
                   up for the waitlist!
                 </h1>
               </div>
-              <div>
-                <button className="px-8 py-3 m-2 text-lg font-semibold rounded-xl bg-[#6665DD] text-white">
-                  Sign in to join waitlist
-                </button>
+              <div className="flex flex-wrap justify-center">
+                {user ? (
+                  <button className="px-8 py-3 m-2 text-md font-semibold rounded-xl bg-[#B5BABE] text-white flex items-center">
+                    <Image
+                      src="/img/tick.svg"
+                      alt="tick"
+                      width={24}
+                      height={24}
+                    />{" "}
+                    <span> You’re on the waitlist</span>
+                  </button>
+                ) : (
+                  <button
+                    className="px-8 py-3 m-2 text-lg font-semibold rounded-xl bg-[#6665DD] text-white"
+                    onClick={() => router.push("/login")}
+                  >
+                    Sign in to join waitlist
+                  </button>
+                )}
               </div>
             </div>
           </div>
