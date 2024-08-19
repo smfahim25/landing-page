@@ -13,7 +13,7 @@ const CreateCategory = catchAsync(async (req, res) => {
   });
 });
 const CreateArtical = catchAsync(async (req, res) => {
-  const result = await ArticalService.CreateArtical(req.body);
+  const result = await ArticalService.CreateArtical(req.file, req.body);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
