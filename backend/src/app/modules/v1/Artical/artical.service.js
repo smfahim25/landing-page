@@ -6,20 +6,44 @@ const CreateCategory = async (payload) => {
   const result = await prisma.articalCategory.create({ data: payload });
   return result;
 };
-const CreateArtical = async (file, payload) => {
-  const catgory = await prisma.articalCategory.findFirst({
+const CreateArtical = async (file, contentFile, payload) => {
+  // Check if the category exists
+  const category = await prisma.articalCategory.findFirst({
     where: { id: payload.catId },
   });
-  if (!catgory) {
-    throw new AppError(httpStatus.NOT_FOUND, 'Catgory not found!');
+
+  if (!category) {
+    throw new AppError(httpStatus.NOT_FOUND, 'Category not found!');
   }
-  if (file) {
-    const imageName = `${payload?.title}`;
-    const path = file?.path;
-    //send image to cloudinary
+
+  // Upload main blog image if it exists
+  if (file && file.length > 0) {
+    const imageName = `${payload?.title}-main`;
+    const path = file[0]?.path;
+
+    // Send main blog image to Cloudinary
     const { secure_url } = await sendImageToCloudinary(imageName, path);
     payload.img = secure_url;
   }
+
+  // Upload content images if they exist
+  if (contentFile && contentFile.length > 0) {
+    const contentImageUrls = [];
+
+    for (let i = 0; i < contentFile.length; i++) {
+      const file = contentFile[i];
+      const imageName = `${payload?.title}-content-${i}`;
+      const path = file?.path;
+
+      // Send content image to Cloudinary
+      const { secure_url } = await sendImageToCloudinary(imageName, path);
+      contentImageUrls.push(secure_url);
+    }
+
+    payload.contentImages = contentImageUrls;
+  }
+
+  // Create the article in the database
   const result = await prisma.artical.create({ data: payload });
   return result;
 };
