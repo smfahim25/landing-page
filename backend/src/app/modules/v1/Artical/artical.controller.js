@@ -13,7 +13,7 @@ const CreateCategory = catchAsync(async (req, res) => {
   });
 });
 const CreateArtical = catchAsync(async (req, res) => {
-  const result = await ArticalService.CreateArtical(req.body);
+  const result = await ArticalService.CreateArtical(req.file, req.body);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -27,6 +27,15 @@ const GetAllArticals = catchAsync(async (req, res) => {
     statusCode: httpStatus.OK,
     success: true,
     message: 'Get All Articles Successfully!',
+    data: result,
+  });
+});
+const ArticalDetails = catchAsync(async (req, res) => {
+  const result = await ArticalService.ArticalDetails(req.params);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Article Details Get Successfully!',
     data: result,
   });
 });
@@ -44,5 +53,6 @@ export const ArticalController = {
   CreateArtical,
   CreateCategory,
   GetAllArticals,
+  ArticalDetails,
   EditArtical,
 };
