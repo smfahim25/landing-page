@@ -12,21 +12,20 @@ import { login } from "@/store/auth/slice";
 
 const Signup = () => {
   const router = useRouter();
-  const { addAlert } = useAlertContext();
   const dispatch = useDispatch();
 
   const handleSignup = async () => {
     try {
       const res = await handleGoogleSignup();
 
-      addAlert(res.message || "Sign up successful", "success");
+      console.log(res.message || "Sign up successful", "success");
 
       // updating the auth state
       dispatch(login(res));
       // route the user
       router.push("/");
     } catch (error) {
-      addAlert(error, "error");
+      console.log(error, "error");
     }
   };
 
