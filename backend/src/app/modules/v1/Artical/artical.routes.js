@@ -13,7 +13,7 @@ router.post(
   },
   ArticalController.CreateArtical,
 );
-router.get('/', ArticalController.GetAllArticals);
+router.post('/', ArticalController.GetAllArticals);
 router.get('/artical-details/:id', ArticalController.ArticalDetails);
 router.patch('/edit-artical/:id', ArticalController.EditArtical);
 
