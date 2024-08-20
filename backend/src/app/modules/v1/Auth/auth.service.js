@@ -25,8 +25,8 @@ const SignUp = async (payload) => {
       config.JWT_ACCESS_EXPIRES_IN,
     );
 
-    const result = await prisma.user.create({ data: payload });
-    return { accessToken, result };
+    const getUser = await prisma.user.create({ data: payload });
+    return { accessToken, getUser };
   }
 
   const jwtPayload = {
