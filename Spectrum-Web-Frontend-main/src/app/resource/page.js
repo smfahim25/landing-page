@@ -1,7 +1,7 @@
 "use client";
 import { Card, CardContent, CardMedia, Typography } from "@mui/material";
 import { Open_Sans } from "next/font/google";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import "swiper/css";
@@ -10,6 +10,7 @@ import "swiper/css/free-mode";
 
 import { FreeMode } from "swiper/modules";
 import Header from "@/components/layout/Header";
+import Link from "next/link";
 
 const openSan = Open_Sans({
   weight: "700",
@@ -89,6 +90,23 @@ const cardsData = [
 ];
 
 export default function page() {
+  const [resource, setResource] = useState([]);
+  useEffect(() => {
+    fetch("http://localhost:4000/api/v1/articals")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json(); // Assuming the response is JSON
+      })
+      .then((data) => {
+        console.log(data.data); // Do something with the data
+        setResource(data.data);
+      })
+      .catch((error) => {
+        console.error("There was a problem with the fetch operation:", error);
+      });
+  }, []);
   return (
     <div>
       <Header />
@@ -108,11 +126,12 @@ export default function page() {
               >
                 Artificial Intelligence for Educators
               </h2>
-              <h2
+              <Link
+                href="/"
                 className={`text-[#6665DD] text-[12px] md:text-sm ${openSan.className}`}
               >
                 See all
-              </h2>
+              </Link>
             </div>
             <div>
               <Swiper
