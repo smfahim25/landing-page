@@ -25,6 +25,7 @@ model Questionery {
   q4        String
   q5        String
   q6        String
+  q6Content String?
   createAt  DateTime @default(now())
   updatedAt DateTime @default(now())
 }
@@ -38,16 +39,17 @@ model ArticalCategory {
 }
 
 model Artical {
-  id          String           @id @default(auto()) @map("_id") @db.ObjectId
-  email       String
-  title       String
-  description String
-  status      Status           @default(ACTIVE)
-  catId       String           @db.ObjectId
-  img         String?
-  createAt    DateTime         @default(now())
-  updatedAt   DateTime         @default(now())
-  category    ArticalCategory? @relation(fields: [catId], references: [id])
+  id            String           @id @default(auto()) @map("_id") @db.ObjectId
+  email         String
+  title         String
+  description   String
+  status        Status           @default(ACTIVE)
+  catId         String           @db.ObjectId
+  img           String
+  contentImages String[]         @default([])
+  createAt      DateTime         @default(now())
+  updatedAt     DateTime         @default(now())
+  category      ArticalCategory? @relation(fields: [catId], references: [id])
 }
 
 enum UserRole {
