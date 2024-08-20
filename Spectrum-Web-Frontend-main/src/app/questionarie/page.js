@@ -8,6 +8,8 @@ import { Box, Divider, Modal, Typography } from "@mui/material";
 import Image from "next/image";
 import { Copy, X } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { API_BASE_URI } from "@/utils/constants/serviceConfig";
+import { useSelector } from "react-redux";
 
 const openSan = Open_Sans({
   weight: "700",
@@ -19,6 +21,8 @@ const openSans = Open_Sans({
 });
 
 export default function Page() {
+  const user = useSelector((state) => state.auth.user);
+  console.log(user);
   const [selectedOption, setSelectedOption] = useState(null);
   const [currentQuestion, setCurentQuestion] = useState(0);
   const [lastQuestion, setLastQuestion] = useState(false);
@@ -31,10 +35,10 @@ export default function Page() {
   const handleChange = (option) => {
     setSelectedOption(option);
 
+    // Handle option selection and set the ID in allAnswers state
     setAllAnswers((prevAnswers) => ({
       ...prevAnswers,
-      [question[currentQuestion].id]:
-        option === "q6-op4" ? { id: option, text: otherText } : option,
+      [question[currentQuestion].id]: option,
     }));
 
     const nextQuestion = currentQuestion + 1;
@@ -49,18 +53,48 @@ export default function Page() {
   };
 
   useEffect(() => {
-    if (selectedOption === "q6-op4") {
+    if (selectedOption === "q6-op4" && otherText) {
       setAllAnswers((prevAnswers) => ({
         ...prevAnswers,
-        [question[currentQuestion].id]: { id: selectedOption, text: otherText },
+        q6Content: otherText, // Add q6Content with the entered text
       }));
     }
   }, [otherText]);
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     console.log(allAnswers);
-    setSuccess(true);
-    setOpen(true);
+    const payload = {
+      ...allAnswers,
+      email: user?.data?.getUser?.email,
+    };
+
+    try {
+      const response = await fetch(
+        `${API_BASE_URI}/questionaries/create-questionary`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: ` ${user?.data?.accessToken}`,
+          },
+          body: JSON.stringify(payload),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to submit data");
+      }
+
+      const result = await response.json();
+      console.log("Success:", result);
+
+      // Handle success response (e.g., show a success message, redirect, etc.)
+      setSuccess(true);
+      setOpen(true);
+    } catch (error) {
+      console.error("Error:", error);
+      // Handle error response (e.g., show an error message)
+    }
   };
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
