@@ -1,0 +1,258 @@
+"use client";
+import Header from "@/components/layout/Header";
+import { Open_Sans } from "next/font/google";
+import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import question from "./questions.json";
+import { Box, Divider, Modal, Typography } from "@mui/material";
+import Image from "next/image";
+import { Copy, X } from "lucide-react";
+import { useRouter } from "next/navigation";
+
+const openSan = Open_Sans({
+  weight: "700",
+  subsets: ["vietnamese"],
+});
+const openSans = Open_Sans({
+  weight: "400",
+  subsets: ["vietnamese"],
+});
+
+export default function Page() {
+  const [selectedOption, setSelectedOption] = useState(null);
+  const [currentQuestion, setCurentQuestion] = useState(0);
+  const [lastQuestion, setLastQuestion] = useState(false);
+  const [otherText, setOtherText] = useState("");
+  const [allAnswers, setAllAnswers] = useState({});
+  const [success, setSuccess] = useState(false);
+  const [open, setOpen] = useState(false);
+  const router = useRouter();
+
+  const handleChange = (option) => {
+    setSelectedOption(option);
+
+    setAllAnswers((prevAnswers) => ({
+      ...prevAnswers,
+      [question[currentQuestion].id]:
+        option === "q6-op4" ? { id: option, text: otherText } : option,
+    }));
+
+    const nextQuestion = currentQuestion + 1;
+
+    if (nextQuestion < question.length) {
+      setTimeout(() => {
+        setCurentQuestion(nextQuestion);
+      }, 500);
+    } else {
+      setLastQuestion(true);
+    }
+  };
+
+  useEffect(() => {
+    if (selectedOption === "q6-op4") {
+      setAllAnswers((prevAnswers) => ({
+        ...prevAnswers,
+        [question[currentQuestion].id]: { id: selectedOption, text: otherText },
+      }));
+    }
+  }, [otherText]);
+
+  const handleSubmit = () => {
+    console.log(allAnswers);
+    setSuccess(true);
+    setOpen(true);
+  };
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => {
+    setOpen(false);
+    router.push("/");
+  };
+
+  return (
+    <div>
+      <Header />
+      <div>
+        <video
+          className="absolute top-0 left-0 w-full h-[60vh] object-cover z-[-1] filter blur-[130px]"
+          src="/img/blur.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+          poster="/img/placeholder.jpg"
+        ></video>
+        {success ? (
+          <div>
+            <Modal
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[400px] md:w-[600px] bg-white border-2 border-white shadow-lg rounded-lg px-10 py-8">
+                <div
+                  className="flex justify-end cursor-pointer"
+                  onClick={handleClose}
+                >
+                  <X />
+                </div>
+                <h1 className={`text-2xl ${openSan.className} text-center`}>
+                  You’re on the waitlist!
+                </h1>
+                <div className="flex justify-center">
+                  <Image
+                    src="/img/success.svg"
+                    alt="sucess"
+                    width={272}
+                    height={224}
+                  />
+                </div>
+                <div className="mt-10">
+                  <p
+                    className={`text-md ${openSans.className} text-center mb-5`}
+                  >
+                    Thank you for joining the Copilot waitlist! Keep an eye on
+                    your inbox for updates and next steps. We're excited to have
+                    you on board!
+                  </p>
+                  <Divider />
+                  <p
+                    className={`text-md ${openSan.className} text-center mt-5`}
+                  >
+                    Know other educators who'd love Copilot? Share this link
+                    with them!
+                  </p>
+                </div>
+                <div>
+                  <div className="flex gap-2 mt-3">
+                    <input
+                      readOnly
+                      type="text"
+                      name="price"
+                      id="price"
+                      value="https://www.platformname.com/uniquellink"
+                      className="flex flex-1 border sm:text-sm rounded-l-md focus:ring-inset py-2"
+                    />
+                    <span className="flex items-center px-3 pointer-events-none sm:text-sm rounded-r-md bg-[#EFEFEF]">
+                      <Copy />
+                    </span>
+                    <span className="flex items-center px-3 pointer-events-none sm:text-sm rounded-r-md bg-[#EFEFEF]">
+                      <Image
+                        src="/img/share.svg"
+                        alt="share"
+                        width={30}
+                        height={30}
+                      />
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </Modal>
+          </div>
+        ) : (
+          <div className="container mx-auto flex flex-col items-center px-4 py-16 gap-8">
+            <motion.div
+              key={currentQuestion}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 20 }}
+              transition={{ duration: 0.8, ease: "easeInOut" }}
+              className="flex flex-col gap-1 md:gap-8"
+            >
+              <div className="bg-[#FDFAFA] mt-10 py-8 px-10 rounded-3xl shadow-md">
+                <h1 className={`text-xl ${openSan.className} mb-7`}>
+                  Hello [Full Name], Just a few quick questions to get you on
+                  the list!
+                </h1>
+                <hr />
+                <div className="flex flex-col gap-5 justify-start mt-5">
+                  <div>
+                    <h3
+                      className={`${openSans.className} text-md text-[#595D62]`}
+                    >
+                      Question {currentQuestion + 1} of {question.length}
+                    </h3>
+                  </div>
+                  <div>
+                    <h1
+                      className={`text-xl md:text-2xl ${openSan.className} text-[#6665DD]`}
+                    >
+                      {question[currentQuestion].text}
+                    </h1>
+                  </div>
+                  <div
+                    className={`grid  gap-5 ${
+                      question[currentQuestion].id === "q2"
+                        ? "grid-cols-5 lg:grid-cols-10"
+                        : "grid-cols-1 lg:grid-cols-2"
+                    }`}
+                  >
+                    {question[currentQuestion].options.map((option) => (
+                      <div
+                        key={option.id}
+                        className={`py-2 border-2 rounded-lg cursor-pointer ${
+                          selectedOption === option.id
+                            ? " border-[#6665DD]  bg-gradient-to-r from-[rgba(217,224,255,0.50)] to-[rgba(167,179,232,0.50)]"
+                            : "bg-white hover:bg-gradient-to-r from-[rgba(217,224,255,0.50)] to-[rgba(167,179,232,0.50)]"
+                        }`}
+                        onClick={() => handleChange(option.id)}
+                      >
+                        <label
+                          className={`flex items-center gap-2 px-3 cursor-pointer ${
+                            question[currentQuestion].id === "q6" &&
+                            "lg:h-[46px]"
+                          } ${
+                            question[currentQuestion].id === "q2" &&
+                            "justify-center"
+                          }`}
+                        >
+                          {question[currentQuestion].id !== "q2" && (
+                            <input
+                              name="select"
+                              type="radio"
+                              checked={selectedOption === option.id}
+                              readOnly
+                            />
+                          )}
+                          <div>
+                            <p>
+                              {question[currentQuestion].id === "q2"
+                                ? option.value
+                                : option.text}
+                            </p>
+                            {question[currentQuestion].id === "q6" &&
+                              option.id === "q6-op4" &&
+                              selectedOption === "q6-op4" && (
+                                <input
+                                  type="text"
+                                  className="border-2 px-2 rounded-lg"
+                                  placeholder="Enter your text here"
+                                  onChange={(event) =>
+                                    setOtherText(event.target.value)
+                                  }
+                                />
+                              )}
+                          </div>
+                        </label>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                {lastQuestion && (
+                  <div className="flex justify-end mt-3">
+                    <button
+                      className="px-8 py-3 m-2 text-lg font-semibold rounded-xl bg-[#6665DD] text-white"
+                      onClick={handleSubmit}
+                    >
+                      Join waitlist
+                    </button>
+                  </div>
+                )}
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}

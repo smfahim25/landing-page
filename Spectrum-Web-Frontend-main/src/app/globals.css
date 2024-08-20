@@ -33,3 +33,7 @@
   }
 }
 /* Add this in your global CSS file (e.g., globals.css) */
+.header-force {
+  box-shadow: none !important;
+  background-color: transparent !important;
+}
