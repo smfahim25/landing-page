@@ -12,11 +12,11 @@ export const handleGoogleSignup = async () => {
 
     const reqBody = {
       email: data?._tokenResponse?.email,
-      isEmailVerified: data?._tokenResponse?.emailVerified,
-      source: "google",
-      profilePhoto: data?._tokenResponse?.photoUrl,
-      firstName: data?._tokenResponse?.firstName,
-      lastName: data?._tokenResponse?.lastName,
+      // isEmailVerified: data?._tokenResponse?.emailVerified,
+      // source: "google",
+      // profilePhoto: data?._tokenResponse?.photoUrl,
+      name: data?._tokenResponse?.firstName,
+      // lastName: data?._tokenResponse?.lastName,
     };
 
     const res = await ApiServices.signup(reqBody);
