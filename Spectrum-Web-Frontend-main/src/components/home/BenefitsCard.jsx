@@ -16,13 +16,13 @@ const BenefitsCard = () => {
       <div className="container mx-auto flex flex-col items-center px-4 py-16 gap-8">
         <div className="md:w-[489px]">
           <h1
-            className={`text-[18px] md:text-3xl ${openSans.className} text-center text-[#595D62]`}
+            className={`text-[18px] md:text-[32px] ${openSans.className} text-center text-[#595D62]`}
           >
             We are obsessed with making{" "}
             <span className="text-[#595D62]">
               sure these{" "}
               <span
-                className={`text-[#6665DD] text-xl md:text-3xl  ${openSan.className}`}
+                className={`text-[#6665DD] text-xl md:text-[32px]  ${openSan.className}`}
               >
                 benefits
               </span>{" "}
@@ -44,7 +44,7 @@ const BenefitsCard = () => {
               <div className="md:w-[500px] md:flex flex-col gap-5 justify-start">
                 <div className="mb-5 md:mb-0">
                   <h1
-                    className={`text-xl md:text-3xl ${openSan.className} text-center`}
+                    className={`text-xl md:text-[32px] ${openSan.className} text-center`}
                   >
                     Teach More, Manage Less
                   </h1>
@@ -63,7 +63,7 @@ const BenefitsCard = () => {
               <div className="md:w-[500px] md:flex flex-col gap-5 justify-start">
                 <div className="mb-5 md:mb-0">
                   <h1
-                    className={`text-xl md:text-3xl ${openSan.className} text-center`}
+                    className={`text-xl md:text-[32px] ${openSan.className} text-center`}
                   >
                     Inspire More, Stress Less
                   </h1>
@@ -77,10 +77,11 @@ const BenefitsCard = () => {
               </div>
               <div>
                 <Image
-                  src="/img/less_women.svg"
+                  src="/img/less_women.gif"
                   alt="chat"
                   width={300}
                   height={276}
+                  className="transform scale-x-[-1]"
                 />
               </div>
             </div>
@@ -89,7 +90,7 @@ const BenefitsCard = () => {
             <div className="flex flex-col md:flex-row items-center gap-10 md:gap-16 md:px-5 md:h-[272px] mb-5 md:mb-0 py-3">
               <div>
                 <Image
-                  src="/img/personal.svg"
+                  src="/img/personal.gif"
                   alt="chat"
                   width={300}
                   height={276}
@@ -98,7 +99,7 @@ const BenefitsCard = () => {
               <div className="md:w-[500px] md:flex flex-col gap-5 justify-start">
                 <div className="mb-5 md:mb-0">
                   <h1
-                    className={`text-xl md:text-3xl ${openSan.className} text-center`}
+                    className={`text-xl md:text-[32px] ${openSan.className} text-center`}
                   >
                     Personalize More, Struggle Less
                   </h1>

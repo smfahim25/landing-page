@@ -50,6 +50,34 @@ export default function Page() {
       });
   }, []);
 
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const options = { year: "numeric", month: "long", day: "numeric" };
+    const formattedDate = date.toLocaleDateString("en-GB", options);
+
+    // Add ordinal suffix to day
+    const day = date.getDate();
+    const ordinalSuffix = (day) => {
+      if (day > 3 && day < 21) return "th";
+      switch (day % 10) {
+        case 1:
+          return "st";
+        case 2:
+          return "nd";
+        case 3:
+          return "rd";
+        default:
+          return "th";
+      }
+    };
+
+    return `${day}${ordinalSuffix(day)} ${formattedDate.replace(day, "")}`;
+  };
+
+  const truncateTitle = (title, maxLength) => {
+    return title.length > maxLength ? title.slice(0, maxLength) + "..." : title;
+  };
+
   return (
     <div>
       <Header />
@@ -66,23 +94,27 @@ export default function Page() {
             <div key={categoryName} className="flex flex-col gap-5">
               <div className="flex justify-between items-center px-5 md:px-0 md:pr-12">
                 <h2
-                  className={`text-[#595D62] text-xl ${openSanBold.className}`}
+                  className={`text-[#595D62] text-[16px] md:text-[20px] ${openSanBold.className}  `}
                 >
                   {categoryName}
                 </h2>
-                <Link
-                  href="/"
-                  className={`text-[#6665DD] text-sm ${openSanBold.className}`}
-                >
-                  See all
-                </Link>
+                <h2 className="w-[52px]">
+                  {articles[0]?.catId && (
+                    <Link
+                      href={`/resource/all_resource?id=${articles[0]?.catId}`}
+                      className={`text-[#6665DD] text-sm ${openSanBold.className}`}
+                    >
+                      See all
+                    </Link>
+                  )}
+                </h2>
               </div>
               <div>
                 <Swiper
                   breakpoints={{
                     340: {
-                      slidesPerView: 1,
-                      spaceBetween: 15,
+                      slidesPerView: 1.2,
+                      spaceBetween: 5,
                     },
                     700: {
                       slidesPerView: 2,
@@ -121,8 +153,8 @@ export default function Page() {
                           <CardMedia
                             sx={{ height: 180 }}
                             image={item.img}
-                            title={item.title.slice(0, 35)}
-                            className="rounded-t-xl"
+                            title={item.title}
+                            className="rounded-xl"
                           />
                           <CardContent sx={{ padding: "16px" }}>
                             <Typography
@@ -131,25 +163,26 @@ export default function Page() {
                               component="div"
                               className={`${openSanBold.className}`}
                               sx={{
-                                fontSize: "16px",
-                                lineHeight: "20px",
+                                fontSize: "14px",
+                                lineHeight: "24px",
+                                fontWeight: "700",
                                 color: "#262626",
                               }}
                             >
-                              {item.title}
+                              {truncateTitle(item?.title, 40)}
                             </Typography>
                             <Typography
                               variant="body2"
                               color="text.secondary"
                               className={`${openSanRegular.className}`}
                               sx={{
-                                fontSize: "14px",
+                                fontSize: "12px",
                                 lineHeight: "18px",
                                 color: "#595D62",
                                 marginBottom: "10px",
                               }}
                             >
-                              {item.description.slice(0, 37)}...
+                              {item?.description.slice(0, 46)}...
                             </Typography>
                             <Typography
                               variant="caption"
@@ -159,7 +192,7 @@ export default function Page() {
                                 color: "#9E9E9E",
                               }}
                             >
-                              Published on {item.date}
+                              Published on {formatDate(item?.createdAt)}
                             </Typography>
                           </CardContent>
                         </Card>

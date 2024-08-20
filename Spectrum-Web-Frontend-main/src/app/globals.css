@@ -37,3 +37,11 @@
   box-shadow: none !important;
   background-color: transparent !important;
 }
+.css-8b677u-MuiBadge-badge {
+  background-color: rgba(102, 101, 221, 0.2) !important;
+  top: -5px !important;
+  right: -16px !important;
+}
+.css-1njj0mv-MuiPaper-root-MuiCard-root {
+  box-shadow: none !important;
+}
