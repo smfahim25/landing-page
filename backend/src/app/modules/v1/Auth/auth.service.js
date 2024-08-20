@@ -1,18 +1,47 @@
-import bcrypt from 'bcrypt';
 import config from '../../../config/index.js';
 import prisma from '../../../utils/prismaClient.js';
+import { createToken } from './auth.utils.js';
 const SignUp = async (payload) => {
-  const bcryptPassword = bcrypt.hashSync(payload.password, Number(config.SALT));
+  // const bcryptPassword = bcrypt.hashSync(payload.password, Number(config.SALT));
+  // const data = {
+  //   password: bcryptPassword,
+  //   email: payload.email,
+  //   name: payload.name,
+  // };
 
-  const data = {
-    password: bcryptPassword,
-    email: payload.email,
-    name: payload.name,
+  const getUser = await prisma.user.findUnique({
+    where: { email: payload.email },
+  });
+
+  if (!getUser) {
+    const jwtPayload = {
+      email: payload.email,
+      role: 'USER',
+    };
+
+    const accessToken = createToken(
+      jwtPayload,
+      config.JWT_ACCESS_SECRET,
+      config.JWT_ACCESS_EXPIRES_IN,
+    );
+
+    const result = await prisma.user.create({ data: payload });
+    return { accessToken, result };
+  }
+
+  const jwtPayload = {
+    email: getUser?.email,
+    role: getUser.role,
   };
-  const result = await prisma.user.create({ data: data });
-  // eslint-disable-next-line no-unused-vars
-  const { password, ...rest } = result;
-  return rest;
+
+  const accessToken = createToken(
+    jwtPayload,
+    config.JWT_ACCESS_SECRET,
+    config.JWT_ACCESS_EXPIRES_IN,
+  );
+
+  // const { password, ...rest } = result;
+  return { accessToken, getUser };
 };
 
 export const AuthService = {
