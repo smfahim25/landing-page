@@ -1,0 +1,75 @@
+[
+  {
+    "id": "q1",
+    "text": "What are you primarily hoping to achieve with Copilot?",
+    "options": [
+      {
+        "id": "q1-op1",
+        "text": "Increase your speed researching or brainstorming"
+      },
+      { "id": "q1-op2", "text": "Automate routine your tasks" },
+      { "id": "q1-op3", "text": "Personalize learning for your learners" },
+      { "id": "q1-op4", "text": "Others" }
+    ]
+  },
+  {
+    "id": "q2",
+    "text": "How urgent is your need for a tool like Copilot? Please rate from 1 (least urgent) to 10 (most urgent).",
+    "options": [
+      { "id": "q2-op1", "value": 1 },
+      { "id": "q2-op2", "value": 2 },
+      { "id": "q2-op3", "value": 3 },
+      { "id": "q2-op4", "value": 4 },
+      { "id": "q2-op5", "value": 5 },
+      { "id": "q2-op6", "value": 6 },
+      { "id": "q2-op7", "value": 7 },
+      { "id": "q2-op8", "value": 8 },
+      { "id": "q2-op9", "value": 9 },
+      { "id": "q2-op10", "value": 10 }
+    ]
+  },
+  {
+    "id": "q3",
+    "text": "What monthly price range are you comfortable paying for an AI tool like Copilot?",
+    "options": [
+      { "id": "q3-op1", "text": "Under $25" },
+      { "id": "q3-op2", "text": "$25 - $60" },
+      { "id": "q3-op3", "text": "$60 - $120" },
+      { "id": "q3-op4", "text": "Above $120" }
+    ]
+  },
+  {
+    "id": "q4",
+    "text": "We'd love your input to make Copilot better. How would you prefer to be involved?",
+    "options": [
+      {
+        "id": "q4-op1",
+        "text": "Advise on product development. Join 'Copilot Insider Circle'."
+      },
+      {
+        "id": "q4-op2",
+        "text": "Test features and provide feedback at beta launch."
+      },
+      { "id": "q4-op3", "text": "Engage in both advising and testing." },
+      { "id": "q4-op4", "text": "Not at the moment, thank you." }
+    ]
+  },
+  {
+    "id": "q5",
+    "text": "Would you be interested in viewing the angel investor presentation for Copilot?",
+    "options": [
+      { "id": "q5-op1", "text": "Yes, Sure." },
+      { "id": "q5-op2", "text": "Not at the moment, thank you." }
+    ]
+  },
+  {
+    "id": "q6",
+    "text": "Could you let us know how you first heard about Copilot?",
+    "options": [
+      { "id": "q6-op1", "text": "Word of mouth" },
+      { "id": "q6-op2", "text": "Social media" },
+      { "id": "q6-op3", "text": "Online resources" },
+      { "id": "q6-op4", "text": "Others" }
+    ]
+  }
+]
