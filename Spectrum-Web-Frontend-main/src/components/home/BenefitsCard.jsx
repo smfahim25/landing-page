@@ -35,7 +35,7 @@ const BenefitsCard = () => {
             <div className="flex flex-col md:flex-row items-center gap-10 md:gap-16 md:px-5 md:h-[272px] mb-5 md:mb-0">
               <div>
                 <Image
-                  src="/img/techBuis.svg"
+                  src="/img/tech-buis.gif"
                   alt="chat"
                   width={300}
                   height={276}

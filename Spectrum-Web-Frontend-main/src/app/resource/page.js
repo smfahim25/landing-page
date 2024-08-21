@@ -169,7 +169,7 @@ export default function Page() {
                                 color: "#262626",
                               }}
                             >
-                              {truncateTitle(item?.title, 40)}
+                              {truncateTitle(item?.title, 35)}
                             </Typography>
                             <Typography
                               variant="body2"
@@ -192,7 +192,7 @@ export default function Page() {
                                 color: "#9E9E9E",
                               }}
                             >
-                              Published on {formatDate(item?.createdAt)}
+                              Published on {formatDate(item?.createAt)}
                             </Typography>
                           </CardContent>
                         </Card>
