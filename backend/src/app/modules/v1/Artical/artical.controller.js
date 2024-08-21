@@ -12,19 +12,34 @@ const CreateCategory = catchAsync(async (req, res) => {
     data: result,
   });
 });
+const GetAllCategories = catchAsync(async (req, res) => {
+  const result = await ArticalService.GetAllCategories();
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Get All Categories Successfully!',
+    data: result,
+  });
+});
 const CreateArtical = catchAsync(async (req, res) => {
-  console.log(req.files);
-  const { file, contentFile } = req.files;
-  const result = await ArticalService.CreateArtical(
-    file,
-    contentFile,
-    req.body,
-  );
+  const { file } = req.files;
+  const result = await ArticalService.CreateArtical(file, req.body);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
     message: 'Artical Created Successfully!',
+    data: result,
+  });
+});
+
+const GetImgURL = catchAsync(async (req, res) => {
+  const { contentFile } = req.files;
+  const result = await ArticalService.GetImgURL(contentFile);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Get Image URL Successfully!',
     data: result,
   });
 });
@@ -37,6 +52,7 @@ const GetAllArticals = catchAsync(async (req, res) => {
     data: result,
   });
 });
+
 const ArticalDetails = catchAsync(async (req, res) => {
   const result = await ArticalService.ArticalDetails(req.params);
   sendResponse(res, {
@@ -58,8 +74,10 @@ const EditArtical = catchAsync(async (req, res) => {
 
 export const ArticalController = {
   CreateArtical,
+  GetImgURL,
   CreateCategory,
   GetAllArticals,
   ArticalDetails,
   EditArtical,
+  GetAllCategories,
 };
