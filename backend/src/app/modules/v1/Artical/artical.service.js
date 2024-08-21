@@ -52,6 +52,7 @@ const GetAllArticals = async (query) => {
     where: { catId: id, status: 'ACTIVE' },
     include: {
       category: true,
+      user: true,
     },
   });
   return result;
