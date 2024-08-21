@@ -3,7 +3,6 @@ import React, { useState, useRef } from "react";
 import ReactQuill, { Quill } from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import ImageResize from "quill-image-resize-module-react";
-import { TextField } from "@mui/material";
 import { useSelector } from "react-redux";
 
 // Register the image resize module with Quill
@@ -23,7 +22,8 @@ export default function Page() {
     input.onchange = async () => {
       const file = input.files[0];
       const formData = new FormData();
-      formData.append("image", file);
+      console.log(input.files[0]);
+      formData.append("contentFile", file);
 
       try {
         // Replace 'YOUR_API_ENDPOINT' with your actual API endpoint
