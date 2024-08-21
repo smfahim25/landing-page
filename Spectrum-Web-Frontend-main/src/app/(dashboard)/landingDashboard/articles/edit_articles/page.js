@@ -123,9 +123,9 @@ export default function Page() {
     }
 
     const payload = {
-      title,
+      title: title,
       catId: selectedCategory,
-      status,
+      status: status,
       description: editorData,
       email: user?.data?.getUser?.email,
     };
@@ -140,7 +140,7 @@ export default function Page() {
       const response = await fetch(
         `http://localhost:4000/api/v1/articals/edit-artical/${articleId}`,
         {
-          method: "PUT",
+          method: "PATCH",
           headers: {
             Authorization: `${user?.data?.accessToken}`,
           },
@@ -226,7 +226,7 @@ export default function Page() {
           </select>
         </div>
       </div>
-      <div className="mt-10 mb-20">
+      <div className="mt-10 mb-5">
         <CKEditor
           editor={ClassicEditor}
           data={editorData ? editorData : ""}

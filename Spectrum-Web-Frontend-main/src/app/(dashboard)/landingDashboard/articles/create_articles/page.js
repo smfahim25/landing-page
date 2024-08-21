@@ -87,7 +87,6 @@ export default function Page() {
       console.error("Please fill in all fields");
       return;
     }
-    console.log(coverPhoto);
     const payload = {
       title: title,
       catId: selectedCategory,
@@ -106,7 +105,6 @@ export default function Page() {
           method: "POST",
           headers: {
             Authorization: `${user?.data?.accessToken}`,
-            "Content-Type": "multipart/form-data",
           },
           body: formData,
         }
@@ -118,7 +116,6 @@ export default function Page() {
 
       const data = await response.json();
       console.log("Article created successfully:", data);
-      // Reset form
       setTitle("");
       setCoverPhoto(null);
       setSelectedCategory("");
@@ -195,7 +192,7 @@ export default function Page() {
           </select>
         </div>
       </div>
-      <div className="mt-10 mb-20">
+      <div className="mt-10 mb-5">
         <CKEditor
           editor={ClassicEditor}
           data={editorData}
