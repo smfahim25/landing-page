@@ -41,6 +41,15 @@ const GetImgURL = catchAsync(async (req, res) => {
     data: result,
   });
 });
+const ArticleAnlytics = catchAsync(async (req, res) => {
+  const result = await ArticalService.ArticleAnlytics();
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Get Article Anlytics Successfully!',
+    data: result,
+  });
+});
 const GetAllArticals = catchAsync(async (req, res) => {
   const result = await ArticalService.GetAllArticals(req.query);
   sendResponse(res, {
@@ -82,4 +91,5 @@ export const ArticalController = {
   ArticalDetails,
   EditArtical,
   GetAllCategories,
+  ArticleAnlytics,
 };
