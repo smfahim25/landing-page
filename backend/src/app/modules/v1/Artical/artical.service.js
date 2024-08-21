@@ -6,6 +6,10 @@ const CreateCategory = async (payload) => {
   const result = await prisma.articalCategory.create({ data: payload });
   return result;
 };
+const GetAllCategories = async () => {
+  const result = await prisma.category.findMany();
+  return result;
+};
 const CreateArtical = async (file, payload) => {
   // Check if the category exists
   const category = await prisma.articalCategory.findFirst({
@@ -58,6 +62,7 @@ const GetAllArticals = async (query) => {
   });
   return result;
 };
+
 const ArticalDetails = async (params) => {
   const result = await prisma.artical.findFirst({
     where: { id: params.id },
@@ -81,4 +86,5 @@ export const ArticalService = {
   ArticalDetails,
   EditArtical,
   GetImgURL,
+  GetAllCategories,
 };
