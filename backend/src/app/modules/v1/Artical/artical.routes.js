@@ -23,7 +23,16 @@ router.post(
 router.get('/', ArticalController.GetAllArticals);
 
 router.get('/artical-details/:id', ArticalController.ArticalDetails);
-router.patch('/edit-artical/:id', auth('ADMIN'), ArticalController.EditArtical);
+router.patch(
+  '/edit-artical/:id',
+  auth('ADMIN'),
+  upload.single('file'),
+  (req, res, next) => {
+    req.body = JSON.parse(req.body.data);
+    next();
+  },
+  ArticalController.EditArtical,
+);
 
 router.post(
   '/getImgURL',
