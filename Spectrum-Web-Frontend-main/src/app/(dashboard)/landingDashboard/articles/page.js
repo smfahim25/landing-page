@@ -1,3 +1,4 @@
+"use client";
 import * as React from "react";
 import axios from "axios";
 import Paper from "@mui/material/Paper";
@@ -9,19 +10,22 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import Link from "next/link";
+import { useSelector } from "react-redux";
 
 const columns = [
   { id: "title", label: "Title", minWidth: 170 },
   { id: "catId", label: "Category ID", minWidth: 100 },
   { id: "description", label: "Description", minWidth: 200 },
   { id: "status", label: "Status", minWidth: 100 },
+  { id: "action", label: "Action", minWidth: 100, align: "center" }, // New Action column
 ];
 
-function createData(title, catId, description, status) {
-  return { title, catId, description, status };
+function createData(title, catId, description, status, id) {
+  return { title, catId, description, status, id }; // Include id in the row object
 }
 
 export default function Page() {
+  const user = useSelector((state) => state.auth.user);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [rows, setRows] = React.useState([]);
@@ -31,10 +35,23 @@ export default function Page() {
   React.useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("/your-api-endpoint");
-        // Assuming the API returns an array of objects with keys 'title', 'catId', 'description', and 'status'
-        const data = response.data.map((item) =>
-          createData(item.title, item.catId, item.description, item.status)
+        const response = await axios.get(
+          "http://localhost:4000/api/v1/articals",
+          {
+            headers: {
+              Authorization: `${user?.data?.accessToken}`, // Include token in the request headers
+            },
+          }
+        );
+        // Assuming the API returns an array of objects with keys 'title', 'catId', 'description', 'status', and 'id'
+        const data = response?.data?.data?.map((item) =>
+          createData(
+            item.title.slice(0, 35),
+            item.category.name,
+            item.description.slice(0, 50),
+            item.status,
+            item.id // Pass id for editing
+          )
         );
         setRows(data);
       } catch (err) {
@@ -60,14 +77,14 @@ export default function Page() {
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <div>
-      <div>
+    <div className="px-10 flex flex-col gap-10">
+      <div className="flex justify-between items-center mt-5">
+        <h1 className="text-xl font-bold">Articles List</h1>
         <Link
           href="/landingDashboard/articles/create_articles"
-          className="hover:text-blue-500"
+          className=" bg-[#6665DD] px-5 py-1 text-white rounded-md "
         >
-          {" "}
-          create articles
+          Create Articles
         </Link>
       </div>
       <div>
@@ -90,25 +107,32 @@ export default function Page() {
               <TableBody>
                 {rows
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((row) => {
-                    return (
-                      <TableRow
-                        hover
-                        role="checkbox"
-                        tabIndex={-1}
-                        key={row.catId}
-                      >
-                        {columns.map((column) => {
-                          const value = row[column.id];
-                          return (
-                            <TableCell key={column.id} align={column.align}>
-                              {value}
-                            </TableCell>
-                          );
-                        })}
-                      </TableRow>
-                    );
-                  })}
+                  .map((row) => (
+                    <TableRow
+                      hover
+                      role="checkbox"
+                      tabIndex={-1}
+                      key={`${row.id}-${Date.now()}-${Math.random()}`} // Use id as the key
+                    >
+                      {columns.map((column) => {
+                        const value = row[column.id];
+                        return (
+                          <TableCell key={column.id} align={column.align}>
+                            {column.id === "action" ? (
+                              <Link
+                                href={`/landingDashboard/articles/edit_articles?id=${row.id}`}
+                                className="text-blue-500"
+                              >
+                                Edit
+                              </Link>
+                            ) : (
+                              value
+                            )}
+                          </TableCell>
+                        );
+                      })}
+                    </TableRow>
+                  ))}
               </TableBody>
             </Table>
           </TableContainer>
