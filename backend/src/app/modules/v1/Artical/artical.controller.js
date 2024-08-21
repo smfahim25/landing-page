@@ -61,7 +61,11 @@ const ArticalDetails = catchAsync(async (req, res) => {
   });
 });
 const EditArtical = catchAsync(async (req, res) => {
-  const result = await ArticalService.EditArtical(req.params, req.body);
+  const result = await ArticalService.EditArtical(
+    req.params,
+    req.file,
+    req.body,
+  );
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,

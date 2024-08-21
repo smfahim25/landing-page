@@ -22,9 +22,8 @@ const CreateArtical = async (file, payload) => {
   // Upload main blog image if it exists
   if (file) {
     const imageName = `${payload?.title}-main`;
-    const path = file[0]?.path;
-
-    // Send main blog image to Cloudinary
+    const path = file?.path;
+    //send image to cloudinary
     const { secure_url } = await sendImageToCloudinary(imageName, path);
     payload.img = secure_url;
   }
@@ -67,7 +66,15 @@ const ArticalDetails = async (params) => {
   });
   return result;
 };
-const EditArtical = async (params, payload) => {
+const EditArtical = async (params, file, payload) => {
+  // Upload main blog image if it exists
+  if (file) {
+    const imageName = `${payload?.title}-main`;
+    const path = file?.path;
+    //send image to cloudinary
+    const { secure_url } = await sendImageToCloudinary(imageName, path);
+    payload.img = secure_url;
+  }
   const result = await prisma.artical.update({
     where: { id: params.id },
     data: payload,
