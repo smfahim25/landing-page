@@ -7,7 +7,7 @@ const CreateCategory = async (payload) => {
   return result;
 };
 const GetAllCategories = async () => {
-  const result = await prisma.category.findMany();
+  const result = await prisma.articalCategory.findMany();
   return result;
 };
 const CreateArtical = async (file, payload) => {
@@ -20,7 +20,7 @@ const CreateArtical = async (file, payload) => {
     throw new AppError(httpStatus.NOT_FOUND, 'Category not found!');
   }
   // Upload main blog image if it exists
-  if (file && file.length > 0) {
+  if (file) {
     const imageName = `${payload?.title}-main`;
     const path = file[0]?.path;
 
@@ -34,16 +34,17 @@ const CreateArtical = async (file, payload) => {
 };
 const GetImgURL = async (contentFile) => {
   // Upload content images if they exist
-  const result = {};
-  if (contentFile && contentFile.length > 0) {
+  if (contentFile) {
+    let result;
     const imageName = `${contentFile?.filename}-main`;
     const path = contentFile?.path;
-
     // Send main blog image to Cloudinary
     const { secure_url } = await sendImageToCloudinary(imageName, path);
-    result.contentImages = secure_url;
+
+    // eslint-disable-next-line prefer-const
+    result = secure_url;
+    return result;
   }
-  return result;
 };
 
 const GetAllArticals = async (query) => {
