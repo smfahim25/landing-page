@@ -49,7 +49,7 @@ const GetImgURL = async (contentFile) => {
 const GetAllArticals = async (query) => {
   const id = query.id;
   const result = await prisma.artical.findMany({
-    where: { catId: id },
+    where: { catId: id, status: 'ACTIVE' },
     include: {
       category: true,
     },
