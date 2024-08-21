@@ -34,9 +34,7 @@ router.patch('/edit-artical/:id', auth('ADMIN'), ArticalController.EditArtical);
 router.post(
   '/getImgURL',
   auth('ADMIN'),
-  upload.fields([
-    { name: 'contentFile', maxCount: 12 }, // For blog content images
-  ]),
+  upload.single('contentFile'),
   ArticalController.GetImgURL,
 );
 
