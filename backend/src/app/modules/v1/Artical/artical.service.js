@@ -36,18 +36,12 @@ const GetImgURL = async (contentFile) => {
   // Upload content images if they exist
   const result = {};
   if (contentFile && contentFile.length > 0) {
-    const contentImageUrls = [];
+    const imageName = `${contentFile?.filename}-main`;
+    const path = contentFile?.path;
 
-    for (let i = 0; i < contentFile.length; i++) {
-      const file = contentFile[i];
-      const imageName = `${contentFile?.filename}-content-${i}`;
-      const path = file?.path;
-
-      // Send content image to Cloudinary
-      const { secure_url } = await sendImageToCloudinary(imageName, path);
-      contentImageUrls.push(secure_url);
-    }
-    result.contentImages = contentImageUrls;
+    // Send main blog image to Cloudinary
+    const { secure_url } = await sendImageToCloudinary(imageName, path);
+    result.contentImages = secure_url;
   }
   return result;
 };
