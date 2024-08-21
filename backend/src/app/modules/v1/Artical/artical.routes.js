@@ -14,7 +14,6 @@ router.post(
   auth('ADMIN'),
   upload.fields([
     { name: 'file', maxCount: 1 }, // For main blog image
-    // { name: 'contentFile', maxCount: 12 }, // For blog content images
   ]),
   (req, res, next) => {
     req.body = JSON.parse(req.body.data);

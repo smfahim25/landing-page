@@ -13,12 +13,8 @@ const CreateCategory = catchAsync(async (req, res) => {
   });
 });
 const CreateArtical = catchAsync(async (req, res) => {
-  const { file, contentFile } = req.files;
-  const result = await ArticalService.CreateArtical(
-    file,
-    contentFile,
-    req.body,
-  );
+  const { file } = req.files;
+  const result = await ArticalService.CreateArtical(file, req.body);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
