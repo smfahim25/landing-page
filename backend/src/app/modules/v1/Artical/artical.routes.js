@@ -9,17 +9,11 @@ router.post(
   auth('ADMIN'),
   ArticalController.CreateCategory,
 );
-router.get(
-  '/get-all-categories',
-  auth('ADMIN'),
-  ArticalController.GetAllCategories,
-);
+router.get('/get-all-categories', ArticalController.GetAllCategories);
 router.post(
   '/create-artical',
   auth('ADMIN'),
-  upload.fields([
-    { name: 'file', maxCount: 1 }, // For main blog image
-  ]),
+  upload.single('file'),
   (req, res, next) => {
     req.body = JSON.parse(req.body.data);
     next();

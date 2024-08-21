@@ -22,8 +22,7 @@ const GetAllCategories = catchAsync(async (req, res) => {
   });
 });
 const CreateArtical = catchAsync(async (req, res) => {
-  const { file } = req.files;
-  const result = await ArticalService.CreateArtical(file, req.body);
+  const result = await ArticalService.CreateArtical(req.file, req.body);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -34,8 +33,7 @@ const CreateArtical = catchAsync(async (req, res) => {
 });
 
 const GetImgURL = catchAsync(async (req, res) => {
-  const { contentFile } = req.files;
-  const result = await ArticalService.GetImgURL(contentFile);
+  const result = await ArticalService.GetImgURL(req.file);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
