@@ -4,33 +4,56 @@ import ReactQuill, { Quill } from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import ImageResize from "quill-image-resize-module-react";
 import { TextField } from "@mui/material";
+import { useSelector } from "react-redux";
 
 // Register the image resize module with Quill
 Quill.register("modules/imageResize", ImageResize);
 
-function imageHandler() {
-  const input = document.createElement("input");
-  input.setAttribute("type", "file");
-  input.setAttribute("accept", "image/*");
-  input.click();
-
-  input.onchange = () => {
-    const file = input.files[0];
-    const reader = new FileReader();
-
-    reader.onload = (e) => {
-      const quill = this.quill;
-      const range = quill.getSelection();
-      quill.insertEmbed(range.index, "image", e.target.result);
-      quill.setSelection(range.index + 1);
-    };
-
-    reader.readAsDataURL(file);
-  };
-}
-
 export default function Page() {
+  const user = useSelector((state) => state.auth.user);
+  console.log(user);
   const [value, setValue] = useState("");
+
+  function imageHandler() {
+    const input = document.createElement("input");
+    input.setAttribute("type", "file");
+    input.setAttribute("accept", "image/*");
+    input.click();
+
+    input.onchange = async () => {
+      const file = input.files[0];
+      const formData = new FormData();
+      formData.append("image", file);
+
+      try {
+        // Replace 'YOUR_API_ENDPOINT' with your actual API endpoint
+        const response = await fetch(
+          "http://localhost:4000/api/v1/articals/getImgURL",
+          {
+            method: "POST",
+            headers: {
+              Authorization: `${user?.data?.accessToken}`, // Add your token here
+            },
+            body: formData,
+          }
+        );
+
+        const data = await response.json();
+
+        if (response.ok) {
+          const imageURL = data.url; // Assuming your API response contains the image URL in 'url'
+          const quill = this.quill;
+          const range = quill.getSelection();
+          quill.insertEmbed(range.index, "image", imageURL);
+          quill.setSelection(range.index + 1);
+        } else {
+          console.error("Failed to upload image:", data);
+        }
+      } catch (error) {
+        console.error("Error uploading image:", error);
+      }
+    };
+  }
 
   return (
     <div className="md:px-20">
