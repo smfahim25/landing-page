@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import ReactQuill, { Quill } from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import ImageResize from "quill-image-resize-module-react";
@@ -10,8 +10,10 @@ Quill.register("modules/imageResize", ImageResize);
 
 export default function Page() {
   const user = useSelector((state) => state.auth.user);
-  console.log(user);
+  //   console.log(user);
   const [value, setValue] = useState("");
+  const [categories, setCategories] = useState([]);
+  const [customCat, setCustomCat] = useState("");
 
   function imageHandler() {
     const input = document.createElement("input");
@@ -55,6 +57,60 @@ export default function Page() {
     };
   }
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:4000/api/v1/articals/get-all-categories",
+          {
+            method: "GET",
+            headers: {
+              Authorization: `${user?.data?.accessToken}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+
+        const result = await response.json();
+        setCategories(result);
+      } catch (error) {
+        console.log(error.message);
+      } finally {
+        console.log("success");
+      }
+    };
+
+    fetchData();
+  }, []);
+  const handleAdd = async () => {
+    console.log(customCat);
+    const payload = {
+      name: customCat,
+    };
+    try {
+      // Replace 'YOUR_API_ENDPOINT' with your actual API endpoint
+      const response = await fetch(
+        "http://localhost:4000/api/v1/articals/create-category",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `${user?.data?.accessToken}`, // Add your token here
+          },
+          body: JSON.stringify(payload),
+        }
+      );
+
+      const data = await response.json();
+
+      console.log(data);
+    } catch (error) {
+      console.error("Error uploading image:", error);
+    }
+  };
   return (
     <div className="md:px-20">
       <h1 className="text-2xl font-bold">Create Article</h1>
@@ -84,9 +140,14 @@ export default function Page() {
             <input
               type="text"
               placeholder="add category"
+              value={customCat}
+              onChange={(e) => setCustomCat(e.target.value)}
               className="border-2 px-4 py-1 rounded-md"
             />
-            <button className="bg-[#6665DD] text-white px-2 rounded-md py-1">
+            <button
+              onClick={handleAdd}
+              className="bg-[#6665DD] text-white px-2 rounded-md py-1"
+            >
               Add
             </button>
           </div>
@@ -95,6 +156,8 @@ export default function Page() {
           <label>Status</label>
           <select className="border-2 py-1 px-2 rounded-md">
             <option>Select Status</option>
+            <option value="INACTIVE">In Active</option>
+            <option value="ACTIVE">Active</option>
           </select>
         </div>
       </div>
