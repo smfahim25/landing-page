@@ -8,12 +8,13 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  email     String   @unique
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  email     String    @unique
   name      String
-  role      UserRole @default(USER)
-  createAt  DateTime @default(now())
-  updatedAt DateTime @default(now())
+  role      UserRole  @default(USER)
+  createAt  DateTime  @default(now())
+  updatedAt DateTime  @default(now())
+  Artical   Artical[]
 }
 
 model Questionery {
@@ -50,6 +51,7 @@ model Artical {
   createAt      DateTime         @default(now())
   updatedAt     DateTime         @default(now())
   category      ArticalCategory? @relation(fields: [catId], references: [id])
+  user          User?            @relation(fields: [email], references: [email])
 }
 
 enum UserRole {

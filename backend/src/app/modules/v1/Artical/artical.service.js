@@ -62,6 +62,7 @@ const ArticalDetails = async (params) => {
     where: { id: params.id },
     include: {
       category: true,
+      user: true,
     },
   });
   return result;
