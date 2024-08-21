@@ -81,6 +81,30 @@ const EditArtical = async (params, file, payload) => {
   });
   return result;
 };
+const ArticleAnlytics = async () => {
+  const questions = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6'];
+  const result = {};
+
+  for (const question of questions) {
+    const stats = await prisma.questionery.groupBy({
+      by: [question],
+      _count: {
+        [question]: true,
+      },
+      orderBy: {
+        _count: {
+          [question]: 'desc',
+        },
+      },
+    });
+    result[question] = stats.map((stat) => ({
+      option: stat[question],
+      count: stat._count[question],
+    }));
+  }
+
+  return result;
+};
 export const ArticalService = {
   CreateCategory,
   CreateArtical,
@@ -89,4 +113,5 @@ export const ArticalService = {
   EditArtical,
   GetImgURL,
   GetAllCategories,
+  ArticleAnlytics,
 };
