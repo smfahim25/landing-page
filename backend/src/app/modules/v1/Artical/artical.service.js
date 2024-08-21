@@ -3,6 +3,13 @@ import AppError from '../../../errors/AppError.js';
 import prisma from '../../../utils/prismaClient.js';
 import { sendImageToCloudinary } from '../../../utils/sendImageToCloudinary.js';
 const CreateCategory = async (payload) => {
+  const category = await prisma.articalCategory.findFirst({
+    where: { name: payload.name },
+  });
+
+  if (category) {
+    throw new AppError(httpStatus.CONFLICT, 'Category already exist!');
+  }
   const result = await prisma.articalCategory.create({ data: payload });
   return result;
 };
