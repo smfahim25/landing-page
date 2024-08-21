@@ -14,15 +14,15 @@ const openSans = Open_Sans({
 });
 const AnimationCardSection = () => {
   return (
-    <div className="container mx-auto px-4 py-16 gap-8">
+    <div className="container mx-auto px-4 py-16">
       <div className="flex flex-col gap-1 md:gap-8 mx-auto">
         <div className="md:w-[700px] mx-auto">
           <h1
-            className={`text-[18px] md:text-3xl ${openSans.className} text-center`}
+            className={`text-[18px] md:text-[32px] ${openSans.className} text-center`}
           >
             We're busy building a product with{" "}
             <span
-              className={`text-[#6665DD] text-xl md:text-3xl  ${openSan.className}`}
+              className={`text-[#6665DD] text-xl md:text-[32px]  ${openSan.className}`}
             >
               features
             </span>{" "}
@@ -49,7 +49,7 @@ const AnimationCardSection = () => {
                         </p>
                       </div>
                       <h1
-                        className={`text-xl md:text-3xl ${openSan.className}`}
+                        className={`text-xl md:text-[32px] ${openSan.className}`}
                       >
                         {project?.title}
                       </h1>

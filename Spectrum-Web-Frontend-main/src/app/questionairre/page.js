@@ -22,7 +22,6 @@ const openSans = Open_Sans({
 
 export default function Page() {
   const user = useSelector((state) => state.auth.user);
-  console.log(user);
   const [selectedOption, setSelectedOption] = useState(null);
   const [currentQuestion, setCurentQuestion] = useState(0);
   const [lastQuestion, setLastQuestion] = useState(false);
@@ -195,8 +194,8 @@ export default function Page() {
             >
               <div className="bg-[#FDFAFA] mt-10 py-8 px-10 rounded-3xl shadow-md">
                 <h1 className={`text-xl ${openSan.className} mb-7`}>
-                  Hello [Full Name], Just a few quick questions to get you on
-                  the list!
+                  {` Hello ${user?.data?.getUser?.name}, Just a few quick questions to get you on
+                  the list!`}
                 </h1>
                 <hr />
                 <div className="flex flex-col gap-5 justify-start mt-5">

@@ -1,8 +1,10 @@
+import { handleGoogleSignup } from "@/app/(auth)/utils";
+import { login } from "@/store/auth/slice";
 import { Open_Sans } from "next/font/google";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const openSan = Open_Sans({
   weight: "700",
@@ -15,6 +17,18 @@ const openSans = Open_Sans({
 const Hero = () => {
   const user = useSelector((state) => state.auth.user);
   const router = useRouter();
+  const dispatch = useDispatch();
+
+  const handleSignup = async () => {
+    try {
+      const res = await handleGoogleSignup();
+      console.log(res.message || "Sign up successful", "success");
+      dispatch(login(res));
+      router.push("/questionairre");
+    } catch (error) {
+      console.log(error, "error");
+    }
+  };
   return (
     <div>
       <section>
@@ -32,12 +46,12 @@ const Hero = () => {
           <div>
             <div>
               <h1
-                className={`text-2xl font-bold md:text-5xl ${openSan.className}`}
+                className={`text-2xl font-bold md:text-[48px] ${openSan.className}`}
               >
                 Hello Educators!
               </h1>
               <h1
-                className={`text-2xl mt-2 font-bold md:text-5xl md:mt-5 ${openSan.className}`}
+                className={`text-2xl mt-2 font-bold md:text-[48px] md:mt-7 ${openSan.className}`}
               >
                 <span className="text-[#6665DD]">Copilot</span> reporting in
                 soon.
@@ -52,7 +66,7 @@ const Hero = () => {
               <h1 className={`text-md md:text-2xl mt-2 ${openSans.className}`}>
                 so you can focus on what you love —{" "}
                 <span
-                  className={`text-[#00BEB0] text-2xl md:text-3xl  ${openSan.className}`}
+                  className={`text-[#00BEB0] text-2xl md:text-[32px]  ${openSan.className}`}
                 >
                   teaching
                 </span>
@@ -68,7 +82,7 @@ const Hero = () => {
             ) : (
               <button
                 className="px-8 py-3 m-2 text-lg font-semibold rounded-xl bg-[#6665DD] text-white"
-                onClick={() => router.push("/login")}
+                onClick={handleSignup}
               >
                 Sign in to join waitlist
               </button>

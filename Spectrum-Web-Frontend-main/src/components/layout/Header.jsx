@@ -35,8 +35,6 @@ const Header = () => {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
-    dispatch(logout());
-    signOut(auth);
   };
 
   return (
@@ -67,7 +65,7 @@ const Header = () => {
               <div className="flex items-center gap-5">
                 <Link href="/resource">
                   <BookOpen
-                    size={40}
+                    size={31}
                     className={
                       pathname === "/resource" ? "text-[#6665DD]" : "text-black"
                     }
@@ -102,7 +100,15 @@ const Header = () => {
               >
                 {settings.map((setting) => (
                   <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">{setting}</Typography>
+                    <Typography
+                      textAlign="center"
+                      onClick={() => {
+                        dispatch(logout());
+                        signOut(auth);
+                      }}
+                    >
+                      {setting}
+                    </Typography>
                   </MenuItem>
                 ))}
               </Menu>

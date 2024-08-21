@@ -17,11 +17,11 @@ const FAQ = () => {
       <div className="container mx-auto flex flex-col items-center py-16 gap-8">
         <div className="text-center">
           <h1
-            className={`text-lg md:text-3xl text-[#595D62] ${openSans.className}`}
+            className={`text-lg md:text-[32px] text-[#595D62] ${openSans.className}`}
           >
             Got questions? We’ve got{" "}
             <span
-              className={`text-lg md:text-3xl ${openSan.className} text-[#6665DD]`}
+              className={`text-lg md:text-[32px] ${openSan.className} text-[#6665DD]`}
             >
               answers!
             </span>
