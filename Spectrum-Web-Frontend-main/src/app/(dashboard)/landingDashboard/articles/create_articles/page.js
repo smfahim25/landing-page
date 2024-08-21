@@ -1,61 +1,23 @@
 "use client";
-import React, { useState, useRef, useEffect } from "react";
-import ReactQuill, { Quill } from "react-quill";
-import "react-quill/dist/quill.snow.css";
-import ImageResize from "quill-image-resize-module-react";
+import React, { useState, useEffect } from "react";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { useSelector } from "react-redux";
-
-// Register the image resize module with Quill
-Quill.register("modules/imageResize", ImageResize);
 
 export default function Page() {
   const user = useSelector((state) => state.auth.user);
-  //   console.log(user);
-  const [value, setValue] = useState("");
   const [categories, setCategories] = useState([]);
   const [customCat, setCustomCat] = useState("");
+  const [editorData, setEditorData] = useState("");
+  const [title, setTitle] = useState("");
+  const [coverPhoto, setCoverPhoto] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [status, setStatus] = useState("");
 
-  function imageHandler() {
-    const input = document.createElement("input");
-    input.setAttribute("type", "file");
-    input.setAttribute("accept", "image/*");
-    input.click();
-
-    input.onchange = async () => {
-      const file = input.files[0];
-      const formData = new FormData();
-      console.log(input.files[0]);
-      formData.append("contentFile", file);
-
-      try {
-        // Replace 'YOUR_API_ENDPOINT' with your actual API endpoint
-        const response = await fetch(
-          "http://localhost:4000/api/v1/articals/getImgURL",
-          {
-            method: "POST",
-            headers: {
-              Authorization: `${user?.data?.accessToken}`, // Add your token here
-            },
-            body: formData,
-          }
-        );
-
-        const data = await response.json();
-
-        if (response.ok) {
-          const imageURL = data.url; // Assuming your API response contains the image URL in 'url'
-          const quill = this.quill;
-          const range = quill.getSelection();
-          quill.insertEmbed(range.index, "image", imageURL);
-          quill.setSelection(range.index + 1);
-        } else {
-          console.error("Failed to upload image:", data);
-        }
-      } catch (error) {
-        console.error("Error uploading image:", error);
-      }
-    };
-  }
+  const handleEditorChange = (event, editor) => {
+    const data = editor.getData();
+    setEditorData(data);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -76,65 +38,132 @@ export default function Page() {
         }
 
         const result = await response.json();
-        setCategories(result);
+        setCategories(result?.data);
       } catch (error) {
         console.log(error.message);
-      } finally {
-        console.log("success");
       }
     };
 
     fetchData();
-  }, []);
+  }, [user?.data?.accessToken]);
+
   const handleAdd = async () => {
-    console.log(customCat);
+    if (!customCat.trim()) {
+      console.error("Category name cannot be empty");
+      return;
+    }
+
     const payload = {
       name: customCat,
     };
+
     try {
-      // Replace 'YOUR_API_ENDPOINT' with your actual API endpoint
       const response = await fetch(
         "http://localhost:4000/api/v1/articals/create-category",
         {
           method: "POST",
           headers: {
-            Authorization: `${user?.data?.accessToken}`, // Add your token here
+            Authorization: `${user?.data?.accessToken}`,
+            "Content-Type": "application/json",
           },
           body: JSON.stringify(payload),
         }
       );
 
-      const data = await response.json();
+      if (!response.ok) {
+        throw new Error("Failed to create category");
+      }
 
-      console.log(data);
+      const data = await response.json();
+      setCategories([...categories, data]);
+      setCustomCat("");
     } catch (error) {
-      console.error("Error uploading image:", error);
+      console.error("Error creating category:", error);
     }
   };
+
+  const handleSubmit = async () => {
+    if (!title || !coverPhoto || !selectedCategory || !status || !editorData) {
+      console.error("Please fill in all fields");
+      return;
+    }
+    console.log(coverPhoto);
+    const payload = {
+      title: title,
+      catId: selectedCategory,
+      status: status,
+      description: editorData,
+      email: user?.data?.getUser?.email,
+    };
+    const formData = new FormData();
+    formData.append("data", JSON.stringify(payload));
+    formData.append("file", coverPhoto);
+
+    try {
+      const response = await fetch(
+        "http://localhost:4000/api/v1/articals/create-artical",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `${user?.data?.accessToken}`,
+            "Content-Type": "multipart/form-data",
+          },
+          body: formData,
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to create article");
+      }
+
+      const data = await response.json();
+      console.log("Article created successfully:", data);
+      // Reset form
+      setTitle("");
+      setCoverPhoto(null);
+      setSelectedCategory("");
+      setStatus("");
+      setEditorData("");
+    } catch (error) {
+      console.error("Error creating article:", error);
+    }
+  };
+
   return (
     <div className="md:px-20">
       <h1 className="text-2xl font-bold">Create Article</h1>
       <div className="mt-10 grid grid-cols-2 gap-5">
-        <div className="flex flex-col ">
+        <div className="flex flex-col">
           <label>Title</label>
           <input
             type="text"
             placeholder="title"
             className="border-2 px-4 py-1 rounded-md"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
           />
         </div>
-        <div className="flex flex-col ">
+        <div className="flex flex-col">
           <label>Cover photo</label>
           <input
             type="file"
-            placeholder="upload file"
             className="border-2 px-4 py-1 rounded-md"
+            onChange={(e) => setCoverPhoto(e.target.files[0])}
           />
         </div>
-        <div className="flex flex-col ">
+        <div className="flex flex-col">
           <label>Category</label>
-          <select className="border-2 py-1 px-2 rounded-md">
+          <select
+            className="border-2 py-1 px-2 rounded-md"
+            value={selectedCategory}
+            onChange={(e) => setSelectedCategory(e.target.value)}
+          >
             <option>Select category</option>
+            {categories?.map((cat) => (
+              <option key={cat.id} value={cat.id}>
+                {cat.name}
+              </option>
+            ))}
           </select>
           <div className="flex items-center gap-2 mt-3">
             <input
@@ -142,19 +171,24 @@ export default function Page() {
               placeholder="add category"
               value={customCat}
               onChange={(e) => setCustomCat(e.target.value)}
-              className="border-2 px-4 py-1 rounded-md"
+              className="w-[150px] border-2 px-4 py-1 rounded-md"
             />
             <button
+              type="submit"
               onClick={handleAdd}
-              className="bg-[#6665DD] text-white px-2 rounded-md py-1"
+              className="bg-[#6665DD] text-white px-2 rounded-md py-1 cursor-pointer"
             >
               Add
             </button>
           </div>
         </div>
-        <div className="flex flex-col ">
+        <div className="flex flex-col">
           <label>Status</label>
-          <select className="border-2 py-1 px-2 rounded-md">
+          <select
+            className="border-2 py-1 px-2 rounded-md"
+            value={status}
+            onChange={(e) => setStatus(e.target.value)}
+          >
             <option>Select Status</option>
             <option value="INACTIVE">In Active</option>
             <option value="ACTIVE">Active</option>
@@ -162,58 +196,32 @@ export default function Page() {
         </div>
       </div>
       <div className="mt-10 mb-20">
-        <ReactQuill
-          className="h-[60vh]"
-          theme="snow"
-          value={value}
-          onChange={setValue}
-          modules={{
-            toolbar: {
-              container: [
-                [
-                  { header: [1, 2, 3, 4, 5, 6] }, // All heading levels
-                  { font: [] },
-                ],
-                [{ size: [] }],
-                ["bold", "italic", "underline", "strike", "blockquote"],
-                [
-                  { list: "ordered" },
-                  { list: "bullet" },
-                  { indent: "-1" },
-                  { indent: "+1" },
-                ],
-                ["link", "image", "video"],
-                [{ align: [] }],
-                ["clean"],
-              ],
-              handlers: {
-                image: imageHandler,
-              },
-            },
-            imageResize: { modules: ["Resize", "DisplaySize", "Toolbar"] },
+        <CKEditor
+          editor={ClassicEditor}
+          data={editorData}
+          onChange={handleEditorChange}
+          config={{
+            toolbar: [
+              "heading",
+              "|",
+              "bold",
+              "italic",
+              "link",
+              "bulletedList",
+              "numberedList",
+              "blockQuote",
+              "imageUpload",
+              "undo",
+              "redo",
+            ],
           }}
-          formats={[
-            "header",
-            "font",
-            "size",
-            "bold",
-            "italic",
-            "underline",
-            "strike",
-            "blockquote",
-            "list",
-            "bullet",
-            "indent",
-            "link",
-            "image",
-            "video",
-            "align",
-          ]}
-          placeholder="Write something awesome..."
         />
       </div>
       <div className="mb-10">
-        <button className="bg-[#6665DD] text-white px-8 rounded-md py-2">
+        <button
+          className="bg-[#6665DD] text-white px-8 rounded-md py-2"
+          onClick={handleSubmit}
+        >
           Create
         </button>
       </div>
