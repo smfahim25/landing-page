@@ -14,7 +14,7 @@ router.post(
   auth('ADMIN'),
   upload.fields([
     { name: 'file', maxCount: 1 }, // For main blog image
-    { name: 'contentFile', maxCount: 12 }, // For blog content images
+    // { name: 'contentFile', maxCount: 12 }, // For blog content images
   ]),
   (req, res, next) => {
     req.body = JSON.parse(req.body.data);
@@ -25,5 +25,13 @@ router.post(
 router.get('/', ArticalController.GetAllArticals);
 router.get('/artical-details/:id', ArticalController.ArticalDetails);
 router.patch('/edit-artical/:id', auth('ADMIN'), ArticalController.EditArtical);
+
+router.post(
+  '/getImgURL',
+  upload.fields([
+    { name: 'contentFile', maxCount: 12 }, // For blog content images
+  ]),
+  ArticalController.GetImgURL,
+);
 
 export const ArticalRoutes = router;

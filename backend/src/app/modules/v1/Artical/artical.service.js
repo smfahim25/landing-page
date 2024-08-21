@@ -47,6 +47,25 @@ const CreateArtical = async (file, contentFile, payload) => {
   const result = await prisma.artical.create({ data: payload });
   return result;
 };
+const GetImgURL = async (contentFile) => {
+  // Upload content images if they exist
+  const result = {};
+  if (contentFile && contentFile.length > 0) {
+    const contentImageUrls = [];
+
+    for (let i = 0; i < contentFile.length; i++) {
+      const file = contentFile[i];
+      const imageName = `${contentFile?.filename}-content-${i}`;
+      const path = file?.path;
+
+      // Send content image to Cloudinary
+      const { secure_url } = await sendImageToCloudinary(imageName, path);
+      contentImageUrls.push(secure_url);
+    }
+    result.contentImages = contentImageUrls;
+  }
+  return result;
+};
 
 const GetAllArticals = async (query) => {
   const id = query.id;
@@ -80,4 +99,5 @@ export const ArticalService = {
   GetAllArticals,
   ArticalDetails,
   EditArtical,
+  GetImgURL,
 };
