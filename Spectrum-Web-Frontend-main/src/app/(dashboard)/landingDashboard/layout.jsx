@@ -11,7 +11,7 @@ export default function DashboardLayout({ children }) {
       </div>
       <Box className="h-screen flex z-50 overflow-hidden">
         <Sidebar />
-        <Box className="flex-1 overflow-y-auto scrollbar-hide">
+        <Box className="flex-1 overflow-y-auto scrollbar-hide px-5">
           <main className="ml-0 md:ml-2 -z-50 ">{children}</main>
         </Box>
       </Box>

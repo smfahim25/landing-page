@@ -10,6 +10,7 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import questions from "../../../questionairre/questions.json"; // Adjust the path as needed
 import { useSelector } from "react-redux";
+import { Card, CardContent, CardHeader, Grid, Typography } from "@mui/material";
 
 export default function SPage() {
   const user = useSelector((state) => state.auth.user);
@@ -19,14 +20,13 @@ export default function SPage() {
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [data, setData] = useState({});
 
   useEffect(() => {
-    // Define the async function inside useEffect
     const fetchData = async () => {
       try {
-        // Perform the fetch request
         const response = await fetch(
-          "http://localhost:4000/api/v1//articals/article-analytics",
+          "https://landing-pages-shoshin-tech.onrender.com/api/v1/articals/article-analytics",
           {
             method: "GET",
             headers: {
@@ -36,28 +36,19 @@ export default function SPage() {
           }
         );
 
-        // Check if response is OK
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
 
-        // Parse JSON response
         const result = await response.json();
-        console.log("Fetched Data:", result);
-
-        // Update state with the fetched data
-        // setData(result.data || []);
+        setData(result.data || {});
       } catch (error) {
-        // Handle errors
-        console.error("Error fetching data:", error.message);
         setError(error.message);
       } finally {
-        // Always set loading to false
         setLoading(false);
       }
     };
 
-    // Call the async function
     fetchData();
   }, []);
 
@@ -65,7 +56,7 @@ export default function SPage() {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          "http://localhost:4000/api/v1/questionaries",
+          "https://landing-pages-shoshin-tech.onrender.com/api/v1/questionaries",
           {
             method: "GET",
             headers: {
@@ -148,11 +139,34 @@ export default function SPage() {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
-
+  const generateLabel = (optionId) => {
+    const [optionCode] = optionId.split("-");
+    const optionNumber = optionCode.replace("op", "");
+    return `Option-${optionNumber}`;
+  };
   return (
-    <div>
-      <div></div>
+    <div className="flex flex-col gap-5">
       <div>
+        <Grid container spacing={3}>
+          {Object.keys(data).map((questionId) => (
+            <Grid item xs={12} sm={6} md={4} key={questionId}>
+              <Card className="h-[200px]">
+                <CardHeader title={`Q${questionId.slice(1)}`} />
+                <div className="grid grid-col-2 gap-3">
+                  <CardContent className="grid grid-cols-2 gap-3">
+                    {data[questionId].map((option) => (
+                      <Typography key={option.option}>
+                        {generateLabel(option.option)}: {option.count}
+                      </Typography>
+                    ))}
+                  </CardContent>
+                </div>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
+      </div>
+      <div className="mt-16">
         <Paper sx={{ width: "100%", overflow: "hidden" }}>
           {error && <div>Error: {error}</div>}
           {loading ? (

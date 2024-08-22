@@ -36,7 +36,7 @@ export default function Page() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:4000/api/v1/articals",
+          "https://landing-pages-shoshin-tech.onrender.com/api/v1/articals",
           {
             headers: {
               Authorization: `${user?.data?.accessToken}`, // Include token in the request headers

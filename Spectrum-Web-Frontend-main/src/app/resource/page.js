@@ -26,7 +26,7 @@ export default function Page() {
   const [groupedArticles, setGroupedArticles] = useState({});
 
   useEffect(() => {
-    fetch("http://localhost:4000/api/v1/articals")
+    fetch("https://landing-pages-shoshin-tech.onrender.com/api/v1/articals")
       .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
@@ -157,20 +157,24 @@ export default function Page() {
                             className="rounded-xl"
                           />
                           <CardContent sx={{ padding: "16px" }}>
-                            <Typography
-                              gutterBottom
-                              variant="h6"
-                              component="div"
-                              className={`${openSanBold.className}`}
-                              sx={{
-                                fontSize: "14px",
-                                lineHeight: "24px",
-                                fontWeight: "700",
-                                color: "#262626",
-                              }}
+                            <Link
+                              href={`/resource/resource_details?id=${item?.id}`}
                             >
-                              {truncateTitle(item?.title, 35)}
-                            </Typography>
+                              <Typography
+                                gutterBottom
+                                variant="h6"
+                                component="div"
+                                className={`${openSanBold.className}`}
+                                sx={{
+                                  fontSize: "14px",
+                                  lineHeight: "24px",
+                                  fontWeight: "700",
+                                  color: "#262626",
+                                }}
+                              >
+                                {truncateTitle(item?.title, 35)}
+                              </Typography>
+                            </Link>
                             <Typography
                               variant="body2"
                               color="text.secondary"
