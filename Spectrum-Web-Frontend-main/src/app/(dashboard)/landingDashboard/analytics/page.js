@@ -24,6 +24,7 @@ export default function SPage() {
 
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true);
       try {
         const response = await fetch(
           "https://landing-pages-shoshin-tech.onrender.com/api/v1/articals/article-analytics",
@@ -41,6 +42,7 @@ export default function SPage() {
         }
 
         const result = await response.json();
+        setLoading(false);
         setData(result.data || {});
       } catch (error) {
         setError(error.message);
@@ -54,6 +56,7 @@ export default function SPage() {
 
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true);
       try {
         const response = await fetch(
           "https://landing-pages-shoshin-tech.onrender.com/api/v1/questionaries",
@@ -119,7 +122,7 @@ export default function SPage() {
 
           return row;
         });
-
+        setLoading(false);
         setRows(transformedData);
       } catch (error) {
         setError(error.message);
@@ -145,76 +148,92 @@ export default function SPage() {
     return `Option-${optionNumber}`;
   };
   return (
-    <div className="flex flex-col gap-5">
-      <div>
-        <Grid container spacing={3}>
-          {Object.keys(data).map((questionId) => (
-            <Grid item xs={12} sm={6} md={4} key={questionId}>
-              <Card className="h-[200px]">
-                <CardHeader title={`Q${questionId.slice(1)}`} />
-                <div className="grid grid-col-2 gap-3">
-                  <CardContent className="grid grid-cols-2 gap-3">
-                    {data[questionId].map((option) => (
-                      <Typography key={option.option}>
-                        {generateLabel(option.option)}: {option.count}
-                      </Typography>
-                    ))}
-                  </CardContent>
-                </div>
-              </Card>
+    <div>
+      {loading ? (
+        <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-75 z-50">
+          <div className="w-16 h-16 border-4 border-dashed rounded-full animate-spin bg-[#6665DD]"></div>
+        </div>
+      ) : (
+        <div className="flex flex-col gap-5">
+          <div>
+            <Grid container spacing={3}>
+              {Object.keys(data).map((questionId) => (
+                <Grid item xs={12} sm={6} md={4} key={questionId}>
+                  <Card className="h-[200px]">
+                    <CardHeader title={`Q${questionId.slice(1)}`} />
+                    <div className="grid grid-col-2 gap-3">
+                      <CardContent className="grid grid-cols-2 gap-3">
+                        {data[questionId].map((option) => (
+                          <Typography key={option.option}>
+                            {generateLabel(option.option)}: {option.count}
+                          </Typography>
+                        ))}
+                      </CardContent>
+                    </div>
+                  </Card>
+                </Grid>
+              ))}
             </Grid>
-          ))}
-        </Grid>
-      </div>
-      <div className="mt-16">
-        <Paper sx={{ width: "100%", overflow: "hidden" }}>
-          {error && <div>Error: {error}</div>}
-          {loading ? (
-            <div>Loading...</div>
-          ) : (
-            <TableContainer sx={{ maxHeight: 440 }}>
-              <Table stickyHeader aria-label="sticky table">
-                <TableHead>
-                  <TableRow>
-                    {columns.map((column) => (
-                      <TableCell
-                        key={column.id}
-                        style={{ minWidth: column.minWidth }}
-                      >
-                        {column.label}
-                      </TableCell>
-                    ))}
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {rows
-                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                    .map((row, index) => (
-                      <TableRow hover role="checkbox" tabIndex={-1} key={index}>
+          </div>
+          <div className="mt-16">
+            <Paper sx={{ width: "100%", overflow: "hidden" }}>
+              {error && <div>Error: {error}</div>}
+              {loading ? (
+                <div>Loading...</div>
+              ) : (
+                <TableContainer sx={{ maxHeight: 440 }}>
+                  <Table stickyHeader aria-label="sticky table">
+                    <TableHead>
+                      <TableRow>
                         {columns.map((column) => (
-                          <TableCell key={column.id}>
-                            {row[column.id] !== undefined
-                              ? row[column.id]
-                              : "No Data"}
+                          <TableCell
+                            key={column.id}
+                            style={{ minWidth: column.minWidth }}
+                          >
+                            {column.label}
                           </TableCell>
                         ))}
                       </TableRow>
-                    ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          )}
-          <TablePagination
-            rowsPerPageOptions={[10, 25, 100]}
-            component="div"
-            count={rows.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-          />
-        </Paper>
-      </div>
+                    </TableHead>
+                    <TableBody>
+                      {rows
+                        .slice(
+                          page * rowsPerPage,
+                          page * rowsPerPage + rowsPerPage
+                        )
+                        .map((row, index) => (
+                          <TableRow
+                            hover
+                            role="checkbox"
+                            tabIndex={-1}
+                            key={index}
+                          >
+                            {columns.map((column) => (
+                              <TableCell key={column.id}>
+                                {row[column.id] !== undefined
+                                  ? row[column.id]
+                                  : "No Data"}
+                              </TableCell>
+                            ))}
+                          </TableRow>
+                        ))}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+              )}
+              <TablePagination
+                rowsPerPageOptions={[10, 25, 100]}
+                component="div"
+                count={rows.length}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                onPageChange={handleChangePage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+              />
+            </Paper>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
