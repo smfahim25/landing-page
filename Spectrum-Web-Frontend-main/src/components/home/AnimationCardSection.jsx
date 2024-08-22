@@ -13,7 +13,7 @@ const openSans = Open_Sans({
 });
 const AnimationCardSection = () => {
   return (
-    <div className="container mx-auto px-4 py-16">
+    <div className="container mx-auto px-4 pt-16">
       <div className="flex flex-col gap-1 md:gap-8 mx-auto">
         <div className="md:w-[700px] mx-auto">
           <h1
@@ -37,43 +37,41 @@ const AnimationCardSection = () => {
                 className={`${style.cardContainer} md:h-[85vh] md:sticky md:bottom-0`}
                 style={{ zIndex: projects.length - i }} // Ensures correct stacking order
               >
-                <div>
-                  <div
-                    className={`bg-[#FDFAFA] mt-10 py-5 px-10 rounded-3xl ${style.custom_shad} h-full md:h-[340px] ${style.card}`}
-                    style={{ top: `${i * 50}px` }} // Adjust the top value
-                  >
-                    <div className="relative flex flex-col-reverse md:flex-row items-center gap-10 md:gap-16 md:px-10 md:h-[272px] mb-5 md:mb-0">
-                      <div className="md:w-[400px] md:flex flex-col gap-5 justify-start">
-                        <div className="mb-5 md:mb-0">
-                          <div className="bg-[#6CAE7533] w-24 text-center py-2 rounded-2xl mb-2">
-                            <p className={`${openSans.className} text-[10px]`}>
-                              {project?.status}
-                            </p>
-                          </div>
-                          <h1
-                            className={`text-xl md:text-[32px] ${openSan.className}`}
-                          >
-                            {project?.title}
-                          </h1>
+                <div
+                  className={`bg-[#FDFAFA] mt-10 py-5 px-10 rounded-3xl ${style.custom_shad} h-full md:h-[340px] ${style.card}`}
+                  style={{ top: `${i * 50}px` }} // Adjust the top value
+                >
+                  <div className="relative flex flex-col-reverse md:flex-row items-center gap-10 md:gap-16 md:px-10 md:h-[272px] mb-5 md:mb-0">
+                    <div className="md:w-[400px] md:flex flex-col gap-5 justify-start">
+                      <div className="mb-5 md:mb-0">
+                        <div className="bg-[#6CAE7533] w-24 text-center py-2 rounded-2xl mb-2">
+                          <p className={`${openSans.className} text-[10px]`}>
+                            {project?.status}
+                          </p>
                         </div>
-                        <p
-                          className={`${openSans.className} text-[14px] md:text-lg`}
+                        <h1
+                          className={`text-xl md:text-[32px] ${openSan.className}`}
                         >
-                          {project?.description}
-                        </p>
+                          {project?.title}
+                        </h1>
                       </div>
-                      <div>
-                        <Image
-                          src={project?.link}
-                          alt={project?.src}
-                          width={300}
-                          height={276}
-                        />
-                      </div>
+                      <p
+                        className={`${openSans.className} text-[14px] md:text-lg`}
+                      >
+                        {project?.description}
+                      </p>
                     </div>
                     <div>
-                      <p>{project?.page}</p>
+                      <Image
+                        src={project?.link}
+                        alt={project?.src}
+                        width={300}
+                        height={276}
+                      />
                     </div>
+                  </div>
+                  <div>
+                    <p>{project?.page}</p>
                   </div>
                 </div>
               </div>

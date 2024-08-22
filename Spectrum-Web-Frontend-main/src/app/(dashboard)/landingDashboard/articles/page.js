@@ -1,17 +1,152 @@
+"use client";
+import * as React from "react";
+import axios from "axios";
+import Paper from "@mui/material/Paper";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TablePagination from "@mui/material/TablePagination";
+import TableRow from "@mui/material/TableRow";
 import Link from "next/link";
-import React from "react";
+import { useSelector } from "react-redux";
 
-export default function page() {
+const columns = [
+  { id: "title", label: "Title", minWidth: 170 },
+  { id: "catId", label: "Category ID", minWidth: 100 },
+  { id: "description", label: "Description", minWidth: 200 },
+  { id: "status", label: "Status", minWidth: 100 },
+  { id: "action", label: "Action", minWidth: 100, align: "center" }, // New Action column
+];
+
+function createData(title, catId, description, status, id) {
+  return { title, catId, description, status, id }; // Include id in the row object
+}
+
+export default function Page() {
+  const user = useSelector((state) => state.auth.user);
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [rows, setRows] = React.useState([]);
+  const [loading, setLoading] = React.useState(true);
+  const [error, setError] = React.useState(null);
+
+  React.useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "https://landing-pages-shoshin-tech.onrender.com/api/v1/articals",
+          {
+            headers: {
+              Authorization: `${user?.data?.accessToken}`, // Include token in the request headers
+            },
+          }
+        );
+        // Assuming the API returns an array of objects with keys 'title', 'catId', 'description', 'status', and 'id'
+        const data = response?.data?.data?.map((item) =>
+          createData(
+            item.title.slice(0, 35),
+            item.category.name,
+            item.description.slice(0, 50),
+            item.status,
+            item.id // Pass id for editing
+          )
+        );
+        setRows(data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
+  };
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
+
   return (
-    <div>
-      articles
-      <Link
-        href="/landingDashboard/articles/create_articles"
-        className="hover:text-blue-500"
-      >
-        {" "}
-        create articles
-      </Link>
+    <div className="px-10 flex flex-col gap-10">
+      <div className="flex justify-between items-center mt-5">
+        <h1 className="text-xl font-bold">Articles List</h1>
+        <Link
+          href="/landingDashboard/articles/create_articles"
+          className=" bg-[#6665DD] px-5 py-1 text-white rounded-md "
+        >
+          Create Articles
+        </Link>
+      </div>
+      <div>
+        <Paper sx={{ width: "100%", overflow: "hidden" }}>
+          <TableContainer sx={{ maxHeight: 440 }}>
+            <Table stickyHeader aria-label="sticky table">
+              <TableHead>
+                <TableRow>
+                  {columns.map((column) => (
+                    <TableCell
+                      key={column.id}
+                      align={column.align}
+                      style={{ minWidth: column.minWidth }}
+                    >
+                      {column.label}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {rows
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map((row) => (
+                    <TableRow
+                      hover
+                      role="checkbox"
+                      tabIndex={-1}
+                      key={`${row.id}-${Date.now()}-${Math.random()}`} // Use id as the key
+                    >
+                      {columns.map((column) => {
+                        const value = row[column.id];
+                        return (
+                          <TableCell key={column.id} align={column.align}>
+                            {column.id === "action" ? (
+                              <Link
+                                href={`/landingDashboard/articles/edit_articles?id=${row.id}`}
+                                className="text-blue-500"
+                              >
+                                Edit
+                              </Link>
+                            ) : (
+                              value
+                            )}
+                          </TableCell>
+                        );
+                      })}
+                    </TableRow>
+                  ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <TablePagination
+            rowsPerPageOptions={[10, 25, 100]}
+            component="div"
+            count={rows.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
+        </Paper>
+      </div>
     </div>
   );
 }
