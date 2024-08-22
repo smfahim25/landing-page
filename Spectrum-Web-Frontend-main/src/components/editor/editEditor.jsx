@@ -18,6 +18,7 @@ export default function EditEditor() {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [status, setStatus] = useState("");
   const [existingCoverPhoto, setExistingCoverPhoto] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleEditorChange = (event, editor) => {
     const data = editor.getData();
@@ -54,6 +55,7 @@ export default function EditEditor() {
 
   useEffect(() => {
     const fetchArticle = async () => {
+      setLoading(true);
       try {
         const response = await fetch(
           `https://landing-pages-shoshin-tech.onrender.com/api/v1/articals/artical-details/${articleId}`,
@@ -75,8 +77,10 @@ export default function EditEditor() {
         setSelectedCategory(data?.data?.catId);
         setStatus(data?.data?.status);
         setEditorData(data?.data?.description);
-        setExistingCoverPhoto(data?.data?.img); // Set the existing cover photo
+        setExistingCoverPhoto(data?.data?.img);
+        setLoading(false); // Set the existing cover photo
       } catch (error) {
+        setLoading(false);
         console.error("Error fetching article:", error);
       }
     };
@@ -162,101 +166,109 @@ export default function EditEditor() {
   };
 
   return (
-    <div className="md:px-20">
-      <h1 className="text-2xl font-bold">Edit Article</h1>
-      <div className="mt-10 grid grid-cols-2 gap-5">
-        <div className="flex flex-col">
-          <label>Title</label>
-          <input
-            type="text"
-            placeholder="title"
-            className="border-2 px-4 py-1 rounded-md"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
+    <div>
+      {loading ? (
+        <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-75 z-50">
+          <div className="w-16 h-16 border-4 border-dashed rounded-full animate-spin bg-[#6665DD]"></div>
         </div>
-        <div className="flex flex-col">
-          <label>Cover photo</label>
-          <input
-            type="file"
-            className="border-2 px-4 py-1 rounded-md"
-            onChange={(e) => setCoverPhoto(e.target.files[0])}
-          />
-        </div>
-        <div className="flex flex-col">
-          <label>Category</label>
-          <select
-            className="border-2 py-1 px-2 rounded-md"
-            value={selectedCategory}
-            onChange={(e) => setSelectedCategory(e.target.value)}
-          >
-            <option>Select category</option>
-            {categories?.map((cat) => (
-              <option key={cat.id} value={cat.id}>
-                {cat.name}
-              </option>
-            ))}
-          </select>
-          <div className="flex items-center gap-2 mt-3">
-            <input
-              type="text"
-              placeholder="add category"
-              value={customCat}
-              onChange={(e) => setCustomCat(e.target.value)}
-              className="w-[150px] border-2 px-4 py-1 rounded-md"
+      ) : (
+        <div className="md:px-20">
+          <h1 className="text-2xl font-bold">Edit Article</h1>
+          <div className="mt-10 grid grid-cols-2 gap-5">
+            <div className="flex flex-col">
+              <label>Title</label>
+              <input
+                type="text"
+                placeholder="title"
+                className="border-2 px-4 py-1 rounded-md"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+              />
+            </div>
+            <div className="flex flex-col">
+              <label>Cover photo</label>
+              <input
+                type="file"
+                className="border-2 px-4 py-1 rounded-md"
+                onChange={(e) => setCoverPhoto(e.target.files[0])}
+              />
+            </div>
+            <div className="flex flex-col">
+              <label>Category</label>
+              <select
+                className="border-2 py-1 px-2 rounded-md"
+                value={selectedCategory}
+                onChange={(e) => setSelectedCategory(e.target.value)}
+              >
+                <option>Select category</option>
+                {categories?.map((cat) => (
+                  <option key={cat.id} value={cat.id}>
+                    {cat.name}
+                  </option>
+                ))}
+              </select>
+              <div className="flex items-center gap-2 mt-3">
+                <input
+                  type="text"
+                  placeholder="add category"
+                  value={customCat}
+                  onChange={(e) => setCustomCat(e.target.value)}
+                  className="w-[150px] border-2 px-4 py-1 rounded-md"
+                />
+                <button
+                  type="submit"
+                  onClick={handleAdd}
+                  className="bg-[#6665DD] text-white px-2 rounded-md py-1 cursor-pointer"
+                >
+                  Add
+                </button>
+              </div>
+            </div>
+            <div className="flex flex-col">
+              <label>Status</label>
+              <select
+                className="border-2 py-1 px-2 rounded-md"
+                value={status}
+                onChange={(e) => setStatus(e.target.value)}
+              >
+                <option>Select Status</option>
+                <option value="INACTIVE">Inactive</option>
+                <option value="ACTIVE">Active</option>
+              </select>
+            </div>
+          </div>
+          <div className="mt-10 mb-5">
+            <CKEditor
+              editor={ClassicEditor}
+              data={editorData ? editorData : ""}
+              onChange={handleEditorChange}
+              config={{
+                toolbar: [
+                  "heading",
+                  "|",
+                  "bold",
+                  "italic",
+                  "link",
+                  "bulletedList",
+                  "numberedList",
+                  "blockQuote",
+                  "imageUpload",
+                  "undo",
+                  "redo",
+                ],
+              }}
             />
+          </div>
+          <div className="mb-10">
             <button
-              type="submit"
-              onClick={handleAdd}
-              className="bg-[#6665DD] text-white px-2 rounded-md py-1 cursor-pointer"
+              className="bg-[#6665DD] text-white px-8 rounded-md py-2"
+              onClick={handleEdit}
             >
-              Add
+              Edit
             </button>
           </div>
         </div>
-        <div className="flex flex-col">
-          <label>Status</label>
-          <select
-            className="border-2 py-1 px-2 rounded-md"
-            value={status}
-            onChange={(e) => setStatus(e.target.value)}
-          >
-            <option>Select Status</option>
-            <option value="INACTIVE">Inactive</option>
-            <option value="ACTIVE">Active</option>
-          </select>
-        </div>
-      </div>
-      <div className="mt-10 mb-5">
-        <CKEditor
-          editor={ClassicEditor}
-          data={editorData ? editorData : ""}
-          onChange={handleEditorChange}
-          config={{
-            toolbar: [
-              "heading",
-              "|",
-              "bold",
-              "italic",
-              "link",
-              "bulletedList",
-              "numberedList",
-              "blockQuote",
-              "imageUpload",
-              "undo",
-              "redo",
-            ],
-          }}
-        />
-      </div>
-      <div className="mb-10">
-        <button
-          className="bg-[#6665DD] text-white px-8 rounded-md py-2"
-          onClick={handleEdit}
-        >
-          Edit
-        </button>
-      </div>
+      )}
     </div>
   );
 }

@@ -19,8 +19,10 @@ export default function page() {
   const params = useSearchParams();
   const articleId = params?.get("id");
   const [details, setDetails] = useState("");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
     const fetchArticle = async () => {
       try {
         const response = await fetch(
@@ -40,8 +42,10 @@ export default function page() {
 
         const data = await response.json();
         console.log(data.data);
+        setLoading(false);
         setDetails(data?.data);
       } catch (error) {
+        setLoading(false);
         toast.error("Error fetching article:", error);
       }
     };
@@ -75,48 +79,56 @@ export default function page() {
   return (
     <div>
       <Header />
-      <div className="flex flex-col gap-7">
-        <div className="h-[400px]">
-          {details?.img && (
-            <Image
-              src={`${details?.img}`}
-              alt={details?.title}
-              width={500}
-              height={200}
-              className="h-[500px] w-full"
-            />
-          )}
+      {loading ? (
+        <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-75 z-50">
+          <div className="w-16 h-16 border-4 border-dashed rounded-full animate-spin bg-[#6665DD]"></div>
         </div>
-        <div className="flex justify-center items-center min-h-[65vh]">
-          <div className="mt-[20px] flex flex-col w-[400px] sm:w-[500px] md:w-[600px] gap-5 mx-auto break-all">
-            <div>
-              <h1
-                className={`text-[18px] md:text-[32px] ${openSan.className} text-left text-[#262626] text-wrap`}
-              >
-                {details?.title}
-              </h1>
-            </div>
-            <div className="flex justify-start gap-3">
-              <Avatar src="/logo.png" className="border-2" />
+      ) : (
+        <div className="flex flex-col gap-7">
+          <div className="h-[400px]">
+            {details?.img && (
+              <Image
+                src={`${details?.img}`}
+                alt={details?.title}
+                width={500}
+                height={200}
+                className="h-[500px] w-full"
+              />
+            )}
+          </div>
+          <div className="flex justify-center items-center min-h-[65vh]">
+            <div className="mt-[20px] flex flex-col w-[400px] sm:w-[500px] md:w-[600px] gap-5 mx-auto break-all">
               <div>
-                <p
-                  className={`text-[14px] ${openSan.className} text-[#262626]`}
+                <h1
+                  className={`text-[18px] md:text-[32px] ${openSan.className} text-left text-[#262626] text-wrap`}
                 >
-                  {details?.user?.name ? details?.user?.name : "unknown"}
-                </p>
-                <p
-                  className={`text-[10px] ${openSan.className} text-center text-[#262626]`}
-                >
-                  {formatDate(details?.createAt)}
-                </p>
+                  {details?.title}
+                </h1>
               </div>
-            </div>
-            <div className="text-left">
-              <div dangerouslySetInnerHTML={{ __html: details?.description }} />
+              <div className="flex justify-start gap-3">
+                <Avatar src="/logo.png" className="border-2" />
+                <div>
+                  <p
+                    className={`text-[14px] ${openSan.className} text-[#262626]`}
+                  >
+                    {details?.user?.name ? details?.user?.name : "unknown"}
+                  </p>
+                  <p
+                    className={`text-[10px] ${openSan.className} text-center text-[#262626]`}
+                  >
+                    {formatDate(details?.createAt)}
+                  </p>
+                </div>
+              </div>
+              <div className="text-left">
+                <div
+                  dangerouslySetInnerHTML={{ __html: details?.description }}
+                />
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

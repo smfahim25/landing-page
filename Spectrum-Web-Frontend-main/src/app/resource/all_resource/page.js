@@ -20,9 +20,11 @@ export default function Page() {
   const params = useSearchParams();
   const catId = params?.get("id");
   const [groupedArticles, setGroupedArticles] = useState({});
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (catId) {
+      setLoading(true);
       fetch(
         `https://landing-pages-shoshin-tech.onrender.com/api/v1/articals?id=${catId}`
       )
@@ -41,10 +43,11 @@ export default function Page() {
             acc[categoryName].push(article);
             return acc;
           }, {});
-
+          setLoading(false);
           setGroupedArticles(grouped);
         })
         .catch((error) => {
+          setLoading(false);
           console.error("There was a problem with the fetch operation:", error);
         });
     }
@@ -81,91 +84,104 @@ export default function Page() {
   return (
     <div>
       <Header />
-      <div className="min-h-screen py-10 md:px-20">
-        <div className="flex flex-col gap-8">
-          {Object.entries(groupedArticles).map(([categoryName, articles]) => (
-            <div key={categoryName}>
-              <div className="flex justify-between items-center px-5 md:px-0 md:pr-12">
-                <h2
-                  className={`text-[#595D62] text-[16px] md:text-[20px] ${openSanBold.className}  `}
-                >
-                  {categoryName}
-                </h2>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-8">
-                {articles.map((item) => (
-                  <Box
-                    className="flex justify-center"
-                    key={item.id}
-                    sx={{
-                      borderRadius: "10px",
-                      overflow: "hidden",
-                    }}
+      {loading ? (
+        <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-75 z-50">
+          <div className="w-16 h-16 border-4 border-dashed rounded-full animate-spin bg-[#6665DD]"></div>
+        </div>
+      ) : (
+        <div className="min-h-screen py-10 md:px-20">
+          <div className="flex flex-col gap-8">
+            {Object.entries(groupedArticles).map(([categoryName, articles]) => (
+              <div key={categoryName}>
+                <div className="flex justify-between items-center px-5 md:px-0 md:pr-12">
+                  <h2
+                    className={`text-[#595D62] text-[16px] md:text-[20px] ${openSanBold.className}  `}
                   >
-                    <Card
+                    {categoryName}
+                  </h2>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-8">
+                  {articles.map((item) => (
+                    <Box
+                      className="px-10 sm:px-0"
+                      key={item.id}
                       sx={{
-                        maxWidth: 345,
                         borderRadius: "10px",
+                        overflow: "hidden",
                       }}
-                      className="shadow-none"
                     >
-                      <CardMedia
-                        sx={{ height: 180 }}
-                        image={item.img}
-                        title={item.title}
-                        className="rounded-xl"
-                      />
-                      <CardContent sx={{ padding: "16px" }}>
-                        <Link
-                          href={`/resource/resource_details?id=${item?.id}`}
-                        >
+                      <Card
+                        sx={{
+                          maxWidth: 345,
+                          borderRadius: "10px",
+                        }}
+                        className="shadow-none"
+                      >
+                        <CardMedia
+                          sx={{ height: 180 }}
+                          image={item.img}
+                          title={item.title}
+                          className="rounded-xl"
+                        />
+                        <CardContent sx={{ padding: "16px" }}>
+                          <Link
+                            href={`/resource/resource_details?id=${item?.id}`}
+                          >
+                            <Typography
+                              gutterBottom
+                              variant="h6"
+                              component="div"
+                              className={`${openSanBold.className}`}
+                              sx={{
+                                fontSize: "14px",
+                                lineHeight: "24px",
+                                fontWeight: "700",
+                                color: "#262626",
+                              }}
+                            >
+                              {truncateTitle(item?.title, 45)}
+                            </Typography>
+                          </Link>
                           <Typography
-                            gutterBottom
-                            variant="h6"
-                            component="div"
-                            className={`${openSanBold.className}`}
+                            variant="body2"
+                            color="text.secondary"
+                            className={`${openSanRegular.className} whitespace-nowrap`}
                             sx={{
-                              fontSize: "14px",
-                              lineHeight: "24px",
-                              fontWeight: "700",
-                              color: "#262626",
+                              fontSize: "12px",
+                              lineHeight: "18px",
+                              color: "#595D62",
+                              marginBottom: "10px",
                             }}
                           >
-                            {truncateTitle(item?.title, 40)}
+                            <div className="flex">
+                              <div
+                                dangerouslySetInnerHTML={{
+                                  __html: item?.description,
+                                }}
+                              />
+                              <div>...</div>
+                            </div>
                           </Typography>
-                        </Link>
-                        <Typography
-                          variant="body2"
-                          color="text.secondary"
-                          className={`${openSanRegular.className}`}
-                          sx={{
-                            fontSize: "12px",
-                            lineHeight: "18px",
-                            color: "#595D62",
-                            marginBottom: "10px",
-                          }}
-                        >
-                          {item?.description?.slice(0, 46)}...
-                        </Typography>
-                        <Typography
-                          variant="caption"
-                          display="block"
-                          sx={{
-                            fontSize: "12px",
-                            color: "#9E9E9E",
-                          }}
-                        >
-                          Published on {formatDate(item?.createAt)}
-                        </Typography>
-                      </CardContent>
-                    </Card>
-                  </Box>
-                ))}
+                          <Typography
+                            variant="caption"
+                            display="block"
+                            sx={{
+                              fontSize: "12px",
+                              color: "#9E9E9E",
+                            }}
+                          >
+                            Published on {formatDate(item?.createAt)}
+                          </Typography>
+                        </CardContent>
+                      </Card>
+                    </Box>
+                  ))}
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

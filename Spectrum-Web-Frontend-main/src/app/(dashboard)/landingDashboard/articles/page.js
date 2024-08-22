@@ -73,7 +73,14 @@ export default function Page() {
     setPage(0);
   };
 
-  if (loading) return <div>Loading...</div>;
+  if (loading)
+    return (
+      <div>
+        <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-75 z-50">
+          <div className="w-16 h-16 border-4 border-dashed rounded-full animate-spin bg-[#6665DD]"></div>
+        </div>
+      </div>
+    );
   if (error) return <div>Error: {error}</div>;
 
   return (
