@@ -84,19 +84,19 @@ export default function page() {
           <div className="w-16 h-16 border-4 border-dashed rounded-full animate-spin bg-[#6665DD]"></div>
         </div>
       ) : (
-        <div className="flex flex-col gap-7">
-          <div className="h-[400px]">
+        <div className="flex flex-col gap-7 pb-5">
+          <div className="">
             {details?.img && (
               <Image
                 src={`${details?.img}`}
                 alt={details?.title}
                 width={500}
                 height={200}
-                className="h-[500px] w-full"
+                className="md:h-[600px] w-full"
               />
             )}
           </div>
-          <div className="flex justify-center items-center min-h-[65vh]">
+          <div className="flex justify-center items-center md:min-h-[35vh]">
             <div className="mt-[20px] flex flex-col w-[400px] sm:w-[500px] md:w-[600px] gap-5 mx-auto break-all">
               <div>
                 <h1
