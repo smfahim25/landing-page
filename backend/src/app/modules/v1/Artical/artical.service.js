@@ -29,9 +29,8 @@ const CreateArtical = async (file, payload) => {
   // Upload main blog image if it exists
   if (file) {
     const imageName = `${payload?.title}-main`;
-    const path = file[0]?.path;
-
-    // Send main blog image to Cloudinary
+    const path = file?.path;
+    //send image to cloudinary
     const { secure_url } = await sendImageToCloudinary(imageName, path);
     payload.img = secure_url;
   }
@@ -57,9 +56,10 @@ const GetImgURL = async (contentFile) => {
 const GetAllArticals = async (query) => {
   const id = query.id;
   const result = await prisma.artical.findMany({
-    where: { catId: id },
+    where: { catId: id, status: 'ACTIVE' },
     include: {
       category: true,
+      user: true,
     },
   });
   return result;
@@ -70,15 +70,48 @@ const ArticalDetails = async (params) => {
     where: { id: params.id },
     include: {
       category: true,
+      user: true,
     },
   });
   return result;
 };
-const EditArtical = async (params, payload) => {
+const EditArtical = async (params, file, payload) => {
+  // Upload main blog image if it exists
+  if (file) {
+    const imageName = `${payload?.title}-main`;
+    const path = file?.path;
+    //send image to cloudinary
+    const { secure_url } = await sendImageToCloudinary(imageName, path);
+    payload.img = secure_url;
+  }
   const result = await prisma.artical.update({
     where: { id: params.id },
     data: payload,
   });
+  return result;
+};
+const ArticleAnlytics = async () => {
+  const questions = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6'];
+  const result = {};
+
+  for (const question of questions) {
+    const stats = await prisma.questionery.groupBy({
+      by: [question],
+      _count: {
+        [question]: true,
+      },
+      orderBy: {
+        _count: {
+          [question]: 'desc',
+        },
+      },
+    });
+    result[question] = stats.map((stat) => ({
+      option: stat[question],
+      count: stat._count[question],
+    }));
+  }
+
   return result;
 };
 export const ArticalService = {
@@ -89,4 +122,5 @@ export const ArticalService = {
   EditArtical,
   GetImgURL,
   GetAllCategories,
+  ArticleAnlytics,
 };

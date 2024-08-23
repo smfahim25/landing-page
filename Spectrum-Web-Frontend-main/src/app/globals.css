@@ -42,6 +42,17 @@
   top: -5px !important;
   right: -16px !important;
 }
+.css-uk6y6v {
+  background-color: rgba(102, 101, 221, 0.2) !important;
+  top: -5px !important;
+  right: -16px !important;
+}
 .css-1njj0mv-MuiPaper-root-MuiCard-root {
+  box-shadow: none !important;
+}
+.css-2awovp-MuiCardContent-root {
+  padding: 0 !important;
+}
+.css-1p0wcwa {
   box-shadow: none !important;
 }
