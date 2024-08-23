@@ -3,14 +3,14 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <div className="md:px-10">
+    <div className="md:px-10 lg:w-[1090px] mx-auto">
       <footer className="flex flex-col gap-5">
-        <div className="container hidden md:flex flex-wrap items-center justify-center mx-auto space-y-4 sm:justify-between sm:space-y-0">
-          <div className="flex flex-row pr-3 space-x-4 sm:space-x-8">
+        <div className="container hidden md:flex flex-wrap items-baseline justify-center mx-auto space-y-4 sm:justify-between sm:space-y-0">
+          <div className="flex flex-row pr-3 space-x-2 sm:space-x-8">
             <div className="flex items-center justify-center flex-shrink-0 w-12 h-12 rounded-full border-2">
               <Avatar alt="Remy Sharp" src="/Logo.png" />
             </div>
-            <ul className="flex flex-wrap items-center space-x-4 sm:space-x-8">
+            <ul className="flex flex-wrap items-end space-x-2 ">
               <li>
                 <a rel="noopener noreferrer" href="#">
                   Shoshin Tech
@@ -34,13 +34,13 @@ const Footer = () => {
         <div>
           <hr className="hidden md:flex" />
         </div>
-        <div className="container hidden md:flex flex-wrap items-center justify-center mx-auto space-y-4 sm:justify-between sm:space-y-0">
-          <div className="flex flex-row pr-3 space-x-4 sm:space-x-8">
-            <div className="py-6 text-sm text-center ">
+        <div className="container hidden md:flex flex-wrap items-center justify-center mx-auto  sm:justify-between mt-[-3px]">
+          <div className="flex flex-row pr-3">
+            <div className=" text-sm text-center ">
               © 1968 Company Co. All rights reserved.
             </div>
           </div>
-          <div className="flex justify-center pt-4 space-x-4 lg:pt-0 lg:col-end-13">
+          <div className="flex justify-center space-x-4 lg:pt-0 lg:col-end-13">
             <a
               rel="noopener noreferrer"
               href="#"

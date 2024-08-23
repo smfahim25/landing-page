@@ -18,7 +18,9 @@ function Home() {
     <div>
       <Header />
       <main className=" flex flex-col justify-center items-center">
-        <Hero />
+        <div className="h-[85vh] 2xl:h-[100vh] flex justify-center items-center">
+          <Hero />
+        </div>
         <div>
           <AnimationCardSection />
         </div>

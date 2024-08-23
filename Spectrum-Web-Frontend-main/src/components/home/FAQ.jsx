@@ -14,7 +14,7 @@ const openSans = Open_Sans({
 const FAQ = () => {
   return (
     <div>
-      <div className="container mx-auto flex flex-col items-center py-16 gap-8">
+      <div className="container mx-auto px-5 flex flex-col items-center py-16 gap-8">
         <div className="text-center">
           <h1
             className={`text-lg md:text-[32px] text-[#595D62] ${openSans.className}`}
@@ -27,8 +27,8 @@ const FAQ = () => {
             </span>
           </h1>
         </div>
-        <div className="bg-[#FDFAFA] md:px-32 py-12 rounded-[40px] shadow-sm">
-          <div className="w-full lg:w-[720px] mx-auto">
+        <div className="bg-[#FDFAFA] lg:w-[1090px] px-5 md:px-10  py-12 rounded-[40px] shadow-custom-anim border border-[#F5F5F5]">
+          <div className="w-full lg:w-[720px]">
             <AccordionItem
               title="What is Copilot?"
               content="Copilot is an AI-powered code completion tool that helps you write code faster and with fewer errors."
@@ -43,6 +43,14 @@ const FAQ = () => {
             />
             <AccordionItem
               title="Do I need to complete an educator verification to access Copilot?"
+              content="Educator verification is not required to access Copilot, but it may be necessary for certain features."
+            />
+            <AccordionItem
+              title="What can I do to expedite my access to Copilot?"
+              content="Educator verification is not required to access Copilot, but it may be necessary for certain features."
+            />
+            <AccordionItem
+              title="What is Copilot Insider Circle?"
               content="Educator verification is not required to access Copilot, but it may be necessary for certain features."
             />
           </div>
