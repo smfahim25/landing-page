@@ -192,7 +192,7 @@ export default function Page() {
               transition={{ duration: 0.8, ease: "easeInOut" }}
               className="flex flex-col gap-1 md:gap-8"
             >
-              <div className="bg-[#FDFAFA] mt-10 py-8 px-10 rounded-3xl shadow-md">
+              <div className="bg-[#FDFAFA] mt-10 py-8 px-10 rounded-3xl custom-md">
                 <h1 className={`text-xl ${openSan.className} mb-7`}>
                   {` Hello ${user?.data?.getUser?.name}, Just a few quick questions to get you on
                   the list!`}

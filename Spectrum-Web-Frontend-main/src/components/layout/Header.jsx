@@ -12,7 +12,6 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import Image from "next/image";
 import Link from "next/link";
-import { BookOpen } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "@/store/auth/slice";
@@ -41,7 +40,7 @@ const Header = () => {
     <div>
       <AppBar
         position="static"
-        className="shadow-none bg-transparent header-force"
+        className="shadow-none bg-transparent header-force px-10 pt-5"
       >
         <Container maxWidth="xl">
           <Toolbar disableGutters>
@@ -64,8 +63,11 @@ const Header = () => {
             <Box sx={{ flexGrow: 0 }}>
               <div className="flex items-center gap-5">
                 <Link href="/resource">
-                  <BookOpen
-                    size={31}
+                  <Image
+                    src="/img/book.png"
+                    alt="logo"
+                    width={31}
+                    height={26}
                     className={
                       pathname === "/resource" ? "text-[#6665DD]" : "text-black"
                     }

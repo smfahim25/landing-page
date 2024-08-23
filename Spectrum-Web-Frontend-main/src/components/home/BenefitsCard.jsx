@@ -31,17 +31,18 @@ const BenefitsCard = () => {
           </h1>
         </div>
         <div className="flex flex-col gap-1 md:gap-8">
-          <div className="bg-[#FDFAFA] mt-10 py-5 px-10 rounded-3xl shadow-md h-full md:h-[340px]">
-            <div className="flex flex-col md:flex-row items-center gap-10 md:gap-16 md:px-5 md:h-[272px] mb-5 md:mb-0">
+          <div className="bg-[#FDFAFA] mt-10 py-5 px-10 rounded-3xl shadow-custom-anim h-full w-full border border-[#F5F5F5]">
+            <div className="flex flex-col md:flex-row items-center gap-10 md:gap-16 md:px-10  mb-5 md:mb-0 py-5">
               <div>
                 <Image
                   src="/img/tech-buis.gif"
                   alt="chat"
                   width={300}
                   height={276}
+                  className="h-[350px] w-[400px] mt-[-75px]"
                 />
               </div>
-              <div className="md:w-[500px] md:flex flex-col gap-5 justify-start">
+              <div className="md:w-[500px] 2xl:w-[600px] md:flex flex-col gap-5 justify-start">
                 <div className="mb-5 md:mb-0">
                   <h1
                     className={`text-xl md:text-[32px] ${openSan.className} text-center`}
@@ -58,9 +59,9 @@ const BenefitsCard = () => {
               </div>
             </div>
           </div>
-          <div className="bg-[#FDFAFA] mt-10 py-5 px-10 rounded-3xl shadow-md h-full md:h-[340px]">
-            <div className="flex flex-col-reverse md:flex-row items-center gap-10 md:gap-16 md:px-10 md:h-[272px] mb-5 md:mb-0 py-3">
-              <div className="md:w-[500px] md:flex flex-col gap-5 justify-start">
+          <div className="bg-[#FDFAFA] mt-10 py-5 px-10 rounded-3xl shadow-custom-anim h-full border border-[#F5F5F5]">
+            <div className="flex flex-col-reverse md:flex-row items-center gap-10 md:gap-16 md:px-10  mb-5 md:mb-0 py-3">
+              <div className="md:w-[500px] 2xl:w-[600px] md:flex flex-col gap-5 justify-start">
                 <div className="mb-5 md:mb-0">
                   <h1
                     className={`text-xl md:text-[32px] ${openSan.className} text-center`}
@@ -86,8 +87,8 @@ const BenefitsCard = () => {
               </div>
             </div>
           </div>
-          <div className="bg-[#FDFAFA] mt-10 py-5 px-10 rounded-3xl shadow-md h-full md:h-[340px]">
-            <div className="flex flex-col md:flex-row items-center gap-10 md:gap-16 md:px-5 md:h-[272px] mb-5 md:mb-0 py-3">
+          <div className="bg-[#FDFAFA] mt-10 py-5 px-10 rounded-3xl shadow-custom-anim h-full border border-[#F5F5F5]">
+            <div className="flex flex-col md:flex-row items-center gap-10 md:gap-16 md:px-10  mb-5 md:mb-0 py-3">
               <div>
                 <Image
                   src="/img/personal.gif"
@@ -96,7 +97,7 @@ const BenefitsCard = () => {
                   height={276}
                 />
               </div>
-              <div className="md:w-[500px] md:flex flex-col gap-5 justify-start">
+              <div className="md:w-[550px] 2xl:w-[650px] md:flex flex-col gap-5 justify-start">
                 <div className="mb-5 md:mb-0">
                   <h1
                     className={`text-xl md:text-[32px] ${openSan.className} text-center`}

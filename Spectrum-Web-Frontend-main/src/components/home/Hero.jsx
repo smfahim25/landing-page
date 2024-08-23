@@ -35,7 +35,7 @@ const Hero = () => {
         <div className="container mx-auto flex flex-col items-center px-4 py-16 text-center gap-7">
           {/* https://www.youtube.com/embed/znqUwx0b0HI?si=ubmfNWGSb1vfyiG7 */}
           <video
-            className="absolute top-0 left-0 w-full h-[60vh] object-cover z-[-1] filter blur-[130px]"
+            className="absolute top-0 left-0 w-full h-[60vh] object-cover z-[-1] filter blur-[200px]"
             src="/img/blur.mp4"
             autoPlay
             loop
