@@ -3,8 +3,8 @@ import { login } from "@/store/auth/slice";
 import { Open_Sans } from "next/font/google";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { TypeAnimation } from "react-type-animation";
 
 const openSan = Open_Sans({
   weight: "700",
@@ -68,7 +68,21 @@ const Hero = () => {
                 <span
                   className={`text-[#00BEB0] text-2xl md:text-[32px]  ${openSan.className}`}
                 >
-                  teaching
+                  <TypeAnimation
+                    sequence={[
+                      "teaching!", // Types 'One'
+                      1000, // Waits 1s
+
+                      "inspiring!", // Deletes 'One' and types 'Two'
+                      1000, // Waits 2s
+
+                      "guiding!", // Types 'Three' without deleting 'Two'
+                      1000,
+                    ]}
+                    wrapper="span"
+                    cursor={true}
+                    repeat={Infinity}
+                  />
                 </span>
               </h1>
             </div>
