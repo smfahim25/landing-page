@@ -15,6 +15,7 @@ module.exports = {
         "custom-anim": "0px 4px 12px -2px rgba(222, 218, 218, 0.25)",
       },
       screens: {
+        xs: "380px",
         "3xl": "1700px", // Example breakpoint at 1600px
         "4xl": "1800px", // Example breakpoint at 1600px
         "5xl": "2000px", // Example breakpoint at 1600px

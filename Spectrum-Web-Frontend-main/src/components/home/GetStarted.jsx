@@ -37,8 +37,8 @@ const GetStarted = () => {
   };
 
   return (
-    <div className="backdrop w-full pt-[60px] md:pt-16">
-      <div className="container mx-auto px-5 flex flex-col items-center pb-16 pt-[45px] gap-6">
+    <div className="backdrop w-full pt-[60px] md:pt-20">
+      <div className="container mx-auto px-5 flex flex-col items-center pb-16 pt-[45px] md: gap-6 md:gap-8">
         <div className="text-center">
           <h1
             className={`text-lg md:text-[32px] text-[#595D62] ${openSans.className}`}
