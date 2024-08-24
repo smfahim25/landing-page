@@ -14,7 +14,7 @@ const openSans = Open_Sans({
 const FAQ = () => {
   return (
     <div>
-      <div className="container mx-auto px-5 flex flex-col items-center py-16 gap-8">
+      <div className="container mx-auto px-5 flex flex-col items-center py-16 gap-6">
         <div className="text-center">
           <h1
             className={`text-lg md:text-[32px] text-[#595D62] ${openSans.className}`}
@@ -27,7 +27,7 @@ const FAQ = () => {
             </span>
           </h1>
         </div>
-        <div className="bg-[#FDFAFA] lg:w-[1090px] px-5 md:px-10  py-12 rounded-[40px] shadow-custom-anim border border-[#F5F5F5]">
+        <div className="bg-[#FDFAFA] lg:w-[1090px] mt-8 px-5 md:px-10  py-12 rounded-[40px] shadow-custom-anim border border-[#F5F5F5]">
           <div className="w-full lg:w-[720px]">
             <AccordionItem
               title="What is Copilot?"
