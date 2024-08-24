@@ -37,7 +37,7 @@ const GetStarted = () => {
   };
 
   return (
-    <div className="backdrop w-full mt-12">
+    <div className="backdrop w-full pt-16">
       <div className="container mx-auto px-5 flex flex-col items-center py-16 gap-8">
         <div className="text-center">
           <h1
@@ -56,8 +56,8 @@ const GetStarted = () => {
             </span>
           </h1>
         </div>
-        <div className="md:px-40 flex flex-col items-center gap-12 mt-10">
-          <div className="cursor-text mt-10 md:mt-0">
+        <div className="md:px-40 flex flex-col items-center gap-12 mt-5">
+          <div className="cursor-text mt-5 md:mt-0">
             <div className="hidden md:flex md:w-[850px] lg:w-[1050px]">
               <Image src="/img/step.svg" alt="step" width={1050} height={330} />
             </div>

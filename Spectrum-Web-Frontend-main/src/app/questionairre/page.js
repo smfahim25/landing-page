@@ -191,7 +191,7 @@ export default function Page() {
             </div>
           ) : (
             <div className="h-[90vh] md:h-[80vh] 2xl:h-[85vh] 3xl:h-[80vh] flex justify-center items-center">
-              <div className="container mx-auto flex flex-col items-center px-4 py-5 gap-8">
+              <div className="container mx-auto flex flex-col items-center md:px-4 py-10 gap-8">
                 <motion.div
                   key={currentQuestion}
                   initial={{ opacity: 0, y: 20 }}
@@ -200,7 +200,7 @@ export default function Page() {
                   transition={{ duration: 0.8, ease: "easeInOut" }}
                   className="flex flex-col gap-1 md:gap-8"
                 >
-                  <div className="bg-[#FDFAFA] py-8 px-10 rounded-3xl shadow-custom-anim md:w-full lg:w-[1000px] border border-[#F5F5F5]">
+                  <div className="bg-[#FDFAFA] py-8 px-5 md:px-10 rounded-3xl shadow-custom-anim md:w-full lg:w-[1000px] border border-[#F5F5F5]">
                     <h1 className={`text-xl ${openSan.className} mb-7`}>
                       {` Hello ${user?.data?.getUser?.name}, Just a few quick questions to get you on
                   the list!`}

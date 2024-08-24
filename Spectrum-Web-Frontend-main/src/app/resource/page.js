@@ -181,7 +181,10 @@ export default function Page() {
                                 className="rounded-xl"
                               />
                             </Link>
-                            <CardContent sx={{ padding: "16px" }}>
+                            <CardContent
+                              sx={{ padding: "16px" }}
+                              className="padding-card"
+                            >
                               <Link
                                 href={`/resource/resource_details?catId=${item?.catId}&id=${item?.id}`}
                                 target="_blank"
@@ -190,7 +193,7 @@ export default function Page() {
                                   gutterBottom
                                   variant="h6"
                                   component="div"
-                                  className={`${openSanBold.className} padding-card`}
+                                  className={`${openSanBold.className}`}
                                   sx={{
                                     fontSize: "14px",
                                     lineHeight: "24px",
