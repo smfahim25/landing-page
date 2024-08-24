@@ -37,6 +37,9 @@ body {
   background-color: transparent !important;
   box-shadow: none !important;
 }
+.css-1amntp-MuiPaper-root-MuiCard-root {
+  box-shadow: none !important;
+}
 
 @layer utilities {
   .text-balance {
@@ -62,6 +65,9 @@ body {
   box-shadow: none !important;
 }
 .css-2awovp-MuiCardContent-root {
+  padding: 0 !important;
+}
+.padding-card {
   padding: 0 !important;
 }
 .css-1p0wcwa {

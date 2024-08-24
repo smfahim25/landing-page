@@ -14,6 +14,7 @@ export default function EditEditor() {
   const [customCat, setCustomCat] = useState("");
   const [editorData, setEditorData] = useState("");
   const [title, setTitle] = useState("");
+  const [linkedIn, setLinkedIn] = useState("");
   const [coverPhoto, setCoverPhoto] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [status, setStatus] = useState("");
@@ -77,6 +78,7 @@ export default function EditEditor() {
         setSelectedCategory(data?.data?.catId);
         setStatus(data?.data?.status);
         setEditorData(data?.data?.description);
+        setLinkedIn(data?.data?.linkedin);
         setExistingCoverPhoto(data?.data?.img);
         setLoading(false); // Set the existing cover photo
       } catch (error) {
@@ -132,6 +134,7 @@ export default function EditEditor() {
       catId: selectedCategory,
       status: status,
       description: editorData,
+      linkedin: linkedIn,
       email: user?.data?.getUser?.email,
     };
 
@@ -235,6 +238,16 @@ export default function EditEditor() {
                 <option value="INACTIVE">Inactive</option>
                 <option value="ACTIVE">Active</option>
               </select>
+            </div>
+            <div className="flex flex-col">
+              <label>LinkedIn Profile</label>
+              <input
+                type="text"
+                placeholder="linkedin profile"
+                className="border-2 px-4 py-1 rounded-md"
+                value={linkedIn}
+                onChange={(e) => setLinkedIn(e.target.value)}
+              />
             </div>
           </div>
           <div className="mt-10 mb-5">
