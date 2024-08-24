@@ -57,7 +57,7 @@ const Sidebar = () => {
     >
       <div className="flex h-full">
         <div className="">
-          <div className="bg-[#F5F5F5] h-screen rounded-lg p-4 flex flex-col justify-between">
+          <div className="bg-[#6665DD] h-screen rounded-lg p-4 flex flex-col justify-between">
             <Collapsed
               href="#"
               icon={
@@ -75,10 +75,10 @@ const Sidebar = () => {
                   <Link
                     key={index}
                     href={link.href}
-                    className={`flex items-center gap-x-2 rounded-sm text-xs  p-2 ${
+                    className={`flex items-center gap-x-2 rounded-sm text-xs  p-2  ${
                       link.paths.includes(currentPath)
-                        ? "bg-[#E3E9F3] font-bold"
-                        : ""
+                        ? "bg-[#E3E9F3] font-bold text-black"
+                        : "text-white"
                     }`}
                   >
                     {link.paths.includes(currentPath)

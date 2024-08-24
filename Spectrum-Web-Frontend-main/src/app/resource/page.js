@@ -90,7 +90,7 @@ export default function Page() {
           <div className="w-16 h-16 border-4 border-dashed rounded-full animate-spin bg-[#6665DD]"></div>
         </div>
       ) : (
-        <div className="min-h-screen py-10 md:px-20">
+        <div className="min-h-screen py-10 md:pl-20">
           <div className="mb-10">
             <h1
               className={`text-[#262626] text-3xl ${openSanBold.className} ml-4 md:ml-0`}
@@ -100,8 +100,11 @@ export default function Page() {
           </div>
           <div className="flex flex-col gap-8">
             {Object.entries(groupedArticles).map(([categoryName, articles]) => (
-              <div key={categoryName} className="flex flex-col gap-5">
-                <div className="flex justify-between items-center px-5 md:px-0 md:pr-12">
+              <div
+                key={categoryName}
+                className="flex flex-col gap-5 pl-5 md:pl-0"
+              >
+                <div className="flex justify-between items-center pr-5 md:px-0 md:pr-12">
                   <h2
                     className={`text-[#595D62] text-[16px] md:text-[20px] ${openSanBold.className}  `}
                   >
@@ -134,7 +137,15 @@ export default function Page() {
                         spaceBetween: 15,
                       },
                       1024: {
-                        slidesPerView: 4,
+                        slidesPerView: 4.5,
+                        spaceBetween: 20,
+                      },
+                      1700: {
+                        slidesPerView: 5.5,
+                        spaceBetween: 20,
+                      },
+                      2100: {
+                        slidesPerView: 7,
                         spaceBetween: 20,
                       },
                     }}
@@ -159,21 +170,27 @@ export default function Page() {
                             }}
                             className="shadow-none"
                           >
-                            <CardMedia
-                              sx={{ height: 180 }}
-                              image={item.img}
-                              title={item.title}
-                              className="rounded-xl"
-                            />
+                            <Link
+                              href={`/resource/resource_details?catId=${item?.catId}&id=${item?.id}`}
+                              target="_blank"
+                            >
+                              <CardMedia
+                                sx={{ height: 180 }}
+                                image={item.img}
+                                title={item.title}
+                                className="rounded-xl"
+                              />
+                            </Link>
                             <CardContent sx={{ padding: "16px" }}>
                               <Link
-                                href={`/resource/resource_details?id=${item?.id}`}
+                                href={`/resource/resource_details?catId=${item?.catId}&id=${item?.id}`}
+                                target="_blank"
                               >
                                 <Typography
                                   gutterBottom
                                   variant="h6"
                                   component="div"
-                                  className={`${openSanBold.className}`}
+                                  className={`${openSanBold.className} padding-card`}
                                   sx={{
                                     fontSize: "14px",
                                     lineHeight: "24px",
@@ -187,7 +204,7 @@ export default function Page() {
                               <Typography
                                 variant="body2"
                                 color="text.secondary"
-                                className={`${openSanRegular.className} whitespace-nowrap`}
+                                className={`${openSanRegular.className}`}
                                 sx={{
                                   fontSize: "12px",
                                   lineHeight: "18px",
@@ -195,13 +212,25 @@ export default function Page() {
                                   marginBottom: "10px",
                                 }}
                               >
-                                <div className="flex ">
+                                <div className="hidden md:flex">
                                   <div
                                     dangerouslySetInnerHTML={{
-                                      __html: item?.description,
+                                      __html: `${truncateTitle(
+                                        item?.description,
+                                        45
+                                      )}`,
                                     }}
                                   />
-                                  <p>...</p>
+                                </div>
+                                <div className="md:hidden flex">
+                                  <div
+                                    dangerouslySetInnerHTML={{
+                                      __html: `${truncateTitle(
+                                        item?.description,
+                                        50
+                                      )}`,
+                                    }}
+                                  />
                                 </div>
                               </Typography>
                               <Typography

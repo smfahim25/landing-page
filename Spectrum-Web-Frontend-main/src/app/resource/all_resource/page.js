@@ -100,10 +100,10 @@ export default function Page() {
                     {categoryName}
                   </h2>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 3xl:grid-cols-5 6xl:grid-cols-8 gap-5 mt-8 md:mx-auto">
                   {articles.map((item) => (
                     <Box
-                      className="px-10 sm:px-0"
+                      className="px-5 sm:px-0"
                       key={item.id}
                       sx={{
                         borderRadius: "10px",
@@ -112,26 +112,32 @@ export default function Page() {
                     >
                       <Card
                         sx={{
-                          maxWidth: 345,
+                          maxWidth: 600,
                           borderRadius: "10px",
                         }}
                         className="shadow-none"
                       >
-                        <CardMedia
-                          sx={{ height: 180 }}
-                          image={item.img}
-                          title={item.title}
-                          className="rounded-xl"
-                        />
+                        <Link
+                          href={`/resource/resource_details?catId=${item?.catId}&id=${item?.id}`}
+                          target="_blank"
+                        >
+                          <CardMedia
+                            sx={{ height: 180 }}
+                            image={item.img}
+                            title={item.title}
+                            className="rounded-xl"
+                          />
+                        </Link>
                         <CardContent sx={{ padding: "16px" }}>
                           <Link
-                            href={`/resource/resource_details?id=${item?.id}`}
+                            href={`/resource/resource_details?catId=${item?.catId}&id=${item?.id}`}
+                            target="_blank"
                           >
                             <Typography
                               gutterBottom
                               variant="h6"
                               component="div"
-                              className={`${openSanBold.className}`}
+                              className={`${openSanBold.className} padding-card`}
                               sx={{
                                 fontSize: "14px",
                                 lineHeight: "24px",
@@ -139,7 +145,12 @@ export default function Page() {
                                 color: "#262626",
                               }}
                             >
-                              {truncateTitle(item?.title, 45)}
+                              <p className="hidden md:flex">
+                                {truncateTitle(item?.title, 35)}
+                              </p>
+                              <p className="flex md:hidden">
+                                {truncateTitle(item?.title, 43)}
+                              </p>
                             </Typography>
                           </Link>
                           <Typography
@@ -153,13 +164,25 @@ export default function Page() {
                               marginBottom: "10px",
                             }}
                           >
-                            <div className="flex">
+                            <div className="hidden md:flex">
                               <div
                                 dangerouslySetInnerHTML={{
-                                  __html: item?.description,
+                                  __html: `${truncateTitle(
+                                    item?.description,
+                                    45
+                                  )}`,
                                 }}
                               />
-                              <div>...</div>
+                            </div>
+                            <div className="md:hidden flex">
+                              <div
+                                dangerouslySetInnerHTML={{
+                                  __html: `${truncateTitle(
+                                    item?.description,
+                                    65
+                                  )}`,
+                                }}
+                              />
                             </div>
                           </Typography>
                           <Typography

@@ -11,6 +11,7 @@ export default function CreateEditor() {
   const [customCat, setCustomCat] = useState("");
   const [editorData, setEditorData] = useState("");
   const [title, setTitle] = useState("");
+  const [linkedIn, setLinkedIn] = useState("");
   const [coverPhoto, setCoverPhoto] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [status, setStatus] = useState("");
@@ -93,6 +94,7 @@ export default function CreateEditor() {
       catId: selectedCategory,
       status: status,
       description: editorData,
+      linkedin: linkedIn,
       email: user?.data?.getUser?.email,
     };
     const formData = new FormData();
@@ -118,6 +120,7 @@ export default function CreateEditor() {
       const data = await response.json();
       toast.success("Article created successfully:");
       setTitle("");
+      setLinkedIn("");
       setCoverPhoto(null);
       setSelectedCategory("");
       setStatus("");
@@ -191,6 +194,16 @@ export default function CreateEditor() {
             <option value="INACTIVE">In Active</option>
             <option value="ACTIVE">Active</option>
           </select>
+        </div>
+        <div className="flex flex-col">
+          <label>LinkedIn Profile</label>
+          <input
+            type="text"
+            placeholder="linkedin profile"
+            className="border-2 px-4 py-1 rounded-md"
+            value={linkedIn}
+            onChange={(e) => setLinkedIn(e.target.value)}
+          />
         </div>
       </div>
       <div className="mt-10 mb-5">

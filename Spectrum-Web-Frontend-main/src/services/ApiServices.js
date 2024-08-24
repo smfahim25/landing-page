@@ -1,5 +1,4 @@
 import api from "@/config/apiInstance";
-import { getQueryParams } from "@/utils/helpers/common";
 
 class ApiServices {
   // Auth

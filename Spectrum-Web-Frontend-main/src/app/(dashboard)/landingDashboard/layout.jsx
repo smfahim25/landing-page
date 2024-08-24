@@ -2,8 +2,18 @@
 import Header from "@/components/layout/Header";
 import Sidebar from "@/components/layout/Sidebar";
 import { Box } from "@mui/material";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
 
 export default function DashboardLayout({ children }) {
+  const user = useSelector((state) => state.auth.user);
+  const router = useRouter();
+  useEffect(() => {
+    if (user?.data?.getUser?.role === "ADMIN") {
+      router.push("/landingDashboard/articles");
+    } else [router.push("/")];
+  }, []);
   return (
     <div className="overflow-hidden">
       <div>

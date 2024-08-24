@@ -1,4 +1,5 @@
 import { Avatar } from "@mui/material";
+import Link from "next/link";
 import React from "react";
 
 const Footer = () => {
@@ -6,11 +7,11 @@ const Footer = () => {
     <div className="md:px-10 lg:w-[1090px] mx-auto">
       <footer className="flex flex-col gap-5">
         <div className="container hidden md:flex flex-wrap items-baseline justify-center mx-auto space-y-4 sm:justify-between sm:space-y-0">
-          <div className="flex flex-row pr-3 space-x-2 sm:space-x-8">
+          <div className="flex flex-row pr-3 space-x-2 sm:space-x-4">
             <div className="flex items-center justify-center flex-shrink-0 w-12 h-12 rounded-full border-2">
               <Avatar alt="Remy Sharp" src="/Logo.png" />
             </div>
-            <ul className="flex flex-wrap items-end space-x-2 ">
+            <ul className="flex flex-wrap items-end ">
               <li>
                 <a rel="noopener noreferrer" href="#">
                   Shoshin Tech
@@ -20,9 +21,7 @@ const Footer = () => {
           </div>
           <ul className="flex flex-wrap pl-3 space-x-4 sm:space-x-8">
             <li>
-              <a rel="noopener noreferrer" href="#">
-                Resource
-              </a>
+              <Link href="/resource">Resource</Link>
             </li>
             <li>
               <a rel="noopener noreferrer" href="#">
@@ -43,7 +42,7 @@ const Footer = () => {
           <div className="flex justify-center space-x-4 lg:pt-0 lg:col-end-13">
             <a
               rel="noopener noreferrer"
-              href="#"
+              href="mailto:admin@shoshin.tech"
               title="Email"
               className="flex items-center justify-center w-10 h-10 rounded-full  "
             >
@@ -110,9 +109,7 @@ const Footer = () => {
         <div className="container md:hidden flex flex-wrap items-center mx-auto justify-between sspace-y-0">
           <ul className="flex flex-wrap pl-3 space-x-4 sm:space-x-8">
             <li>
-              <a rel="noopener noreferrer" href="#">
-                Resource
-              </a>
+              <Link href="/resource">Resource</Link>
             </li>
             <li>
               <a rel="noopener noreferrer" href="#">

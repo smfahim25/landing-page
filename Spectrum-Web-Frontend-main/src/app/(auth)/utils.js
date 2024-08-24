@@ -14,7 +14,7 @@ export const handleGoogleSignup = async () => {
       email: data?._tokenResponse?.email,
       // isEmailVerified: data?._tokenResponse?.emailVerified,
       // source: "google",
-      // profilePhoto: data?._tokenResponse?.photoUrl,
+      profileImg: data?._tokenResponse?.photoUrl,
       name: data?._tokenResponse?.firstName,
       // lastName: data?._tokenResponse?.lastName,
     };
