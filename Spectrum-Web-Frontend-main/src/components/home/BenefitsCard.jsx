@@ -13,7 +13,7 @@ const openSans = Open_Sans({
 const BenefitsCard = () => {
   return (
     <div>
-      <div className="container mx-auto flex flex-col items-center px-4 pt-16 gap-8">
+      <div className="container mx-auto flex flex-col items-center px-4 pt-[60px] md:pt-16 gap-6">
         <div className="md:w-[489px]">
           <h1
             className={`text-[18px] md:text-[32px] ${openSans.className} text-center text-[#595D62]`}
