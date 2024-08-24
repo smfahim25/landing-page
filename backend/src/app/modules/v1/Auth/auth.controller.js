@@ -13,5 +13,24 @@ const SignUp = catchAsync(async (req, res) => {
     data: { accessToken, getUser },
   });
 });
+const GetAllUsers = catchAsync(async (req, res) => {
+  const result = await AuthService.GetAllUsers();
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Get All Users Successfully!',
+    data: result,
+  });
+});
 
-export const AuthController = { SignUp };
+const ChangeRole = catchAsync(async (req, res) => {
+  const result = await AuthService.ChangeRole(req.body);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Change User Role Successfully!',
+    data: result,
+  });
+});
+
+export const AuthController = { SignUp, GetAllUsers, ChangeRole };

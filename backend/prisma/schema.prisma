@@ -8,16 +8,14 @@ datasource db {
 }
 
 model User {
-
   id         String    @id @default(auto()) @map("_id") @db.ObjectId
   email      String    @unique
   name       String
-  profileImg String
+  profileImg String?
   role       UserRole  @default(USER)
   createAt   DateTime  @default(now())
   updatedAt  DateTime  @default(now())
   Artical    Artical[]
-
 }
 
 model Questionery {
@@ -56,7 +54,6 @@ model Artical {
   updatedAt     DateTime         @default(now())
   category      ArticalCategory? @relation(fields: [catId], references: [id])
   User          User?            @relation(fields: [email], references: [email])
-
 }
 
 enum UserRole {
