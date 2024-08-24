@@ -4,7 +4,7 @@ const SidebarLink = ({ title, href, icon, onClick }) => {
   return (
     <Link
       href={href ? href : "#"}
-      className="text-[10px] text-[#464646] flex flex-col items-center justify-center"
+      className="text-[10px] text-white flex flex-col items-center justify-center px-5"
       onClick={onClick}
     >
       {icon}

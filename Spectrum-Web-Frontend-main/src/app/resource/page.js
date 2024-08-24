@@ -36,17 +36,20 @@ export default function Page() {
         return response.json();
       })
       .then((data) => {
-        const grouped = data.data.reduce((acc, article) => {
+        const activeArticles = data.data.filter(
+          (article) => article.status === "ACTIVE"
+        );
+        const grouped = activeArticles.reduce((acc, article) => {
           const categoryName = article.category.name;
           if (!acc[categoryName]) {
             acc[categoryName] = [];
           }
           acc[categoryName].push(article);
-          setLoading(false);
           return acc;
         }, {});
 
         setGroupedArticles(grouped);
+        setLoading(false);
       })
       .catch((error) => {
         setLoading(false);

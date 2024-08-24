@@ -4,7 +4,7 @@ const Collapsed = ({ title, href, icon, onClick }) => {
   return (
     <Link
       href={href ? href : "#"}
-      className="text-[10px] text-[#464646] flex flex-col items-end justify-center"
+      className="text-[10px] text-white flex flex-col items-end justify-center"
       onClick={onClick}
     >
       {icon}

@@ -22,7 +22,6 @@ export default function Page() {
   const router = useRouter();
   const articleId = params?.get("id");
   const catId = params?.get("catId");
-  console.log(catId);
   const [details, setDetails] = useState("");
   const [loading, setLoading] = useState(false);
   const [resources, setResources] = useState([]);
@@ -44,7 +43,11 @@ export default function Page() {
           throw new Error("Failed to fetch resources");
         }
         const data = await response.json();
-        setResources(data?.data || []);
+
+        // Filter only active articles
+        const activeResources =
+          data?.data?.filter((resource) => resource.status === "ACTIVE") || [];
+        setResources(activeResources);
       } catch (error) {
         toast.error("Error fetching resources:", error);
       }
@@ -74,13 +77,20 @@ export default function Page() {
 
         const data = await response.json();
         setLoading(false);
-        setDetails(data?.data);
 
-        // Find the index of the current article in the list of resources
-        const index = resources.findIndex(
-          (resource) => resource.id === articleId
-        );
-        setCurrentIndex(index);
+        // Only set details if the article is active
+        if (data?.data?.status === "ACTIVE") {
+          setDetails(data.data);
+
+          // Find the index of the current article in the list of active resources
+          const index = resources.findIndex(
+            (resource) => resource.id === articleId
+          );
+          setCurrentIndex(index);
+        } else {
+          toast.error("The requested article is not active.");
+          router.push("/"); // Redirect or handle as necessary
+        }
       } catch (error) {
         setLoading(false);
         toast.error("Error fetching article:", error);
@@ -89,7 +99,7 @@ export default function Page() {
     if (articleId && resources.length > 0) {
       fetchArticle();
     }
-  }, [articleId, resources]);
+  }, [articleId, resources, router]);
 
   const handlePrevious = () => {
     if (currentIndex > 0) {

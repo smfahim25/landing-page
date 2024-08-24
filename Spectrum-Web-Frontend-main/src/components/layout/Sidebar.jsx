@@ -14,6 +14,7 @@ import {
   ChevronLeft,
   ChevronRight,
   CircleChevronRight,
+  UsersRound,
 } from "lucide-react";
 import Collapsed from "./Collapsed";
 
@@ -36,14 +37,20 @@ const sideBar = {
       icon: <ChartColumnBig size={24} />,
       iconFilled: <ChartColumnBig size={24} />,
     },
+    {
+      title: "Users",
+      href: "/landingDashboard/users",
+      paths: ["/landingDashboard/users"],
+      icon: <UsersRound size={24} />,
+      iconFilled: <UsersRound size={24} />,
+    },
   ],
 };
 
 const Sidebar = () => {
   const [currentPath, setCurrentPath] = useState("");
   const path = usePathname();
-  const { collapsed, setCollapsed, isHovered, setIsHovered, isMobile } =
-    useGeneral();
+  const { collapsed, setCollapsed } = useGeneral();
 
   useEffect(() => {
     setCurrentPath(path);
@@ -70,14 +77,14 @@ const Sidebar = () => {
               onClick={() => setCollapsed(!collapsed)}
             />
             {!collapsed && (
-              <Box className="flex-1">
+              <Box className="flex-1 mt-5">
                 {sideBar.links.map((link, index) => (
                   <Link
                     key={index}
                     href={link.href}
-                    className={`flex items-center gap-x-2 rounded-sm text-xs  p-2  ${
+                    className={`flex items-center gap-5 rounded-sm text-md font-bold  p-2 px-10 ${
                       link.paths.includes(currentPath)
-                        ? "bg-[#E3E9F3] font-bold text-black"
+                        ? "bg-[#E3E9F3] font-bold text-black rounded-lg"
                         : "text-white"
                     }`}
                   >
