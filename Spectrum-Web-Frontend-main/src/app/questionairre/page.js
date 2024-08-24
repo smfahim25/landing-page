@@ -190,7 +190,7 @@ export default function Page() {
               </Modal>
             </div>
           ) : (
-            <div className="h-[90vh] md:h-[80vh] 2xl:h-[85vh] 3xl:h-[80vh] flex justify-center items-center">
+            <div className="h-[100vh] xs:h-[90vh] md:h-[80vh] 2xl:h-[85vh] 3xl:h-[80vh] flex justify-center items-center">
               <div className="container mx-auto flex flex-col items-center md:px-4 py-10 gap-8">
                 <motion.div
                   key={currentQuestion}

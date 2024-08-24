@@ -14,7 +14,7 @@ const openSans = Open_Sans({
 const FAQ = () => {
   return (
     <div>
-      <div className="container mx-auto px-5 flex flex-col items-center py-16 gap-6">
+      <div className="container mx-auto px-5 flex flex-col items-center py-16 md:pb-16 md:pt-20 gap-6 md:gap-8 md:mt-6">
         <div className="text-center">
           <h1
             className={`text-lg md:text-[32px] text-[#595D62] ${openSans.className}`}
