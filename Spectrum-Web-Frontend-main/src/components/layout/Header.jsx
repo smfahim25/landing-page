@@ -1,23 +1,23 @@
 "use client";
-import * as React from "react";
+import { auth } from "@/config/firebase";
+import { logout } from "@/store/auth/slice";
 import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import Menu from "@mui/material/Menu";
-import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
-import Tooltip from "@mui/material/Tooltip";
+import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
+import IconButton from "@mui/material/IconButton";
+import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
+import Toolbar from "@mui/material/Toolbar";
+import Tooltip from "@mui/material/Tooltip";
+import Typography from "@mui/material/Typography";
+import { signOut } from "firebase/auth";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useDispatch, useSelector } from "react-redux";
-import { logout } from "@/store/auth/slice";
+import { usePathname, useRouter } from "next/navigation";
+import * as React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "@/config/firebase";
-import { signOut } from "firebase/auth";
+import { useDispatch, useSelector } from "react-redux";
 
 const settings = ["Logout"];
 
@@ -27,6 +27,7 @@ const Header = () => {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const pathname = usePathname();
   const dispatch = useDispatch();
+  const router = useRouter();
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -107,6 +108,7 @@ const Header = () => {
                       onClick={() => {
                         dispatch(logout());
                         signOut(auth);
+                        router.push("/");
                       }}
                     >
                       {setting}
