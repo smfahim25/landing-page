@@ -25,7 +25,7 @@ const Login = () => {
       // route the user
       router.push("/");
     } catch (error) {
-      addAlert(error, "error");
+      console.log(error, "error");
     }
   };
 

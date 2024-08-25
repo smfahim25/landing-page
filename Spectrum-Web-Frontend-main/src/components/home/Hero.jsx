@@ -4,6 +4,7 @@ import { Open_Sans } from "next/font/google";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
 import { TypeAnimation } from "react-type-animation";
 
 const openSan = Open_Sans({
@@ -22,11 +23,15 @@ const Hero = () => {
   const handleSignup = async () => {
     try {
       const res = await handleGoogleSignup();
-      console.log(res.message || "Sign up successful", "success");
+      toast.success(res.message || "Sign up successful", "success");
       dispatch(login(res));
-      router.push("/questionairre");
+      if (res?.data?.getUser?.role === "ADMIN") {
+        router.push("/landingDashboard");
+      } else {
+        router.push("/questionairre");
+      }
     } catch (error) {
-      console.log(error, "error");
+      toast.error(error);
     }
   };
   return (

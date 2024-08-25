@@ -16,6 +16,7 @@ module.exports = {
       },
       screens: {
         xs: "380px",
+        "md-xl": "1400px",
         "3xl": "1700px", // Example breakpoint at 1600px
         "4xl": "1800px", // Example breakpoint at 1600px
         "5xl": "2000px", // Example breakpoint at 1600px

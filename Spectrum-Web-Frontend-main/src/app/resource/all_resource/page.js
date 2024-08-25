@@ -103,7 +103,7 @@ export default function Page() {
                     {categoryName}
                   </h2>
                 </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 3xl:grid-cols-5 6xl:grid-cols-8 gap-5 mt-8 md:mx-auto">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 5xl:grid-cols-7 gap-5 mt-8 md:mx-auto">
                   {articles.map((item) => (
                     <Box
                       className="px-5 sm:px-0"
