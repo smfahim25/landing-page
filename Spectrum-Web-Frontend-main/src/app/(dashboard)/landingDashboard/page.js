@@ -9,9 +9,9 @@ export default function page() {
   const [open, setOpen] = React.useState(false);
   const router = useRouter();
   useEffect(() => {
-    if (user?.data?.getUser?.role === "ADMIN") {
-      router.push("/landingDashboard/articles");
-    } else [router.push("/")];
+    if (user?.data?.getUser?.role !== "ADMIN") {
+      router.push("/");
+    }
   }, []);
 
   const handleClose = () => {

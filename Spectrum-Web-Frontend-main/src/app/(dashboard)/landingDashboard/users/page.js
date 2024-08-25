@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Table,
   TableBody,
@@ -11,23 +11,80 @@ import {
   Select,
   MenuItem,
 } from "@mui/material";
-
-const data = [
-  { id: 1, name: "Item 1", email: "example@gmail.com", role: "user" },
-  { id: 2, name: "Item 2", email: "example@gmail.com", role: "user" },
-  { id: 3, name: "Item 3", email: "example@gmail.com", role: "ADMIN" },
-];
+import axios from "axios";
+import { useSelector } from "react-redux";
 
 export default function Page() {
-  const [selectedStatuses, setSelectedStatuses] = React.useState(
-    data.map((item) => item.role)
-  );
+  const user = useSelector((state) => state.auth.user);
+  const [data, setData] = useState([]);
+  const [selectedStatuses, setSelectedStatuses] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const handleStatusChange = (index, event) => {
-    const newStatuses = [...selectedStatuses];
-    newStatuses[index] = event.target.value;
-    setSelectedStatuses(newStatuses);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "https://landing-pages-shoshin-tech.onrender.com/api/v1/auth",
+          {
+            headers: {
+              Authorization: `${user?.data?.accessToken}`,
+            },
+          }
+        );
+        setData(response?.data?.data);
+        setSelectedStatuses(response?.data?.data?.map((item) => item.role));
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [user]);
+
+  const handleStatusChange = async (index, event) => {
+    const newRole = event.target.value;
+    const userId = data[index].id;
+
+    try {
+      setLoading(true);
+      // Sending the updated role and user ID to the API using PATCH
+      await axios.patch(
+        `https://landing-pages-shoshin-tech.onrender.com/api/v1/auth/change-role`, // API endpoint
+        { id: userId, role: newRole }, // Body includes id and role
+        {
+          headers: {
+            Authorization: `${user?.data?.accessToken}`,
+          },
+        }
+      );
+
+      // Update the local state
+      setLoading(false);
+      const newStatuses = [...selectedStatuses];
+      newStatuses[index] = newRole;
+      setSelectedStatuses(newStatuses);
+    } catch (error) {
+      setLoading(false);
+      setError("Failed to update role. Please try again.", error);
+    }
   };
+
+  if (loading) {
+    return (
+      <div>
+        <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-75 z-50">
+          <div className="w-16 h-16 border-4 border-dashed rounded-full animate-spin bg-[#6665DD]"></div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return <div className="text-red-600">Error: {error}</div>;
+  }
 
   return (
     <div>
@@ -56,7 +113,7 @@ export default function Page() {
                       value={selectedStatuses[index]}
                       onChange={(event) => handleStatusChange(index, event)}
                     >
-                      <MenuItem value="user">User</MenuItem>
+                      <MenuItem value="USER">User</MenuItem>
                       <MenuItem value="ADMIN">Admin</MenuItem>
                     </Select>
                   </TableCell>

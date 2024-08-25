@@ -10,9 +10,9 @@ export default function DashboardLayout({ children }) {
   const user = useSelector((state) => state.auth.user);
   const router = useRouter();
   useEffect(() => {
-    if (user?.data?.getUser?.role === "ADMIN") {
-      router.push("/landingDashboard/articles");
-    } else [router.push("/")];
+    if (user?.data?.getUser?.role !== "ADMIN") {
+      router.push("/");
+    }
   }, []);
   return (
     <div className="overflow-hidden">

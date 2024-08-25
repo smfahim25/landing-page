@@ -177,7 +177,7 @@ export default function SPage() {
           </div>
           <div className="mt-16">
             <Paper sx={{ width: "100%", overflow: "hidden" }}>
-              {error && <div>Error: {error}</div>}
+              {error && <div className="text-red-600">Error: {error}</div>}
               {loading ? (
                 <div>Loading...</div>
               ) : (

@@ -81,7 +81,7 @@ export default function Page() {
         </div>
       </div>
     );
-  if (error) return <div>Error: {error}</div>;
+  if (error) return <div className="text-red-600">Error: {error}</div>;
 
   return (
     <div className="px-10 flex flex-col gap-10">
