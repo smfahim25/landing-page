@@ -1,17 +1,17 @@
 "use client";
-import React, { useEffect, useState } from "react";
 import {
+  MenuItem,
+  Paper,
+  Select,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
   TableRow,
-  Paper,
-  Select,
-  MenuItem,
 } from "@mui/material";
 import axios from "axios";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 export default function Page() {
@@ -82,9 +82,9 @@ export default function Page() {
     );
   }
 
-  if (error) {
-    return <div className="text-red-600">Error: {error}</div>;
-  }
+  // if (error) {
+  //   return <div className="text-red-600">Error: {error}</div>;
+  // }
 
   return (
     <div>

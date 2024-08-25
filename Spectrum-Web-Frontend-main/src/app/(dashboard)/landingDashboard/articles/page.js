@@ -1,6 +1,4 @@
 "use client";
-import * as React from "react";
-import axios from "axios";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -9,7 +7,9 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
+import axios from "axios";
 import Link from "next/link";
+import * as React from "react";
 import { useSelector } from "react-redux";
 
 const columns = [
@@ -81,7 +81,7 @@ export default function Page() {
         </div>
       </div>
     );
-  if (error) return <div className="text-red-600">Error: {error}</div>;
+  // if (error) return <div className="text-red-600">Error: {error}</div>;
 
   return (
     <div className="px-10 flex flex-col gap-10">

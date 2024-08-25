@@ -1,5 +1,5 @@
 "use client";
-import { Card, CardContent, CardMedia, Typography, Box } from "@mui/material";
+import { Box, Card, CardContent, CardMedia, Typography } from "@mui/material";
 import { Open_Sans } from "next/font/google";
 import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -62,7 +62,6 @@ export default function Page() {
     const options = { year: "numeric", month: "long", day: "numeric" };
     const formattedDate = date.toLocaleDateString("en-GB", options);
 
-    // Add ordinal suffix to day
     const day = date.getDate();
     const ordinalSuffix = (day) => {
       if (day > 3 && day < 21) return "th";
@@ -101,164 +100,181 @@ export default function Page() {
               Resources
             </h1>
           </div>
-          <div className="flex flex-col gap-8">
-            {Object.entries(groupedArticles).map(([categoryName, articles]) => (
-              <div
-                key={categoryName}
-                className="flex flex-col gap-5 pl-5 md:pl-0"
-              >
-                <div className="flex justify-between items-center pr-5 md:px-0 md:pr-12">
-                  <h2
-                    className={`text-[#595D62] text-[16px] md:text-[20px] ${openSanBold.className}  `}
+          {Object.keys(groupedArticles).length === 0 ? (
+            <Typography
+              variant="h6"
+              component="div"
+              className={`${openSanBold.className}`}
+              sx={{
+                fontSize: "18px",
+                textAlign: "center",
+                color: "#262626",
+              }}
+            >
+              No Data!
+            </Typography>
+          ) : (
+            <div className="flex flex-col gap-8">
+              {Object.entries(groupedArticles).map(
+                ([categoryName, articles]) => (
+                  <div
+                    key={categoryName}
+                    className="flex flex-col gap-5 pl-5 md:pl-0"
                   >
-                    {categoryName}
-                  </h2>
-                  <h2 className="w-[52px]">
-                    {articles[0]?.catId && (
-                      <Link
-                        href={`/resource/all_resource?id=${articles[0]?.catId}`}
-                        className={`text-[#6665DD] text-sm ${openSanBold.className}`}
+                    <div className="flex justify-between items-center pr-5 md:px-0 md:pr-12">
+                      <h2
+                        className={`text-[#595D62] text-[16px] md:text-[20px] ${openSanBold.className}`}
                       >
-                        See all
-                      </Link>
-                    )}
-                  </h2>
-                </div>
-                <div>
-                  <Swiper
-                    breakpoints={{
-                      340: {
-                        slidesPerView: 1.2,
-                        spaceBetween: 15,
-                      },
-                      700: {
-                        slidesPerView: 2,
-                        spaceBetween: 15,
-                      },
-                      991: {
-                        slidesPerView: 3,
-                        spaceBetween: 15,
-                      },
-                      1024: {
-                        slidesPerView: 4.5,
-                        spaceBetween: 20,
-                      },
-                      1700: {
-                        slidesPerView: 5.5,
-                        spaceBetween: 20,
-                      },
-                      2100: {
-                        slidesPerView: 7,
-                        spaceBetween: 20,
-                      },
-                    }}
-                    freeMode={true}
-                    pagination={{
-                      clickable: true,
-                    }}
-                    modules={[FreeMode]}
-                  >
-                    {articles.map((item) => (
-                      <SwiperSlide key={item.id}>
-                        <Box
-                          sx={{
-                            borderRadius: "10px",
-                            overflow: "hidden",
-                          }}
-                        >
-                          <Card
-                            sx={{
-                              maxWidth: 345,
-                              borderRadius: "10px",
-                            }}
-                            className="shadow-none"
+                        {categoryName}
+                      </h2>
+                      <h2 className="w-[52px]">
+                        {articles[0]?.catId && (
+                          <Link
+                            href={`/resource/all_resource?id=${articles[0]?.catId}`}
+                            className={`text-[#6665DD] text-sm ${openSanBold.className}`}
                           >
-                            <Link
-                              href={`/resource/resource_details?catId=${item?.catId}&id=${item?.id}`}
-                              target="_blank"
+                            See all
+                          </Link>
+                        )}
+                      </h2>
+                    </div>
+                    <div>
+                      <Swiper
+                        breakpoints={{
+                          340: {
+                            slidesPerView: 1.2,
+                            spaceBetween: 15,
+                          },
+                          700: {
+                            slidesPerView: 2,
+                            spaceBetween: 15,
+                          },
+                          991: {
+                            slidesPerView: 3,
+                            spaceBetween: 15,
+                          },
+                          1024: {
+                            slidesPerView: 4.5,
+                            spaceBetween: 20,
+                          },
+                          1700: {
+                            slidesPerView: 5.5,
+                            spaceBetween: 20,
+                          },
+                          2100: {
+                            slidesPerView: 7,
+                            spaceBetween: 20,
+                          },
+                        }}
+                        freeMode={true}
+                        pagination={{
+                          clickable: true,
+                        }}
+                        modules={[FreeMode]}
+                      >
+                        {articles.map((item) => (
+                          <SwiperSlide key={item.id}>
+                            <Box
+                              sx={{
+                                borderRadius: "10px",
+                                overflow: "hidden",
+                              }}
                             >
-                              <CardMedia
-                                sx={{ height: 180 }}
-                                image={item.img}
-                                title={item.title}
-                                className="rounded-xl"
-                              />
-                            </Link>
-                            <CardContent
-                              sx={{ padding: "16px" }}
-                              className="padding-card"
-                            >
-                              <Link
-                                href={`/resource/resource_details?catId=${item?.catId}&id=${item?.id}`}
-                                target="_blank"
+                              <Card
+                                sx={{
+                                  maxWidth: 345,
+                                  borderRadius: "10px",
+                                }}
+                                className="shadow-none"
                               >
-                                <Typography
-                                  gutterBottom
-                                  variant="h6"
-                                  component="div"
-                                  className={`${openSanBold.className}`}
-                                  sx={{
-                                    fontSize: "14px",
-                                    lineHeight: "24px",
-                                    fontWeight: "700",
-                                    color: "#262626",
-                                  }}
+                                <Link
+                                  href={`/resource/resource_details?catId=${item?.catId}&id=${item?.id}`}
+                                  target="_blank"
                                 >
-                                  {truncateTitle(item?.title, 35)}
-                                </Typography>
-                              </Link>
-                              <Typography
-                                variant="body2"
-                                color="text.secondary"
-                                className={`${openSanRegular.className}`}
-                                sx={{
-                                  fontSize: "12px",
-                                  lineHeight: "18px",
-                                  color: "#595D62",
-                                  marginBottom: "10px",
-                                }}
-                              >
-                                <div className="hidden md:flex">
-                                  <div
-                                    dangerouslySetInnerHTML={{
-                                      __html: `${truncateTitle(
-                                        item?.description,
-                                        45
-                                      )}`,
-                                    }}
+                                  <CardMedia
+                                    sx={{ height: 180 }}
+                                    image={item.img}
+                                    title={item.title}
+                                    className="rounded-xl"
                                   />
-                                </div>
-                                <div className="md:hidden flex">
-                                  <div
-                                    dangerouslySetInnerHTML={{
-                                      __html: `${truncateTitle(
-                                        item?.description,
-                                        50
-                                      )}`,
+                                </Link>
+                                <CardContent
+                                  sx={{ padding: "16px" }}
+                                  className="padding-card"
+                                >
+                                  <Link
+                                    href={`/resource/resource_details?catId=${item?.catId}&id=${item?.id}`}
+                                    target="_blank"
+                                  >
+                                    <Typography
+                                      gutterBottom
+                                      variant="h6"
+                                      component="div"
+                                      className={`${openSanBold.className}`}
+                                      sx={{
+                                        fontSize: "14px",
+                                        lineHeight: "24px",
+                                        fontWeight: "700",
+                                        color: "#262626",
+                                      }}
+                                    >
+                                      {truncateTitle(item?.title, 35)}
+                                    </Typography>
+                                  </Link>
+                                  <Typography
+                                    variant="body2"
+                                    color="text.secondary"
+                                    className={`${openSanRegular.className}`}
+                                    sx={{
+                                      fontSize: "12px",
+                                      lineHeight: "18px",
+                                      color: "#595D62",
+                                      marginBottom: "10px",
                                     }}
-                                  />
-                                </div>
-                              </Typography>
-                              <Typography
-                                variant="caption"
-                                display="block"
-                                sx={{
-                                  fontSize: "12px",
-                                  color: "#9E9E9E",
-                                }}
-                              >
-                                Published on {formatDate(item?.createAt)}
-                              </Typography>
-                            </CardContent>
-                          </Card>
-                        </Box>
-                      </SwiperSlide>
-                    ))}
-                  </Swiper>
-                </div>
-              </div>
-            ))}
-          </div>
+                                  >
+                                    <div className="hidden md:flex">
+                                      <div
+                                        dangerouslySetInnerHTML={{
+                                          __html: `${truncateTitle(
+                                            item?.description,
+                                            45
+                                          )}`,
+                                        }}
+                                      />
+                                    </div>
+                                    <div className="md:hidden flex">
+                                      <div
+                                        dangerouslySetInnerHTML={{
+                                          __html: `${truncateTitle(
+                                            item?.description,
+                                            50
+                                          )}`,
+                                        }}
+                                      />
+                                    </div>
+                                  </Typography>
+                                  <Typography
+                                    variant="caption"
+                                    display="block"
+                                    sx={{
+                                      fontSize: "12px",
+                                      color: "#9E9E9E",
+                                    }}
+                                  >
+                                    Published on {formatDate(item?.createAt)}
+                                  </Typography>
+                                </CardContent>
+                              </Card>
+                            </Box>
+                          </SwiperSlide>
+                        ))}
+                      </Swiper>
+                    </div>
+                  </div>
+                )
+              )}
+            </div>
+          )}
         </div>
       )}
     </div>
