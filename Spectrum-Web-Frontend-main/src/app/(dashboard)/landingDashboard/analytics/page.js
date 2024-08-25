@@ -143,7 +143,7 @@ export default function SPage() {
     setPage(0);
   };
   const generateLabel = (optionId) => {
-    const [optionCode] = optionId.split("-");
+    const [, optionCode] = optionId.split("-");
     const optionNumber = optionCode.replace("op", "");
     return `Option-${optionNumber}`;
   };

@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 export default function Page() {
   const user = useSelector((state) => state.auth.user);
@@ -66,9 +67,11 @@ export default function Page() {
       const newStatuses = [...selectedStatuses];
       newStatuses[index] = newRole;
       setSelectedStatuses(newStatuses);
+      toast.success("successfully updated user role");
     } catch (error) {
       setLoading(false);
       setError("Failed to update role. Please try again.", error);
+      toast.error("Failed to update role. Please try again.");
     }
   };
 

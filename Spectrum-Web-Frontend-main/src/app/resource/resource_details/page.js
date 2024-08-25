@@ -1,9 +1,10 @@
 "use client";
 import Footer from "@/components/layout/Footer";
 import { Avatar } from "@mui/material";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Linkedin } from "lucide-react";
 import { Open_Sans } from "next/font/google";
 import Image from "next/image";
+import Link from "next/link";
 import { useSearchParams, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
@@ -81,7 +82,6 @@ export default function Page() {
         // Only set details if the article is active
         if (data?.data?.status === "ACTIVE") {
           setDetails(data.data);
-
           // Find the index of the current article in the list of active resources
           const index = resources.findIndex(
             (resource) => resource.id === articleId
@@ -176,9 +176,15 @@ export default function Page() {
                     {details?.user?.name ? details?.user?.name : "unknown"}
                   </p>
                   <p
-                    className={`text-[10px] ${openSans.className} text-center text-[#262626]`}
+                    className={`text-[10px] ${openSans.className} text-center text-[#262626] flex items-center gap-1`}
                   >
-                    {formatDate(details?.createAt)}
+                    <span>{formatDate(details?.createAt)}</span>
+                    <p>|</p>
+                    <span>
+                      <Link href={`${details?.linkedin}`} target="_blank">
+                        <Linkedin size={10} />
+                      </Link>
+                    </span>
                   </p>
                 </div>
               </div>

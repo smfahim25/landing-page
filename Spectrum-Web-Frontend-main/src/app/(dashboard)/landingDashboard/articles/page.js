@@ -132,6 +132,12 @@ export default function Page() {
                               >
                                 Edit
                               </Link>
+                            ) : column.id === "description" ? (
+                              <div
+                                dangerouslySetInnerHTML={{
+                                  __html: value,
+                                }}
+                              />
                             ) : (
                               value
                             )}
