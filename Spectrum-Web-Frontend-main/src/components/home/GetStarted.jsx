@@ -4,7 +4,6 @@ import { Badge } from "@mui/material";
 import { Open_Sans } from "next/font/google";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const openSan = Open_Sans({
@@ -37,7 +36,7 @@ const GetStarted = () => {
   };
 
   return (
-    <div className="backdrop w-full pt-[60px] md:pt-20">
+    <div className="backdrop w-full pt-[60px] 2xl:pt-24 md:pt-20">
       <div className="container mx-auto px-5 flex flex-col items-center pb-16 pt-[45px] md: gap-6 md:gap-8">
         <div className="text-center">
           <h1
