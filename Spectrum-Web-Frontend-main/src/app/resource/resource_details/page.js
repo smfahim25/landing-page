@@ -138,7 +138,9 @@ export default function Page() {
 
     return `${day}${ordinalSuffix(day)} ${formattedDate.replace(day, "")}`;
   };
-
+  const linkedinUrl = details?.linkedin?.startsWith("http")
+    ? details.linkedin
+    : `https://${details?.linkedin}`;
   return (
     <div>
       {loading ? (
@@ -154,7 +156,7 @@ export default function Page() {
                 alt={details?.title}
                 width={500}
                 height={200}
-                className=" h-[610px] w-full"
+                className=" h-[400px] md:h-[610px] w-full"
               />
             )}
           </div>
@@ -181,10 +183,14 @@ export default function Page() {
                     <span>{formatDate(details?.createAt)}</span>
                     <p>|</p>
                     <span>
-                      <Link href={`${details?.linkedin}`} target="_blank">
+                      <Link
+                        href={linkedinUrl || "#"}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
                         <Image
                           src="/img/linkedin.png"
-                          alt="logo"
+                          alt="LinkedIn logo"
                           width={12}
                           height={12}
                         />
@@ -202,7 +208,7 @@ export default function Page() {
                 <button
                   onClick={handlePrevious}
                   disabled={currentIndex === 0}
-                  className="bg-transparent text-black py-2 rounded disabled:opacity-50 flex items-center"
+                  className="bg-transparent text-black py-2 rounded disabled:opacity-50 flex items-center ml-[-5px]"
                 >
                   <ChevronLeft />
                   <span> Previous article</span>
@@ -210,7 +216,7 @@ export default function Page() {
                 <button
                   onClick={handleNext}
                   disabled={currentIndex === resources.length - 1}
-                  className="bg-transparent text-black  py-2 rounded disabled:opacity-50 flex items-center"
+                  className="bg-transparent text-black  py-2 rounded disabled:opacity-50 flex items-center mr-[-5px]"
                 >
                   <span> Next article</span>
                   <ChevronRight />

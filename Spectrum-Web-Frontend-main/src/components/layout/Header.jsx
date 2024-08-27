@@ -86,7 +86,7 @@ const Header = () => {
                 )}
               </div>
               <Menu
-                sx={{ mt: "50px" }}
+                sx={{ mt: "50px", borderRadius: "15px" }}
                 id="menu-appbar"
                 anchorEl={anchorElUser}
                 anchorOrigin={{
