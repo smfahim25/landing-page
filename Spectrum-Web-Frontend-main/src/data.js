@@ -19,7 +19,7 @@ export const projects = [
   },
   {
     status: "Comming Soon",
-    title: " Virtual Teaching Assistants (VTAs)",
+    title: "Personal Tutor",
     description:
       "Create AI tutors tailored to your learner needs and deploy to support individual learning.",
     src: "tree.jpg",

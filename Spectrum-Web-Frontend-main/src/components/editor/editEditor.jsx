@@ -1,8 +1,9 @@
 "use client";
-import { useSearchParams } from "next/navigation";
-import React, { useState, useEffect } from "react";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import Image from "next/image";
+import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
@@ -188,14 +189,7 @@ export default function EditEditor() {
                 onChange={(e) => setTitle(e.target.value)}
               />
             </div>
-            <div className="flex flex-col">
-              <label>Cover photo</label>
-              <input
-                type="file"
-                className="border-2 px-4 py-1 rounded-md"
-                onChange={(e) => setCoverPhoto(e.target.files[0])}
-              />
-            </div>
+
             <div className="flex flex-col">
               <label>Category</label>
               <select
@@ -240,13 +234,28 @@ export default function EditEditor() {
               </select>
             </div>
             <div className="flex flex-col">
-              <label>LinkedIn Profile</label>
+              <label>LinkedIn</label>
               <input
                 type="text"
-                placeholder="linkedin profile"
+                placeholder="linkedin"
                 className="border-2 px-4 py-1 rounded-md"
                 value={linkedIn}
                 onChange={(e) => setLinkedIn(e.target.value)}
+              />
+            </div>
+            <div className="flex flex-col">
+              <label>Cover photo</label>
+              <Image
+                className="rounded-2xl mb-2"
+                src={existingCoverPhoto}
+                alt="logo"
+                width={300}
+                height={10}
+              />
+              <input
+                type="file"
+                className="border-2 px-4 py-1 rounded-md"
+                onChange={(e) => setCoverPhoto(e.target.files[0])}
               />
             </div>
           </div>
@@ -277,7 +286,7 @@ export default function EditEditor() {
               className="bg-[#6665DD] text-white px-8 rounded-md py-2"
               onClick={handleEdit}
             >
-              Edit
+              Save
             </button>
           </div>
         </div>

@@ -19,7 +19,7 @@ import * as React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useDispatch, useSelector } from "react-redux";
 
-const settings = ["Logout"];
+const settings = ["Log out"];
 
 const Header = () => {
   const isUser = useSelector((state) => state.auth.user);
@@ -86,7 +86,7 @@ const Header = () => {
                 )}
               </div>
               <Menu
-                sx={{ mt: "30px" }}
+                sx={{ mt: "50px" }}
                 id="menu-appbar"
                 anchorEl={anchorElUser}
                 anchorOrigin={{
@@ -103,7 +103,16 @@ const Header = () => {
               >
                 {settings.map((setting) => (
                   <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                    <Image
+                      src={"/img/logout.svg"}
+                      alt={"logout"}
+                      width={30}
+                      height={30}
+                      className="mx-1"
+                    />
                     <Typography
+                      fontWeight="bold"
+                      fontStyle={{ color: "#595D62" }}
                       textAlign="center"
                       onClick={() => {
                         dispatch(logout());

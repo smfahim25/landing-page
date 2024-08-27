@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import { Card, CardContent, CardHeader, Grid, Typography } from "@mui/material";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -8,9 +8,9 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
-import questions from "../../../questionairre/questions.json"; // Adjust the path as needed
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Card, CardContent, CardHeader, Grid, Typography } from "@mui/material";
+import questions from "../../../questionairre/questions.json"; // Adjust the path as needed
 
 export default function SPage() {
   const user = useSelector((state) => state.auth.user);

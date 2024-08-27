@@ -1,6 +1,5 @@
 import { Avatar } from "@mui/material";
 import Link from "next/link";
-import React from "react";
 
 const Footer = () => {
   return (
@@ -13,7 +12,7 @@ const Footer = () => {
             </div>
             <ul className="flex flex-wrap items-end ">
               <li>
-                <a rel="noopener noreferrer" href="#">
+                <a className="font-bold" rel="noopener noreferrer" href="#">
                   Shoshin Tech
                 </a>
               </li>
@@ -36,7 +35,7 @@ const Footer = () => {
         <div className="container hidden md:flex flex-wrap items-center justify-center mx-auto  sm:justify-between mt-[-3px]">
           <div className="flex flex-row pr-3">
             <div className=" text-sm text-center ">
-              © 1968 Company Co. All rights reserved.
+              © 2024 Shoshin tech. All rights reserved.
             </div>
           </div>
           <div className="flex justify-center space-x-4 lg:pt-0 lg:col-end-13">

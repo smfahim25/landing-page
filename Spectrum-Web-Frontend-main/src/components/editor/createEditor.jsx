@@ -1,7 +1,7 @@
 "use client";
-import React, { useState, useEffect } from "react";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
@@ -144,14 +144,7 @@ export default function CreateEditor() {
             onChange={(e) => setTitle(e.target.value)}
           />
         </div>
-        <div className="flex flex-col">
-          <label>Cover photo</label>
-          <input
-            type="file"
-            className="border-2 px-4 py-1 rounded-md"
-            onChange={(e) => setCoverPhoto(e.target.files[0])}
-          />
-        </div>
+
         <div className="flex flex-col">
           <label>Category</label>
           <select
@@ -196,13 +189,21 @@ export default function CreateEditor() {
           </select>
         </div>
         <div className="flex flex-col">
-          <label>LinkedIn Profile</label>
+          <label>LinkedIn </label>
           <input
             type="text"
-            placeholder="linkedin profile"
+            placeholder="linkedin"
             className="border-2 px-4 py-1 rounded-md"
             value={linkedIn}
             onChange={(e) => setLinkedIn(e.target.value)}
+          />
+        </div>
+        <div className="flex flex-col">
+          <label>Cover photo</label>
+          <input
+            type="file"
+            className="border-2 px-4 py-1 rounded-md"
+            onChange={(e) => setCoverPhoto(e.target.files[0])}
           />
         </div>
       </div>

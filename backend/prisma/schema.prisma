@@ -27,6 +27,7 @@ model Questionery {
   q4        String
   q5        String
   q6        String
+  q1Content String?
   q6Content String?
   createAt  DateTime @default(now())
   updatedAt DateTime @default(now())

@@ -1,12 +1,12 @@
 "use client";
 import Footer from "@/components/layout/Footer";
 import { Avatar } from "@mui/material";
-import { ChevronLeft, ChevronRight, Linkedin } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Open_Sans } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
-import { useSearchParams, useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 const openSan = Open_Sans({
@@ -182,7 +182,12 @@ export default function Page() {
                     <p>|</p>
                     <span>
                       <Link href={`${details?.linkedin}`} target="_blank">
-                        <Linkedin size={10} />
+                        <Image
+                          src="/img/linkedin.png"
+                          alt="logo"
+                          width={12}
+                          height={12}
+                        />
                       </Link>
                     </span>
                   </p>
@@ -197,7 +202,7 @@ export default function Page() {
                 <button
                   onClick={handlePrevious}
                   disabled={currentIndex === 0}
-                  className="bg-transparent text-black px-4 py-2 rounded disabled:opacity-50 flex items-center"
+                  className="bg-transparent text-black py-2 rounded disabled:opacity-50 flex items-center"
                 >
                   <ChevronLeft />
                   <span> Previous article</span>
@@ -205,7 +210,7 @@ export default function Page() {
                 <button
                   onClick={handleNext}
                   disabled={currentIndex === resources.length - 1}
-                  className="bg-transparent text-black px-4 py-2 rounded disabled:opacity-50 flex items-center"
+                  className="bg-transparent text-black  py-2 rounded disabled:opacity-50 flex items-center"
                 >
                   <span> Next article</span>
                   <ChevronRight />

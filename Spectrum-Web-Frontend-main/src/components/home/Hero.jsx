@@ -68,11 +68,11 @@ const Hero = () => {
               >
                 Copilot handles all the boring stuff,
               </h1>
-              <h1 className={`text-md md:text-2xl mt-2 ${openSans.className}`}>
+              <h1
+                className={`text-md xs:w-max w-fit md:text-2xl mt-2 ${openSans.className}`}
+              >
                 so you can focus on what you love —{" "}
-                <span
-                  className={`text-[#00BEB0] text-2xl md:text-[32px]  ${openSan.className}`}
-                >
+                <span className={`text-[#00BEB0]  ${openSan.className}`}>
                   <TypeAnimation
                     sequence={[
                       "teaching!", // Types 'One'
