@@ -13,16 +13,16 @@ const openSans = Open_Sans({
 const BenefitsCard = () => {
   return (
     <div>
-      <div className="container mx-auto flex flex-col items-center px-4 pt-[60px] md:pt-16 gap-6 md:gap-8">
+      <div className="container mx-auto flex flex-col items-center xl:px-4 pt-[60px] md:pt-16 gap-6 md:gap-8">
         <div className="md:w-[489px]">
           <h1
-            className={`text-[18px] md:text-[32px] ${openSans.className} text-center text-[#595D62]`}
+            className={`text-[18px] lg:text-[32px] ${openSans.className} text-center text-[#595D62]`}
           >
             We are obsessed with making{" "}
             <span className="text-[#595D62]">
               sure these{" "}
               <span
-                className={`text-[#6665DD] text-xl md:text-[32px]  ${openSan.className}`}
+                className={`text-[#6665DD] text-xl lg:text-[32px]  ${openSan.className}`}
               >
                 benefits
               </span>{" "}
@@ -45,13 +45,13 @@ const BenefitsCard = () => {
               <div className="md:w-[500px] 2xl:w-[600px] md:flex flex-col gap-5 justify-start">
                 <div className="mb-5 md:mb-0">
                   <h1
-                    className={`text-xl md:text-[32px] ${openSan.className} text-center`}
+                    className={`text-xl lg:text-[32px] ${openSan.className} text-center`}
                   >
                     Teach More, Manage Less
                   </h1>
                 </div>
                 <p
-                  className={`${openSans.className} text-[14px] md:text-lg text-center`}
+                  className={`${openSans.className} text-[14px] lg:text-lg text-center`}
                 >
                   Redirect your focus from non-teaching tasks — let Copilot
                   streamline your routine tasks.
@@ -64,13 +64,13 @@ const BenefitsCard = () => {
               <div className="md:w-[500px] 2xl:w-[600px] md:flex flex-col gap-5 justify-start">
                 <div className="mb-5 md:mb-0">
                   <h1
-                    className={`text-xl md:text-[32px] ${openSan.className} text-center`}
+                    className={`text-xl lg:text-[32px] ${openSan.className} text-center`}
                   >
                     Inspire More, Stress Less
                   </h1>
                 </div>
                 <p
-                  className={`${openSans.className} text-[14px] md:text-lg text-center`}
+                  className={`${openSans.className} text-[14px] lg:text-lg text-center`}
                 >
                   Shed the stress of overwhelming tasks — Copilot manages the
                   background details for you.
@@ -100,13 +100,13 @@ const BenefitsCard = () => {
               <div className="md:w-[550px] 2xl:w-[650px] md:flex flex-col gap-5 justify-start">
                 <div className="mb-5 md:mb-0">
                   <h1
-                    className={`text-xl md:text-[32px] ${openSan.className} text-center`}
+                    className={`text-xl lg:text-[32px] ${openSan.className} text-center`}
                   >
                     Personalize More, Struggle Less
                   </h1>
                 </div>
                 <p
-                  className={`${openSans.className} text-[14px] md:text-lg text-center`}
+                  className={`${openSans.className} text-[14px] lg:text-lg text-center`}
                 >
                   Deliver tailored learning experiences with Copilot's adaptive
                   support for each student.

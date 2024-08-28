@@ -37,7 +37,7 @@ const Hero = () => {
   return (
     <div>
       <section>
-        <div className="container mx-auto flex flex-col items-center px-4 py-16 text-center gap-7">
+        <div className="container mx-auto flex flex-col items-center xl:px-4 py-16 text-center gap-7">
           {/* https://www.youtube.com/embed/znqUwx0b0HI?si=ubmfNWGSb1vfyiG7 */}
           <video
             className="absolute top-0 left-0 w-full h-[60vh] object-cover z-[-1] filter blur-[200px]"
@@ -72,21 +72,47 @@ const Hero = () => {
                 className={`text-md xs:w-max w-fit md:text-2xl mt-2 ${openSans.className}`}
               >
                 so you can focus on what you love —{" "}
-                <span className={`text-[#00BEB0]  ${openSan.className}`}>
+                <br className="flex md:hidden" />
+                <span className={`${openSan.className}`}>
                   <TypeAnimation
                     sequence={[
-                      "teaching!", // Types 'One'
-                      1000, // Waits 1s
+                      // Set the color for "teaching!" and display it
+                      () => {
+                        const element =
+                          document.querySelector(".animated-text");
+                        if (element) element.style.color = "#00BEB0";
+                      },
+                      "teaching!",
+                      1000, // Pause to fully display "teaching!"
+                      "", // Clear the text before changing the color
+                      500, // Small pause before the next word
 
-                      "inspiring!", // Deletes 'One' and types 'Two'
-                      1000, // Waits 2s
+                      // Set the color for "inspiring!" and display it
+                      () => {
+                        const element =
+                          document.querySelector(".animated-text");
+                        if (element) element.style.color = "#2E7D32";
+                      },
+                      "inspiring!",
+                      1000, // Pause to fully display "inspiring!"
+                      "", // Clear the text before changing the color
+                      500, // Small pause before the next word
 
-                      "guiding!", // Types 'Three' without deleting 'Two'
-                      1000,
+                      // Set the color for "guiding!" and display it
+                      () => {
+                        const element =
+                          document.querySelector(".animated-text");
+                        if (element) element.style.color = "#7584D7";
+                      },
+                      "guiding!",
+                      1000, // Pause to fully display "guiding!"
+                      "", // Clear the text before repeating
+                      500, // Small pause before starting over
                     ]}
                     wrapper="span"
                     cursor={true}
                     repeat={Infinity}
+                    className="animated-text"
                   />
                 </span>
               </h1>

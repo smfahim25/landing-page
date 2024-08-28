@@ -13,15 +13,15 @@ const openSans = Open_Sans({
 });
 const AnimationCardSection = () => {
   return (
-    <div className="container mx-auto px-4 pt-16">
+    <div className="container mx-auto xl:px-4 pt-16">
       <div className="flex flex-col gap-1 md:gap-16 mx-auto">
         <div className="md:w-[750px] mx-auto">
           <h1
-            className={`text-[18px] md:text-[32px] ${openSans.className} text-center`}
+            className={`text-[18px] lg:text-[32px] ${openSans.className} text-center`}
           >
             We're busy building a product with{" "}
             <span
-              className={`text-[#6665DD] text-xl md:text-[32px]  ${openSan.className}`}
+              className={`text-[#6665DD] text-xl lg:text-[32px]  ${openSan.className}`}
             >
               features
             </span>{" "}
@@ -34,7 +34,7 @@ const AnimationCardSection = () => {
             return (
               <div
                 key={`p_${i}`}
-                className={`${style.cardContainer} lg:h-[100vh] xl:h-[100vh] md-xl:h-[90vh] 2xl:h-[100vh] 3xl:h-[85vh]  5xl:h-[65vh] 6xl:h-[65vh] md:sticky md:bottom-0`}
+                className={`${style.cardContainer} md-lg:h-[100vh] xl:h-[100vh] md-xl:h-[90vh] 2xl:h-[100vh] 3xl:h-[85vh]  5xl:h-[65vh] 6xl:h-[65vh] md-lg:sticky md-lg:bottom-0`}
                 style={{ zIndex: projects.length - i }} // Ensures correct stacking order
               >
                 <div
@@ -50,13 +50,13 @@ const AnimationCardSection = () => {
                           </p>
                         </div>
                         <h1
-                          className={`text-xl md:text-[32px] ${openSan.className}`}
+                          className={`text-xl lg:text-[32px] ${openSan.className}`}
                         >
                           {project?.title}
                         </h1>
                       </div>
                       <p
-                        className={`${openSans.className} text-[14px] md:text-lg`}
+                        className={`${openSans.className} text-[14px] lg:text-lg`}
                       >
                         {project?.description}
                       </p>
