@@ -29,11 +29,15 @@ export default function Page() {
   const [allAnswers, setAllAnswers] = useState({});
   const [success, setSuccess] = useState(false);
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
     if (!user) {
       router.push("/");
+    }
+    if (user.data.getUser.role === "ADMIN") {
+      router.push("/landingDashboard");
     }
   }, []);
 
@@ -47,15 +51,32 @@ export default function Page() {
     }));
 
     const nextQuestion = currentQuestion + 1;
-
-    if (nextQuestion < question.length) {
-      setTimeout(() => {
-        setCurentQuestion(nextQuestion);
-      }, 500);
+    if (option === "q1-op4") {
+      if (nextQuestion < question.length) {
+        setTimeout(() => {
+          setCurentQuestion(nextQuestion);
+        }, 3000);
+      } else {
+        setLastQuestion(true);
+      }
     } else {
-      setLastQuestion(true);
+      if (nextQuestion < question.length) {
+        setTimeout(() => {
+          setCurentQuestion(nextQuestion);
+        }, 500);
+      } else {
+        setLastQuestion(true);
+      }
     }
   };
+  useEffect(() => {
+    if (selectedOption === "q1-op4" && otherText) {
+      setAllAnswers((prevAnswers) => ({
+        ...prevAnswers,
+        q1Content: otherText, // Add q1Content with the entered text
+      }));
+    }
+  }, [otherText]);
 
   useEffect(() => {
     if (selectedOption === "q6-op4" && otherText) {
@@ -67,6 +88,7 @@ export default function Page() {
   }, [otherText]);
 
   const handleSubmit = async () => {
+    setLoading(true);
     console.log(allAnswers);
     const payload = {
       ...allAnswers,
@@ -92,12 +114,14 @@ export default function Page() {
 
       const result = await response.json();
       console.log("Success:", result);
+      setLoading(false);
 
       // Handle success response (e.g., show a success message, redirect, etc.)
       setSuccess(true);
       setOpen(true);
     } catch (error) {
       console.error("Error:", error);
+      setLoading(false);
       // Handle error response (e.g., show an error message)
     }
   };
@@ -121,6 +145,11 @@ export default function Page() {
             playsInline
             poster="/img/placeholder.jpg"
           ></video>
+          {loading && (
+            <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-75 z-50">
+              <div className=""></div>
+            </div>
+          )}
           {success ? (
             <div>
               <Modal
@@ -171,10 +200,15 @@ export default function Page() {
                         name="price"
                         id="price"
                         value="https://www.platformname.com/uniquellink"
-                        className="flex flex-1 border sm:text-sm rounded-l-md focus:ring-inset py-2"
+                        className="flex flex-1 border sm:text-sm rounded-l-md focus:ring-inset py-2 pl-3"
                       />
                       <span className="flex items-center px-3 pointer-events-none sm:text-sm rounded-r-md bg-[#EFEFEF]">
-                        <Copy />
+                        <Image
+                          src="/img/copy.svg"
+                          alt="share"
+                          width={30}
+                          height={30}
+                        />
                       </span>
                       <span className="flex items-center px-3 pointer-events-none sm:text-sm rounded-r-md bg-[#EFEFEF]">
                         <Image
@@ -191,7 +225,7 @@ export default function Page() {
             </div>
           ) : (
             <div className="h-[100vh] xs:h-[90vh] md:h-[80vh] 2xl:h-[85vh] 3xl:h-[80vh] flex justify-center items-center">
-              <div className="container mx-auto flex flex-col items-center md:px-4 py-10 gap-8">
+              <div className="container mx-auto flex flex-col items-center md:px-4 md:py-10 gap-5 md:gap-8">
                 <motion.div
                   key={currentQuestion}
                   initial={{ opacity: 0, y: 20 }}
@@ -201,15 +235,17 @@ export default function Page() {
                   className="flex flex-col gap-1 md:gap-8"
                 >
                   <div className="bg-[#FDFAFA] py-8 px-5 md:px-10 rounded-3xl shadow-custom-anim md:w-full lg:w-[1000px] border border-[#F5F5F5]">
-                    <h1 className={`text-xl ${openSan.className} mb-7`}>
+                    <h1
+                      className={`text-md md:text-xl ${openSan.className} mb-3 md:mb-7`}
+                    >
                       {` Hello ${user?.data?.getUser?.name}, Just a few quick questions to get you on
                   the list!`}
                     </h1>
                     <hr />
-                    <div className="flex flex-col gap-5 justify-start mt-5">
+                    <div className="flex flex-col gap-5 justify-start mt-2 md:mt-5">
                       <div>
                         <h3
-                          className={`${openSans.className} text-md text-[#595D62] flex items-center gap-3`}
+                          className={`${openSans.className} text-md text-[#595D62] flex items-center md:gap-3`}
                         >
                           {currentQuestion > 0 && (
                             <span
@@ -226,13 +262,13 @@ export default function Page() {
                       </div>
                       <div>
                         <h1
-                          className={`text-xl md:text-2xl ${openSan.className} text-[#6665DD]`}
+                          className={`text-lg md:text-2xl ${openSan.className} text-[#6665DD]`}
                         >
                           {question[currentQuestion].text}
                         </h1>
                       </div>
                       <div
-                        className={`grid  gap-5 ${
+                        className={`grid gap-2  md:gap-5 ${
                           question[currentQuestion].id === "q2"
                             ? "grid-cols-5 lg:grid-cols-10"
                             : "grid-cols-1 lg:grid-cols-2"
@@ -249,7 +285,7 @@ export default function Page() {
                             onClick={() => handleChange(option.id)}
                           >
                             <label
-                              className={`flex items-center gap-2 px-3 cursor-pointer h-[50px] ${
+                              className={`flex items-center gap-2 px-3 cursor-pointer text-[14px] md:text-[18px] h-[45px] md:h-[50px] ${
                                 question[currentQuestion].id === "q2" &&
                                 "justify-center"
                               }`}
@@ -273,11 +309,24 @@ export default function Page() {
                                   selectedOption === "q6-op4" && (
                                     <input
                                       type="text"
-                                      className="border-2 px-2 rounded-lg"
+                                      className="border-2 px-2 rounded-md md:py-[1px]"
                                       placeholder="Enter your text here"
                                       onChange={(event) =>
                                         setOtherText(event.target.value)
                                       }
+                                    />
+                                  )}
+                                {question[currentQuestion].id === "q1" &&
+                                  option.id === "q1-op4" &&
+                                  selectedOption === "q1-op4" && (
+                                    <input
+                                      type="text"
+                                      value={otherText}
+                                      onChange={(e) =>
+                                        setOtherText(e.target.value)
+                                      }
+                                      placeholder="Enter text here"
+                                      className="border-2 px-2 rounded-md md:py-[1px]"
                                     />
                                   )}
                               </div>

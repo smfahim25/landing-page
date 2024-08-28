@@ -21,6 +21,7 @@ export default function EditEditor() {
   const [status, setStatus] = useState("");
   const [existingCoverPhoto, setExistingCoverPhoto] = useState("");
   const [loading, setLoading] = useState(false);
+  const [coverPhotoPreview, setCoverPhotoPreview] = useState(null);
 
   const handleEditorChange = (event, editor) => {
     const data = editor.getData();
@@ -168,7 +169,19 @@ export default function EditEditor() {
       toast.error("Error updating article:");
     }
   };
-
+  // Handle file input change
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      // Create a FileReader to read the file
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setCoverPhoto(file);
+        setCoverPhotoPreview(reader.result); // Set the preview URL
+      };
+      reader.readAsDataURL(file);
+    }
+  };
   return (
     <div>
       {loading ? (
@@ -178,7 +191,7 @@ export default function EditEditor() {
       ) : (
         <div className="md:px-20">
           <h1 className="text-2xl font-bold">Edit Article</h1>
-          <div className="mt-10 grid grid-cols-2 gap-5">
+          <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-5">
             <div className="flex flex-col">
               <label>Title</label>
               <input
@@ -245,17 +258,31 @@ export default function EditEditor() {
             </div>
             <div className="flex flex-col">
               <label>Cover photo</label>
-              <Image
-                className="rounded-2xl mb-2"
-                src={existingCoverPhoto}
-                alt="logo"
-                width={300}
-                height={10}
-              />
+              <div className="flex flex-col gap-3 md:flex-row">
+                {existingCoverPhoto && (
+                  <Image
+                    className="rounded-2xl mb-2"
+                    src={existingCoverPhoto}
+                    alt="existing cover"
+                    width={300}
+                    height={10}
+                  />
+                )}
+                {coverPhotoPreview && (
+                  <Image
+                    src={coverPhotoPreview}
+                    alt="cover preview"
+                    className="rounded-2xl mb-2"
+                    width={300}
+                    height={10}
+                  />
+                )}
+              </div>
               <input
                 type="file"
+                accept="image/*"
                 className="border-2 px-4 py-1 rounded-md"
-                onChange={(e) => setCoverPhoto(e.target.files[0])}
+                onChange={handleFileChange}
               />
             </div>
           </div>

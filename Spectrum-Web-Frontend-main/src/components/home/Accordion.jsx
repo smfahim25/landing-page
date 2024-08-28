@@ -10,14 +10,16 @@ const AccordionItem = ({ title, content }) => {
     <div className="border-b lg:w-[990px] mx-auto">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex justify-between w-full py-4 px-6 text-left"
+        className="flex justify-between w-full py-4 px-2 md:px-6 text-left"
       >
         <span className="text-[14px] md:text-[20px] font-medium">{title}</span>
-        {isOpen ? (
-          <ChevronUp className="text-xl" />
-        ) : (
-          <ChevronDown className="text-xl" />
-        )}
+        <span>
+          {isOpen ? (
+            <ChevronUp className="text-xl" />
+          ) : (
+            <ChevronDown className="text-xl" />
+          )}
+        </span>
       </button>
       <AnimatePresence>
         {isOpen && (
