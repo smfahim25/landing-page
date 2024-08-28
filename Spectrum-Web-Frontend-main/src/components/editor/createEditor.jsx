@@ -1,6 +1,7 @@
 "use client";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
@@ -15,6 +16,7 @@ export default function CreateEditor() {
   const [coverPhoto, setCoverPhoto] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [status, setStatus] = useState("");
+  const [coverPhotoPreview, setCoverPhotoPreview] = useState(null);
 
   const handleEditorChange = (event, editor) => {
     const data = editor.getData();
@@ -129,11 +131,24 @@ export default function CreateEditor() {
       toast.error("Error creating article:");
     }
   };
+  // Handle file input change
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      // Create a FileReader to read the file
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setCoverPhoto(file);
+        setCoverPhotoPreview(reader.result); // Set the preview URL
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   return (
     <div className="md:px-20">
       <h1 className="text-2xl font-bold">Create Article</h1>
-      <div className="mt-10 grid grid-cols-2 gap-5">
+      <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-5">
         <div className="flex flex-col">
           <label>Title</label>
           <input
@@ -200,10 +215,20 @@ export default function CreateEditor() {
         </div>
         <div className="flex flex-col">
           <label>Cover photo</label>
+          {coverPhotoPreview && (
+            <Image
+              src={coverPhotoPreview}
+              alt="cover preview"
+              className="rounded-2xl mb-2"
+              width={300}
+              height={10}
+            />
+          )}
           <input
             type="file"
+            accept="image/*"
             className="border-2 px-4 py-1 rounded-md"
-            onChange={(e) => setCoverPhoto(e.target.files[0])}
+            onChange={handleFileChange}
           />
         </div>
       </div>

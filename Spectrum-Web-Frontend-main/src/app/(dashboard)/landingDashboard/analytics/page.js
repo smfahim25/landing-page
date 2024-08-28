@@ -75,16 +75,18 @@ export default function SPage() {
 
         const result = await response.json();
         const data = result?.data || [];
-
         // Determine columns based on data keys
         const questionColumns = [
           ...new Set(
             data.flatMap((item) =>
               Object.keys(item).filter(
-                (key) => key.startsWith("q") && key !== "q6Content"
+                (key) =>
+                  key.startsWith("q") &&
+                  !["q6Content", "q1Content"].includes(key)
               )
             )
           ),
+          "q1Content",
           "q6Content",
         ];
 
@@ -103,26 +105,23 @@ export default function SPage() {
         const transformedData = data.map((item) => {
           const row = {
             email: item.email,
+            q1Content: item.q1Content || "No data",
             q6Content: item.q6Content || "No data",
           };
 
           questionColumns
-            .filter((key) => key !== "q6Content")
+            .filter((key) => !["q1Content", "q6Content"].includes(key))
             .forEach((key) => {
               const question = questions.find((q) => q.id === key);
               const option = question?.options.find(
                 (opt) => opt.id === item[key]
               );
-              row[key] = option.text
-                ? option.text
-                : option.value
-                ? option.value
-                : "Unknown";
+              row[key] = option?.text || option?.value || "Unknown";
             });
 
           return row;
         });
-        setLoading(false);
+
         setRows(transformedData);
       } catch (error) {
         setError(error.message);
@@ -157,17 +156,42 @@ export default function SPage() {
         <div className="flex flex-col gap-5">
           <div>
             <Grid container spacing={3}>
-              {Object.keys(data).map((questionId) => (
-                <Grid item xs={12} sm={6} md={4} key={questionId}>
-                  <Card className="h-[200px]">
-                    <CardHeader title={`Q${questionId.slice(1)}`} />
+              {questions.map((question) => (
+                <Grid item xs={12} sm={12} md={12} key={question.id}>
+                  <Card className="">
+                    <CardHeader title={question.text} />
                     <div className="grid grid-col-2 gap-3">
                       <CardContent className="grid grid-cols-2 gap-3">
-                        {data[questionId].map((option) => (
-                          <Typography key={option.option}>
-                            {generateLabel(option.option)}: {option.count}
-                          </Typography>
-                        ))}
+                        {question.options.map((option) => {
+                          let displayText = option.text;
+                          let count = 0;
+
+                          if (question.id === "q2") {
+                            // Handle q2 differently based on the value
+                            const analyticsForQ2 = data["q2"] || [];
+                            const match = analyticsForQ2.find(
+                              (opt) => opt.option === option.id
+                            );
+                            count = match ? match.count : 0;
+
+                            // Assuming you want to display something different for q2
+                            displayText = option.value
+                              ? `${option.value}`
+                              : "Unknown";
+                          } else {
+                            // General case for other questions
+                            count =
+                              data[question.id]?.find(
+                                (opt) => opt.option === option.id
+                              )?.count || 0;
+                          }
+
+                          return (
+                            <Typography key={option.id}>
+                              {displayText} -- {count}
+                            </Typography>
+                          );
+                        })}
                       </CardContent>
                     </div>
                   </Card>
