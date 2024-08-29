@@ -1,5 +1,6 @@
 "use client";
 import BlocknoteEditor from "@/lib/blocknote/components/BlocknoteEditor";
+import BlockNoteViewer from "@/lib/blocknote/components/BlocknoteViewer";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import Image from "next/image";
@@ -27,12 +28,10 @@ export default function EditEditor() {
 
   const hanldeText = (text) => {
     setCardDes(text);
-    console.log(text);
   };
 
   const handleChangeHtml = (html) => {
     setEditorData(html);
-    console.log(html);
   };
 
   useEffect(() => {
@@ -138,7 +137,7 @@ export default function EditEditor() {
       toast.error("Please fill in all fields");
       return;
     }
-
+    setLoading(true);
     const payload = {
       title: title,
       catId: selectedCategory,
@@ -173,9 +172,11 @@ export default function EditEditor() {
 
       const data = await response.json();
       toast.success("Article updated successfully:");
+      setLoading(false);
       // Optionally, reset form or navigate away
     } catch (error) {
       toast.error("Error updating article:");
+      setLoading(false);
     }
   };
   // Handle file input change
@@ -191,25 +192,7 @@ export default function EditEditor() {
       reader.readAsDataURL(file);
     }
   };
-  const initialContent = [
-    {
-      type: "codeblock",
-      props: {
-        language: "",
-        text: editorData,
-      },
-      content: [
-        {
-          type: "text",
-          text: editorData,
-          styles: {
-            code: true,
-          },
-        },
-      ],
-      children: [],
-    },
-  ];
+
   return (
     <div>
       {loading ? (
@@ -315,12 +298,10 @@ export default function EditEditor() {
             </div>
           </div>
           <div className="mt-10 mb-5">
-            <BlocknoteEditor
-              initialContent={initialContent}
+            <BlockNoteViewer
+              html={editorData}
+              onHtmlChange={handleChangeHtml}
               onChangeText={hanldeText}
-              onChangeHtml={handleChangeHtml}
-              showToolbar={true}
-              onSave={() => console.log("Save clicked")}
             />
           </div>
           <div className="mb-10">

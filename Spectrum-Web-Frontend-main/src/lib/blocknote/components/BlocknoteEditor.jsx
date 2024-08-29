@@ -26,13 +26,11 @@ export default function BlocknoteEditor({
   showToolbar,
   onSave,
 }) {
-  // const [blocks, setBlocks] = useState(initialContent);
   const [isLink, setIsLink] = useState(false);
   const [selectedBlocks, setSelectedBlocks] = useState([]);
 
   const content = [...initialContent];
-  // Creates a new editor instance.
-  const editor = useEditor({ initialContent: content });
+  const editor = useEditor();
 
   useEffect(() => {
     editor._tiptapEditor.on("destroy", (data) => {
@@ -50,10 +48,10 @@ export default function BlocknoteEditor({
       )}
       <BlockNoteView
         editor={editor}
-        onChange={async (data, temp) => {
+        onChange={async (data) => {
           try {
             const blocks = editor.document;
-            // setBlocks(blocks);
+
             if (onChange) {
               onChange(blocks);
             }
@@ -71,7 +69,6 @@ export default function BlocknoteEditor({
             console.error("Error in handleChange:", error);
           }
         }}
-        // onSelectionChange={() => {}}
         slashMenu={false}
         sideMenu={false}
       >

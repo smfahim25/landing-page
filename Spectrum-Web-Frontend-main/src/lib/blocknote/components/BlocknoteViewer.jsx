@@ -3,29 +3,49 @@ import { BlockNoteView } from "@blocknote/mantine";
 import "@blocknote/core/fonts/inter.css";
 import "@blocknote/mantine/style.css";
 import "@blocknote/react/style.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useEditor } from "../utils/editor";
 import "../styles.css";
+import CustomFormattingToolbar from "./CustomToolbar";
 
-export default function BlockNoteViewer({ html, initial }) {
-  // Creates a new editor instance.
+export default function BlockNoteViewer({ html, onHtmlChange, onChangeText }) {
   const editor = useEditor();
 
+  // Load initial content or updated content
   useEffect(() => {
-    async function loadInitialHTML() {
+    async function loadHTMLContent() {
       const defaultBlocks = await editor.tryParseHTMLToBlocks(html);
-      console.log(defaultBlocks);
       editor.replaceBlocks(editor.document, defaultBlocks);
     }
 
-    if (html && editor) {
-      loadInitialHTML();
-    }
-  }, [editor, html]);
+    loadHTMLContent();
+  }, [editor]);
+
+  // Handle editor changes to update HTML and text
+  useEffect(() => {
+    const handleEditorChange = async () => {
+      const currentBlocks = editor.document;
+      if (onHtmlChange) {
+        const updatedHtml = await editor.blocksToHTMLLossy(currentBlocks);
+        onHtmlChange(updatedHtml); // Pass updated HTML
+      }
+      if (onChangeText) {
+        const text = editor._tiptapEditor?._state?.doc?.textContent;
+        onChangeText(text); // Pass updated text
+      }
+    };
+
+    editor._tiptapEditor.on("transaction", handleEditorChange);
+
+    return () => {
+      editor._tiptapEditor.off("transaction", handleEditorChange);
+    };
+  }, [editor, onHtmlChange, onChangeText]);
 
   return (
-    <div className="w-full">
-      <BlockNoteView editor={editor} editable={false} />
+    <div className="w-full border-2">
+      <CustomFormattingToolbar editor={editor} />
+      <BlockNoteView editor={editor} editable={true} />
     </div>
   );
 }
