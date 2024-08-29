@@ -97,6 +97,7 @@ export default function CreateEditor() {
       toast.error("Please fill in all fields");
       return;
     }
+    setLoading(true);
     const payload = {
       title: title,
       catId: selectedCategory,
@@ -128,14 +129,17 @@ export default function CreateEditor() {
 
       const data = await response.json();
       toast.success("Article created successfully:");
+      setLoading(false);
       setTitle("");
       setLinkedIn("");
       setCoverPhoto(null);
       setSelectedCategory("");
       setStatus("");
       setEditorData("");
+      setCoverPhotoPreview("");
     } catch (error) {
-      toast.error("Error creating article:");
+      toast.error("Error creating article");
+      setLoading(false);
     }
   };
   // Handle file input change
