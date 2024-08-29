@@ -8,6 +8,7 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import style from "./details.module.css";
 
 const openSan = Open_Sans({
   weight: "700",
@@ -161,10 +162,10 @@ export default function Page() {
             )}
           </div>
           <div className="flex justify-center items-center md:min-h-[35vh] px-5">
-            <div className="mt-[20px] flex flex-col w-[400px] sm:w-[500px] md:w-[600px] gap-5 mx-auto break-all">
+            <div className="mt-[20px] flex flex-col w-[400px] sm:w-[500px] md:w-[620px] gap-5 mx-auto break-normal">
               <div>
                 <h1
-                  className={`text-[18px] md:text-[32px] ${openSan.className} text-left text-[#262626] text-wrap`}
+                  className={`text-[18px] md:text-[32px] ${openSan.className} text-left text-[#262626]`}
                 >
                   {details?.title}
                 </h1>
@@ -199,7 +200,9 @@ export default function Page() {
                   </p>
                 </div>
               </div>
-              <div className="text-left">
+              <div
+                className={`text-left ${style.customHeading} ${style.customList} ${style.customParagraph}`}
+              >
                 <div
                   dangerouslySetInnerHTML={{ __html: details?.description }}
                 />

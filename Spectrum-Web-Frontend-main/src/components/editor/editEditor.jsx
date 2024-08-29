@@ -1,4 +1,5 @@
 "use client";
+import BlocknoteEditor from "@/lib/blocknote/components/BlocknoteEditor";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import Image from "next/image";
@@ -22,10 +23,16 @@ export default function EditEditor() {
   const [existingCoverPhoto, setExistingCoverPhoto] = useState("");
   const [loading, setLoading] = useState(false);
   const [coverPhotoPreview, setCoverPhotoPreview] = useState(null);
+  const [cardDes, setCardDes] = useState("");
 
-  const handleEditorChange = (event, editor) => {
-    const data = editor.getData();
-    setEditorData(data);
+  const hanldeText = (text) => {
+    setCardDes(text);
+    console.log(text);
+  };
+
+  const handleChangeHtml = (html) => {
+    setEditorData(html);
+    console.log(html);
   };
 
   useEffect(() => {
@@ -81,6 +88,7 @@ export default function EditEditor() {
         setStatus(data?.data?.status);
         setEditorData(data?.data?.description);
         setLinkedIn(data?.data?.linkedin);
+        setCardDes(data?.data?.cardDesc);
         setExistingCoverPhoto(data?.data?.img);
         setLoading(false); // Set the existing cover photo
       } catch (error) {
@@ -137,6 +145,7 @@ export default function EditEditor() {
       status: status,
       description: editorData,
       linkedin: linkedIn,
+      cardDesc: cardDes,
       email: user?.data?.getUser?.email,
     };
 
@@ -182,6 +191,25 @@ export default function EditEditor() {
       reader.readAsDataURL(file);
     }
   };
+  const initialContent = [
+    {
+      type: "codeblock",
+      props: {
+        language: "",
+        text: editorData,
+      },
+      content: [
+        {
+          type: "text",
+          text: editorData,
+          styles: {
+            code: true,
+          },
+        },
+      ],
+      children: [],
+    },
+  ];
   return (
     <div>
       {loading ? (
@@ -287,25 +315,12 @@ export default function EditEditor() {
             </div>
           </div>
           <div className="mt-10 mb-5">
-            <CKEditor
-              editor={ClassicEditor}
-              data={editorData ? editorData : ""}
-              onChange={handleEditorChange}
-              config={{
-                toolbar: [
-                  "heading",
-                  "|",
-                  "bold",
-                  "italic",
-                  "link",
-                  "bulletedList",
-                  "numberedList",
-                  "blockQuote",
-                  "imageUpload",
-                  "undo",
-                  "redo",
-                ],
-              }}
+            <BlocknoteEditor
+              initialContent={initialContent}
+              onChangeText={hanldeText}
+              onChangeHtml={handleChangeHtml}
+              showToolbar={true}
+              onSave={() => console.log("Save clicked")}
             />
           </div>
           <div className="mb-10">

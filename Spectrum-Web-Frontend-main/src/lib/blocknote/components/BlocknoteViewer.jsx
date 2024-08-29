@@ -9,13 +9,12 @@ import "../styles.css";
 
 export default function BlockNoteViewer({ html, initial }) {
   // Creates a new editor instance.
-  const editor = useEditor()
+  const editor = useEditor();
 
   useEffect(() => {
     async function loadInitialHTML() {
-      
       const defaultBlocks = await editor.tryParseHTMLToBlocks(html);
-      console.log(defaultBlocks)
+      console.log(defaultBlocks);
       editor.replaceBlocks(editor.document, defaultBlocks);
     }
 
