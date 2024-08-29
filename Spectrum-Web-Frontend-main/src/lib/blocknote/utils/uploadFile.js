@@ -1,18 +1,23 @@
 export async function uploadFile(file) {
   try {
     const body = new FormData();
-    body.append("file", file);
+    body.append("contentFile", file);
 
-    // TO DO: call the /file/upload api
-    const ret = await fetch("https://tmpfiles.org/api/v1/upload", {
-      method: "POST",
-      body: body,
-    });
-    return (await ret.json()).data.url.replace(
-      "tmpfiles.org/",
-      "tmpfiles.org/dl/"
+    // Call the /file/upload API
+    const res = await fetch(
+      "https://landing-pages-shoshin-tech.onrender.com/api/v1/articals/getImgURL",
+      {
+        method: "POST",
+        body: body,
+      }
     );
+
+    // Parse the JSON response
+    const data = await res.json();
+
+    // Return the modified URL
+    return data.data;
   } catch (error) {
-    console.log(error);
+    console.log("Error:", error);
   }
 }

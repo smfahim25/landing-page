@@ -232,26 +232,7 @@ export default function Page() {
                                       marginBottom: "10px",
                                     }}
                                   >
-                                    <div className="hidden md:flex">
-                                      <div
-                                        dangerouslySetInnerHTML={{
-                                          __html: `${truncateTitle(
-                                            item?.description,
-                                            45
-                                          )}`,
-                                        }}
-                                      />
-                                    </div>
-                                    <div className="md:hidden flex">
-                                      <div
-                                        dangerouslySetInnerHTML={{
-                                          __html: `${truncateTitle(
-                                            item?.description,
-                                            50
-                                          )}`,
-                                        }}
-                                      />
-                                    </div>
+                                    {item?.cardDesc.slice(0, 45)}...
                                   </Typography>
                                   <Typography
                                     variant="caption"

@@ -20,7 +20,6 @@ import { CustomDragMenu } from "./CustomDragMenu";
 
 export default function BlocknoteEditor({
   initialContent = [],
-  defaultBlocks = [],
   onChange,
   onChangeHtml,
   onChangeText,
@@ -31,7 +30,7 @@ export default function BlocknoteEditor({
   const [isLink, setIsLink] = useState(false);
   const [selectedBlocks, setSelectedBlocks] = useState([]);
 
-  const content = [...defaultBlocks, ...initialContent];
+  const content = [...initialContent];
   // Creates a new editor instance.
   const editor = useEditor({ initialContent: content });
 
@@ -45,7 +44,7 @@ export default function BlocknoteEditor({
   }, [editor]);
 
   return (
-    <div className="w-full">
+    <div className="w-full border-2">
       {showToolbar && (
         <CustomFormattingToolbar editor={editor} onSave={onSave} />
       )}
@@ -56,19 +55,16 @@ export default function BlocknoteEditor({
             const blocks = editor.document;
             // setBlocks(blocks);
             if (onChange) {
-              console.log("Blocks before HTML conversion:", blocks);
               onChange(blocks);
             }
 
             if (onChangeHtml) {
               const html = await editor.blocksToHTMLLossy(blocks);
-              console.log("Converted HTML:", html);
               onChangeHtml(html);
             }
 
             if (onChangeText) {
               const text = editor._tiptapEditor?._state?.doc?.textContent;
-              console.log(text);
               onChangeText(text);
             }
           } catch (error) {
@@ -79,10 +75,6 @@ export default function BlocknoteEditor({
         slashMenu={false}
         sideMenu={false}
       >
-        {/* <SuggestionMenuController
-          triggerCharacter={"@"}
-          getItems={async (query) => getMentionItems(editor, query)}
-        /> */}
         <SuggestionMenuController
           triggerCharacter={"/"}
           getItems={async (query) => getMenuItems(editor, query)}
