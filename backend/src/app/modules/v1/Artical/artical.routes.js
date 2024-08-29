@@ -40,7 +40,6 @@ router.patch(
 
 router.post(
   '/getImgURL',
-  auth('ADMIN'),
   upload.single('contentFile'),
   ArticalController.GetImgURL,
 );
