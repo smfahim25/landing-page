@@ -45,6 +45,7 @@ model Artical {
   id            String           @id @default(auto()) @map("_id") @db.ObjectId
   email         String
   title         String
+  cardDesc      String?
   description   String
   status        Status           @default(ACTIVE)
   catId         String           @db.ObjectId
