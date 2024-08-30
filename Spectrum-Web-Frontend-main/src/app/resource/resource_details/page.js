@@ -9,6 +9,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import style from "./details.module.css";
+import ResourceFooter from "@/components/layout/ResourceFooter";
 
 const openSan = Open_Sans({
   weight: "700",
@@ -157,7 +158,7 @@ export default function Page() {
                 alt={details?.title}
                 width={500}
                 height={200}
-                className=" h-[400px] md:h-[610px] w-full"
+                className="h-[400px] md:h-[620px] w-full object-cover"
               />
             )}
           </div>
@@ -233,7 +234,7 @@ export default function Page() {
         className="bg-white pt-10 pb-5 mt-5"
         style={{ boxShadow: "0px -1px 10px 0px #DEDADA40" }}
       >
-        <Footer />
+        <ResourceFooter />
       </div>
     </div>
   );
