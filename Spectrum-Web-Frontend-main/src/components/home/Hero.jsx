@@ -62,18 +62,18 @@ const Hero = () => {
                 soon.
               </h1>
             </div>
-            <div className="mt-5">
+            <div className="mt-5 text-center">
               <h1
                 className={`text-md md:text-2xl text-[#262626] ${openSans.className}`}
               >
                 Copilot handles all the boring stuff,
               </h1>
               <h1
-                className={`text-md xs:w-max w-fit md:text-2xl mt-2 ${openSans.className}`}
+                className={`text-md md:w-fit md:text-2xl mt-2 ${openSans.className}`}
               >
                 so you can focus on what you love —{" "}
                 <br className="flex md:hidden" />
-                <span className={`${openSan.className}`}>
+                <h1 className={`${openSan.className} mt-2`}>
                   <TypeAnimation
                     sequence={[
                       // Set the color for "teaching!" and display it
@@ -114,7 +114,7 @@ const Hero = () => {
                     repeat={Infinity}
                     className="animated-text"
                   />
-                </span>
+                </h1>
               </h1>
             </div>
           </div>
