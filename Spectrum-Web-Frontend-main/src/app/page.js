@@ -17,16 +17,20 @@ function Home() {
   return (
     <div>
       <Header />
-      <main className=" flex flex-col justify-center items-center px-5 md:px-0">
+      <main className=" flex flex-col justify-center items-center">
         <div className="h-[90vh] 2xl:h-[100vh] flex justify-center items-center">
           <Hero />
         </div>
-        <div>
+        <div className="px-5 md:px-0">
           <AnimationCardSection />
         </div>
-        <BenefitsCard />
+        <div className="px-5 md:px-0">
+          <BenefitsCard />
+        </div>
         <GetStarted />
-        <FAQ />
+        <div className="px-5 md:px-0">
+          <FAQ />
+        </div>
       </main>
       <Footer />
     </div>

@@ -33,7 +33,9 @@ const AccordionItem = ({ title, content }) => {
             }}
             className="overflow-hidden"
           >
-            <div className="px-6 pb-4 text-gray-600 text-[14px]">{content}</div>
+            <div className="px-1 md:px-6 pb-4 text-gray-600 text-[14px]">
+              {content}
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

@@ -39,7 +39,7 @@ const BenefitsCard = () => {
                   alt="chat"
                   width={300}
                   height={276}
-                  className="h-[350px] w-[400px] mt-[-75px]"
+                  className="md:h-[350px] md:w-[400px] md:mt-[-75px]"
                 />
               </div>
               <div className="md:w-[500px] 2xl:w-[600px] md:flex flex-col gap-5 justify-start">

@@ -34,7 +34,7 @@ const AnimationCardSection = () => {
             return (
               <div
                 key={`p_${i}`}
-                className={`${style.cardContainer} md-lg:h-[100vh] xl:h-[100vh] md-xl:h-[90vh] 2xl:h-[100vh] 3xl:h-[85vh]  5xl:h-[65vh] 6xl:h-[65vh] md-lg:sticky md-lg:bottom-0`}
+                className={`${style.cardContainer} xl:h-[100vh] md-xl:h-[90vh] 2xl:h-[100vh] 3xl:h-[85vh]  5xl:h-[65vh] 6xl:h-[65vh] xl:sticky xl:bottom-0`}
                 style={{ zIndex: projects.length - i }} // Ensures correct stacking order
               >
                 <div
