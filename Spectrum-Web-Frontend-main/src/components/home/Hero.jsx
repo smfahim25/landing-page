@@ -73,7 +73,7 @@ const Hero = () => {
               >
                 so you can focus on what you love —{" "}
                 <br className="flex md:hidden" />
-                <h1 className={`${openSan.className} mt-2`}>
+                <h1 className={`${openSan.className} mt-2 inline-block`}>
                   <TypeAnimation
                     sequence={[
                       // Set the color for "teaching!" and display it
