@@ -17,7 +17,7 @@ function Home() {
   return (
     <div>
       <Header />
-      <main className=" flex flex-col justify-center items-center">
+      <main className=" flex flex-col justify-center items-center px-5 md:px-0">
         <div className="h-[90vh] 2xl:h-[100vh] flex justify-center items-center">
           <Hero />
         </div>

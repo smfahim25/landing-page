@@ -191,17 +191,17 @@ const Footer = () => {
             <div className="flex items-center justify-center flex-shrink-0 w-12 h-12 rounded-full border-2">
               <Avatar alt="Remy Sharp" src="/Logo.png" />
             </div>
-            <ul className="flex flex-wrap items-center space-x-4 sm:space-x-8">
+            <ul className="flex flex-wrap items-end space-x-4 sm:space-x-8">
               <li>
-                <a rel="noopener noreferrer" href="#">
-                  Name
+                <a className="font-bold" rel="noopener noreferrer" href="#">
+                  Shoshin Tech
                 </a>
               </li>
             </ul>
           </div>
           <div className="flex flex-row pr-3 space-x-4 sm:space-x-8">
             <div className="pb-6 text-sm text-center">
-              © 1968 Company Co. All rights reserved.
+              © 2024 Shoshin tech. All rights reserved.
             </div>
           </div>
         </div>

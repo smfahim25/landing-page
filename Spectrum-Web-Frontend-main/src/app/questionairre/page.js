@@ -10,6 +10,7 @@ import { ArrowLeft, Copy, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { API_BASE_URI } from "@/utils/constants/serviceConfig";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 const openSan = Open_Sans({
   weight: "700",
@@ -36,10 +37,26 @@ export default function Page() {
     if (!user) {
       router.push("/");
     }
-    if (user.data.getUser.role === "ADMIN") {
-      router.push("/landingDashboard");
-    }
   }, []);
+
+  useEffect(() => {
+    if (selectedOption === "q1-op4" || selectedOption === "q6-op4") {
+      const timer = setTimeout(() => {
+        if (!otherText) {
+          toast.error("You need to input something before proceeding.");
+        } else {
+          const nextQuestion = currentQuestion + 1;
+          if (nextQuestion < question.length) {
+            setCurentQuestion(nextQuestion);
+          } else {
+            setLastQuestion(true);
+          }
+        }
+      }, 3000); // 5 seconds to input text
+
+      return () => clearTimeout(timer); // Clean up the timeout if the component unmounts or input changes
+    }
+  }, [selectedOption, otherText]);
 
   const handleChange = (option) => {
     setSelectedOption(option);
@@ -50,25 +67,18 @@ export default function Page() {
       [question[currentQuestion].id]: option,
     }));
 
-    const nextQuestion = currentQuestion + 1;
-    if (option === "q1-op4") {
+    if (option !== "q1-op4" && option !== "q6-op4") {
+      const nextQuestion = currentQuestion + 1;
       if (nextQuestion < question.length) {
         setTimeout(() => {
           setCurentQuestion(nextQuestion);
-        }, 3000);
-      } else {
-        setLastQuestion(true);
-      }
-    } else {
-      if (nextQuestion < question.length) {
-        setTimeout(() => {
-          setCurentQuestion(nextQuestion);
-        }, 500);
+        }, 500); // Default delay for other options
       } else {
         setLastQuestion(true);
       }
     }
   };
+
   useEffect(() => {
     if (selectedOption === "q1-op4" && otherText) {
       setAllAnswers((prevAnswers) => ({
@@ -309,7 +319,7 @@ export default function Page() {
                                   selectedOption === "q6-op4" && (
                                     <input
                                       type="text"
-                                      className="border-2 px-2 rounded-md md:py-[1px]"
+                                      className="border-2 px-2 pl-3 rounded-md md:py-[1px]"
                                       placeholder="Enter your text here"
                                       onChange={(event) =>
                                         setOtherText(event.target.value)
@@ -326,7 +336,7 @@ export default function Page() {
                                         setOtherText(e.target.value)
                                       }
                                       placeholder="Enter text here"
-                                      className="border-2 px-2 rounded-md md:py-[1px]"
+                                      className="border-2 px-2 pl-3 rounded-md md:py-[1px]"
                                     />
                                   )}
                               </div>

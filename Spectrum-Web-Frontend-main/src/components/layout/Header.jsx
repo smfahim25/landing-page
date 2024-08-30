@@ -41,7 +41,7 @@ const Header = () => {
     <div>
       <AppBar
         position="static"
-        className="shadow-none bg-transparent header-force px-10 pt-5"
+        className="shadow-none bg-transparent header-force md:px-10 pt-5"
       >
         <Container maxWidth="xl">
           <Toolbar disableGutters>

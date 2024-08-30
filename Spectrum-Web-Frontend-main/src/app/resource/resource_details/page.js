@@ -162,7 +162,7 @@ export default function Page() {
             )}
           </div>
           <div className="flex justify-center items-center md:min-h-[35vh] px-5">
-            <div className="mt-[20px] flex flex-col w-[400px] sm:w-[500px] md:w-[620px] gap-5 mx-auto break-normal">
+            <div className="mt-[20px] flex flex-col w-[400px] sm:w-[500px] md:w-[620px] xl:w-2/4 gap-5 mx-auto break-normal">
               <div>
                 <h1
                   className={`text-[18px] md:text-[32px] ${openSan.className} text-left text-[#262626]`}
