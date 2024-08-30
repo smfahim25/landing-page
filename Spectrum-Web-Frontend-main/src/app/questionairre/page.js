@@ -100,39 +100,47 @@ export default function Page() {
   const handleSubmit = async () => {
     setLoading(true);
     console.log(allAnswers);
-    const payload = {
-      ...allAnswers,
-      email: user?.data?.getUser?.email,
-    };
+    if (allAnswers.q1 === "q1-op4" || allAnswers.q6 === "q6-op4") {
+      if (!allAnswers.q1Content || !allAnswers.q6Content) {
+        toast.error("You must write in others field.");
+        setLoading(false);
+        return;
+      } else {
+        const payload = {
+          ...allAnswers,
+          email: user?.data?.getUser?.email,
+        };
 
-    try {
-      const response = await fetch(
-        `${API_BASE_URI}/questionaries/create-questionary`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: ` ${user?.data?.accessToken}`,
-          },
-          body: JSON.stringify(payload),
+        try {
+          const response = await fetch(
+            `${API_BASE_URI}/questionaries/create-questionary`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: ` ${user?.data?.accessToken}`,
+              },
+              body: JSON.stringify(payload),
+            }
+          );
+
+          if (!response.ok) {
+            throw new Error("Failed to submit data");
+          }
+
+          const result = await response.json();
+          console.log("Success:", result);
+          setLoading(false);
+
+          // Handle success response (e.g., show a success message, redirect, etc.)
+          setSuccess(true);
+          setOpen(true);
+        } catch (error) {
+          console.error("Error:", error);
+          setLoading(false);
+          // Handle error response (e.g., show an error message)
         }
-      );
-
-      if (!response.ok) {
-        throw new Error("Failed to submit data");
       }
-
-      const result = await response.json();
-      console.log("Success:", result);
-      setLoading(false);
-
-      // Handle success response (e.g., show a success message, redirect, etc.)
-      setSuccess(true);
-      setOpen(true);
-    } catch (error) {
-      console.error("Error:", error);
-      setLoading(false);
-      // Handle error response (e.g., show an error message)
     }
   };
   const handleOpen = () => setOpen(true);
